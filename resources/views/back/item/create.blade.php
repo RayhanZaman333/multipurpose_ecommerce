@@ -226,6 +226,7 @@
 
                         <div class="form-group">
                             <label for="category_id">{{ __('Select Category') }} *</label>
+                            
                             <select name="category_id" id="category_id" data-href="{{route('back.get.subcategory')}}" class="form-control" >
                                 <option value="" selected>{{__('Select One')}}</option>
                                 @foreach(DB::table('categories')->whereStatus(1)->get() as $cat)
