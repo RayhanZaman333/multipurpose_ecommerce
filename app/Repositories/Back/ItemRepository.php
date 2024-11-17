@@ -21,16 +21,17 @@ class ItemRepository
 
     public function store($request)
     {
-        
         $input = $request->all();
+        
         if ($file = $request->file('photo')) {
-            $images_name = ImageHelper::ItemhandleUploadedImage($request->file('photo'),'assets/images');
+            $images_name = ImageHelper::ItemhandleUploadedImage($request->file('photo'), 'images/');
 
             $input['photo'] = $images_name[0];
             $input['thumbnail'] = $images_name[1];
         }
 
         $curr = Currency::where('is_default',1)->first();
+
         $input['discount_price'] = $request->discount_price / $curr->value;
         $input['previous_price'] = $request->previous_price / $curr->value;
 
@@ -38,39 +39,45 @@ class ItemRepository
             $input['meta_keywords'] = str_replace(["value", "{", "}", "[","]",":","\""], '', $request->meta_keywords);
         }
 
-        if($request->has('is_social')){
+        if ($request->has('is_social')) {
             $input['social_icons'] = json_encode($input['social_icons']);
             $input['social_links'] = json_encode($input['social_links']);
-        }else{
+        } else {
             $input['is_social']    = 0;
             $input['social_icons'] = null;
             $input['social_links'] = null;
         }
 
-        if($request->has('tags')){
+        if ($request->has('tags')) {
             $input['tags'] = str_replace(["value", "{", "}", "[","]",":","\""], '', $request->tags);
         }
 
-        if($request->has('is_specification')){
+        if ($request->has('is_specification')) {
             $input['specification_name'] = json_encode($input['specification_name']);
             $input['specification_description'] = json_encode($input['specification_description']);
-        }else{
+        } else {
             $input['is_specification']    = 0;
             $input['specification_name'] = null;
             $input['specification_description'] = null;
         }
 
-        if($request->has('license_name') && $request->has('license_key')){
+        if ($request->has('is_price_show')) {
+            $input['is_price_show']    = 1;
+        } else {
+            $input['is_price_show']    = 0;
+        }
+
+        if ($request->has('license_name') && $request->has('license_key')) {
             $input['license_name'] = json_encode($input['license_name']);
             $input['license_key'] = json_encode($input['license_key']);
-        }else{
+        } else {
             $input['license_name'] = null;
             $input['license_key'] = null;
         }
 
         // digital product file upload
-        if($request->item_type == 'digital'){
-            if($request->hasFile('file')){
+        if ($request->item_type == 'digital') {
+            if ($request->hasFile('file')) {
                 $file = $request->file;
                 $name = time().str_replace(' ', '', $file->getClientOriginalName());
                 $file->move('assets/files',$name);
@@ -78,15 +85,14 @@ class ItemRepository
             }
         }
 
-        if($request->item_type == 'license'){
-            if($request->hasFile('file')){
+        if ($request->item_type == 'license') {
+            if ($request->hasFile('file')) {
                 $file = $request->file;
                 $name = time().str_replace(' ', '', $file->getClientOriginalName());
                 $file->move('assets/files',$name);
                 $input['file'] = $name;
             }
         }
-
 
         $input['is_type'] = 'undefine';
 
@@ -97,7 +103,6 @@ class ItemRepository
         }
 
         return $item_id;
-
     }
 
     /**

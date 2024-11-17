@@ -37,10 +37,13 @@ class AccountRepository
     public function updateProfile($request)
     {
         $input = $request->all();
+
         $data = Auth::guard('admin')->user();
+
         if ($file = $request->file('photo')) {
-            $input['photo'] = ImageHelper::handleUpdatedUploadedImage($file,'/storage/images',$data,'/storage/images/','photo');
+            $input['photo'] = ImageHelper::handleUpdatedUploadedImage($file, 'images/', $data, '/storage/images/', 'photo');
         }
+        
         $data->update($input);
     }
 

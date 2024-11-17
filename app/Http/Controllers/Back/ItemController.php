@@ -51,6 +51,7 @@ class ItemController extends Controller
     {
         return view('back.item.add');
     }
+    
     /**
      * Display a listing of the resource.
      *

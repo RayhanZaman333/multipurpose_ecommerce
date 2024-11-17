@@ -39,22 +39,24 @@ class ImageHelper
 
 
 
-    public static function ItemhandleUploadedImage($file,$path,$delete=null) {
+    public static function ItemhandleUploadedImage($file, $path, $delete=null) {
         if ($file) {
-            if($delete){
+            if ($delete) {
                 if (file_exists(base_path('../').$path.'/'.$delete)) {
                     unlink(base_path('../').$path.'/'.$delete);
                 }
             }
 
-            $thum = Str::random(8).'.'.$file->getClientOriginalExtension();
-            $image = \Image::make($file)->resize(230,230);
-    
-            $image->save(base_path('../').$path.'/'.$thum);
-    
-            $photo = time().$file->getClientOriginalName();
-            $file->move($path,$photo);
-            return [$photo,$thum];
+            $cp = $file;
+            $thum = Str::random(8).'.'.$cp->getClientOriginalExtension();
+            $extension = strtolower($cp->getClientOriginalExtension());
+            $randomFileName = date('Y_m_d_his').'_'.rand(10000000,99999999).'.'.$extension;
+
+            Storage::disk('public')->put($path . $randomFileName, File::get($cp));
+
+            $photo = $randomFileName;
+
+            return [$photo, $thum];
         }
     }
 
@@ -62,6 +64,7 @@ class ImageHelper
         $cp = $file;
         $extension = strtolower($cp->getClientOriginalExtension());
         $randomFileName = date('Y_m_d_his').'_'.rand(10000000,99999999).'.'.$extension;
+
         Storage::disk('public')->put($path . $randomFileName, File::get($cp));
 
         $name = $randomFileName;

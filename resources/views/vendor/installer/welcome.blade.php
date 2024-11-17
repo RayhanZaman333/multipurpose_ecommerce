@@ -5,7 +5,7 @@
 @endsection
 
 @section('title')
-    OmniMart Installer
+    Site Installer
 @endsection
 
 @section('container')

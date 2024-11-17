@@ -131,36 +131,42 @@ body_theme4
             </div>
         </div>
     </div>
-  <!-- Topbar-->
+
+    <!-- Topbar-->
     <div class="topbar">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="d-flex justify-content-between">
                         <!-- Logo-->
-                        <div class="site-branding"><a class="site-logo align-self-center" href="{{route('front.index')}}"><img src="{{asset('storage/images/'.$setting->logo)}}" alt="{{$setting->title}}"></a></div>
+                        <div class="site-branding">
+                            <a class="site-logo align-self-center" href="{{ route('front.index') }}">
+                                <img src="{{ asset('storage/images/'.$setting->logo) }}" alt="{{ $setting->title }}" style="height: 40px;">
+                            </a>
+                        </div>
+
                         <!-- Search / Categories-->
                         <div class="search-box-wrap d-none d-lg-block d-flex">
-                        <div class="search-box-inner align-self-center">
-                            <div class="search-box d-flex">
-                                <select name="category" id="category_select" class="categoris">
-									<option value="">{{__('All')}}</option>
-                                    @foreach (DB::table('categories')->whereStatus(1)->get() as $category)
-                                    <option value="{{$category->slug}}">{{$category->name}}</option>
-                                    @endforeach
-									</select>
-                                <form class="input-group" id="header_search_form" action="{{route('front.catalog')}}" method="get">
-                                    <input type="hidden" name="category" value="" id="search__category">
-                                    <span class="input-group-btn">
-                                    <button type="submit"><i class="icon-search"></i></button>
-                                    </span>
-                                    <input class="form-control" type="text" data-target="{{route('front.search.suggest')}}" id="__product__search" name="search" placeholder="{{__('Search by product name')}}">
-                                    <div class="serch-result d-none">
-                                       {{-- search result --}}
-                                    </div>
-                                </form>
+                            <div class="search-box-inner align-self-center">
+                                <div class="search-box d-flex">
+                                    <select name="category" id="category_select" class="categoris">
+                                        <option value="">{{__('All')}}</option>
+                                        @foreach (DB::table('categories')->whereStatus(1)->get() as $category)
+                                        <option value="{{$category->slug}}">{{$category->name}}</option>
+                                        @endforeach
+                                        </select>
+                                    <form class="input-group" id="header_search_form" action="{{route('front.catalog')}}" method="get">
+                                        <input type="hidden" name="category" value="" id="search__category">
+                                        <span class="input-group-btn">
+                                        <button type="submit"><i class="icon-search"></i></button>
+                                        </span>
+                                        <input class="form-control" type="text" data-target="{{route('front.search.suggest')}}" id="__product__search" name="search" placeholder="{{__('Search by product name')}}">
+                                        <div class="serch-result d-none">
+                                        {{-- search result --}}
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
-                        </div>
                             <span class="d-block d-lg-none close-m-serch"><i class="icon-x"></i></span>
                         </div>
                         <!-- Toolbar-->
