@@ -30,9 +30,9 @@ function renderStarRating($rating, $maxRating = 5)
             <div class="rating-stars">
                 {!! renderStarRating($item->reviews->avg('rating')) !!}
             </div>
-            <h4 class="product-price">
+            {{-- <h4 class="product-price">
                 {{PriceHelper::grandCurrencyPrice($item)}}
-            </h4>
+            </h4> --}}
         </div>
     </div>
     @endforeach

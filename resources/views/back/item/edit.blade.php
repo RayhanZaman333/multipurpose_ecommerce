@@ -225,7 +225,7 @@
         <div class="col-lg-4">
             <div class="card">
                 <div class="card-body">
-                    <input type="hidden" class="check_button" name="is_button" value="0">
+                    {{-- <input type="hidden" class="check_button" name="is_button" value="0"> --}}
                     <button type="submit" class="btn btn-secondary mr-2">{{ __('Update') }}</button>
                     <a class="btn btn-success" href="{{ route('back.attribute.index',$item->id) }}">{{ __('Manage Attributes') }}</a>
                 </div>
@@ -263,8 +263,19 @@
                                 value="{{ round($item->previous_price*$curr->value ,2)}}" >
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <label class="switch-primary">
+                            <input type="checkbox" class="switch switch-bootstrap radio-check" name="is_price_show" value="1" {{ $item->is_price_show == 1 ? 'checked' : '' }}>
+
+                            <span class="switch-body"></span>
+
+                            <span class="switch-text">{{ __('Show Price') }}</span>
+                        </label>
+                    </div>
                 </div>
             </div>
+
             <div class="card">
                 <div class="card-body">
                     <div class="form-group">

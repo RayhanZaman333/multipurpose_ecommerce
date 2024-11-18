@@ -7,6 +7,7 @@ use App\{
     Models\Gallery,
     Helpers\ImageHelper
 };
+
 use App\Models\Currency;
 
 class ItemRepository
@@ -39,14 +40,14 @@ class ItemRepository
             $input['meta_keywords'] = str_replace(["value", "{", "}", "[","]",":","\""], '', $request->meta_keywords);
         }
 
-        if ($request->has('is_social')) {
-            $input['social_icons'] = json_encode($input['social_icons']);
-            $input['social_links'] = json_encode($input['social_links']);
-        } else {
-            $input['is_social']    = 0;
-            $input['social_icons'] = null;
-            $input['social_links'] = null;
-        }
+        // if ($request->has('is_social')) {
+        //     $input['social_icons'] = json_encode($input['social_icons']);
+        //     $input['social_links'] = json_encode($input['social_links']);
+        // } else {
+        //     $input['is_social']    = 0;
+        //     $input['social_icons'] = null;
+        //     $input['social_links'] = null;
+        // }
 
         if ($request->has('tags')) {
             $input['tags'] = str_replace(["value", "{", "}", "[","]",":","\""], '', $request->tags);
@@ -112,57 +113,55 @@ class ItemRepository
      * @return void
      */
 
-    public function update($item,$request)
+    public function update($item, $request)
     {
         $input = $request->all();
 
-        if ( $request->file('photo')) {
+        if ($request->file('photo')) {
 
-            $images_name = ImageHelper::ItemhandleUpdatedUploadedImage($request->photo,'/assets/images',$item,'/storage/images/','photo');
+            $images_name = ImageHelper::ItemhandleUpdatedUploadedImage($request->photo, 'images/', $item, '/storage/images/', 'photo');
             $input['photo'] = $images_name[0];
             $input['thumbnail'] = $images_name[1];
         }
-
 
         if($request->has('meta_keywords')){
             $input['meta_keywords'] = str_replace(["value", "{", "}", "[","]",":","\""], '', $request->meta_keywords);
         }
 
-        $curr = Currency::where('is_default',1)->first();
+        $curr = Currency::where('is_default', 1)->first();
+
         $input['discount_price'] = $request->discount_price / $curr->value;
         $input['previous_price'] = $request->previous_price / $curr->value;
 
-
-        if($request->has('is_social')){
-            $input['social_icons'] = json_encode($input['social_icons']);
-            $input['social_links'] = json_encode($input['social_links']);
-        }else{
-            $input['is_social']    = 0;
-            $input['social_icons'] = null;
-            $input['social_links'] = null;
-        }
+        // if($request->has('is_social')){
+        //     $input['social_icons'] = json_encode($input['social_icons']);
+        //     $input['social_links'] = json_encode($input['social_links']);
+        // }else{
+        //     $input['is_social']    = 0;
+        //     $input['social_icons'] = null;
+        //     $input['social_links'] = null;
+        // }
 
         if($request->has('tags')){
             $input['tags'] = str_replace(["value", "{", "}", "[","]",":","\""], '', $request->tags);
         }
 
-        if($request->has('is_specification')){
+        if ($request->has('is_specification')) {
             $input['specification_name'] = json_encode($input['specification_name']);
             $input['specification_description'] = json_encode($input['specification_description']);
-        }else{
+        } else {
             $input['is_specification']    = 0;
             $input['specification_name'] = null;
             $input['specification_description'] = null;
         }
 
-        if($request->has('license_name') && $request->has('license_key')){
+        if ($request->has('license_name') && $request->has('license_key')) {
             $input['license_name'] = json_encode($input['license_name']);
             $input['license_key'] = json_encode($input['license_key']);
-        }else{
+        } else {
             $input['license_name'] = null;
             $input['license_key'] = null;
         }
-
 
         if($request->item_type == 'digital'){
             if(!$request->hasFile('file')){
@@ -174,6 +173,7 @@ class ItemRepository
                 }
             }
         }
+
         // digital product file upload
         if($request->item_type == 'digital'){
             if($request->hasFile('file')){
@@ -191,8 +191,15 @@ class ItemRepository
             }
         }
 
+        if ($request->has('is_price_show')) {
+            $input['is_price_show']    = 1;
+        } else {
+            $input['is_price_show']    = 0;
+        }
+
         $item->update($input);
-        if(isset($input['galleries'])){
+
+        if (isset($input['galleries'])) {
             $this->galleriesUpdate($request,$item->id);
         }
     }
@@ -264,7 +271,8 @@ class ItemRepository
 
     public function galleryDelete($gallery)
     {
-        ImageHelper::handleDeletedImage($gallery,'photo','/storage/images/');
+        ImageHelper::handleDeletedImage($gallery, 'photo', '/storage/images/');
+
         $gallery->delete();
     }
 
@@ -276,14 +284,16 @@ class ItemRepository
     public function storeImageData($request,$item_id=null)
     {
         $storeData = [];
+
         if ($galleries = $request->file('galleries')) {
             foreach($galleries as $key => $gallery){
                 $storeData[$key] = [
-                    'photo'=>  ImageHelper::handleUploadedImage($gallery,'assets/images'),
+                    'photo'=>  ImageHelper::handleUploadedImage($gallery, 'images/'),
                     'item_id' => $item_id ? $item_id : $request['item_id'],
                 ];
             }
         }
+
         return $storeData;
     }
 

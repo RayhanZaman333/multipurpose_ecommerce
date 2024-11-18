@@ -45,12 +45,12 @@
                                     <option value="">{{__('All Product')}}</option>
                                     <option value="normal" {{request()->input('item_type') == 'normal' ? 'selected' : ''}}>{{__('Physical Product')}}</option>
                                     <option value="digital" {{request()->input('item_type') == 'digital' ? 'selected' : ''}}>{{__('Digital Product')}}</option>
-                                    <option value="license" {{request()->input('item_type') == 'license' ? 'selected' : ''}}>{{__('Licence Product')}}</option>
-                                    <option value="affiliate" {{request()->input('item_type') == 'affiliate' ? 'selected' : ''}}>{{__('Affiliat Product')}}</option>
+                                    {{-- <option value="license" {{request()->input('item_type') == 'license' ? 'selected' : ''}}>{{__('Licence Product')}}</option>
+                                    <option value="affiliate" {{request()->input('item_type') == 'affiliate' ? 'selected' : ''}}>{{__('Affiliat Product')}}</option> --}}
                                 </select>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6" >
+                        {{-- <div class="col-lg-3 col-md-4 col-sm-6" >
                             <div class="form-group px-0">
                                 <select class="form-control" name="is_type">
                                     <option  disabled>{{__('Select Type')}}</option>
@@ -63,7 +63,7 @@
                                     <option value="top" {{request()->input('is_type') == 'top' ? 'selected' : ''}}>{{__('Top Product')}}</option>
                                 </select>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="col-lg-3 col-md-4 col-sm-6" >
                             <div class="form-group px-0">
                                 <select class="form-control" name="category_id">
@@ -106,7 +106,7 @@
                             <th width="30%">{{ __('Name') }}</th>
                             <th>{{ __('Price') }}</th>
 							<th>{{ __('Status') }}</th>
-							<th>{{ __('Type') }}</th>
+							{{-- <th>{{ __('Type') }}</th> --}}
 							<th>{{ __('Item Type') }}</th>
 							<th>{{ __('Actions') }}</th>
 						</tr>

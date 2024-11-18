@@ -229,11 +229,13 @@
                         <span class="sub-item">{{ __('SMS Settings') }}</span>
                     </a>
                 </li> --}}
+
                 {{-- <li>
                     <a class="sub-link" href="{{ route('back.subscribers.announcement') }}">
                       <span class="sub-item">{{ __('Announcement') }}</span></a>
-                </li> --}}
-                {{-- <li>
+                </li>
+
+                <li>
                     <a class="sub-link" href="{{ route('back.cookie.alert') }}">
                       <span class="sub-item">{{ __('Cookies Alert') }}</span></a>
                 </li> --}}

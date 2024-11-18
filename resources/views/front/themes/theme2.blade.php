@@ -160,10 +160,11 @@
                                                 ">
                                                             {{ __('out of stock') }}</div>
                                                     @endif
-                                                    @if ($item->previous_price && $item->previous_price != 0)
-                                                        <div class="product-badge product-badge2 bg-info">
-                                                            -{{ PriceHelper::DiscountPercentage($item) }}</div>
-                                                    @endif
+
+                                                    {{-- @if ($item->previous_price && $item->previous_price != 0)
+                                                        <div class="product-badge product-badge2 bg-info">-{{ PriceHelper::DiscountPercentage($item) }}</div>
+                                                    @endif --}}
+
                                                     <img class="lazy"
                                                         data-src="{{ asset('storage/images/' . $item->thumbnail) }}"
                                                         alt="Product">
@@ -192,13 +193,13 @@
                                                         <div class="rating-stars">
                                                             {!! renderStarRating($item->reviews->avg('rating')) !!}
                                                         </div>
-                                                        <h4 class="product-price">
+                                                        {{-- <h4 class="product-price">
                                                             @if ($item->previous_price != 0)
                                                                 <del>{{ PriceHelper::setPreviousPrice($item->previous_price) }}</del>
                                                             @endif
 
                                                             {{ PriceHelper::grandCurrencyPrice($item) }}
-                                                        </h4>
+                                                        </h4> --}}
                                                         @if (date('d-m-y') != \Carbon\Carbon::parse($item->date)->format('d-m-y'))
                                                             <div class="countdown countdown-alt mb-3"
                                                                 data-date-time="{{ $item->date }}">
@@ -246,10 +247,11 @@
                                                 ">
                                                         {{ __('out of stock') }}</div>
                                                 @endif
-                                                @if ($item->previous_price && $item->previous_price != 0)
-                                                    <div class="product-badge product-badge2 bg-info">
-                                                        -{{ PriceHelper::DiscountPercentage($item) }}</div>
-                                                @endif
+
+                                                {{-- @if ($item->previous_price && $item->previous_price != 0)
+                                                    <div class="product-badge product-badge2 bg-info">-{{ PriceHelper::DiscountPercentage($item) }}</div>
+                                                @endif --}}
+
                                                 <img class="lazy"
                                                     data-src="{{ asset('storage/images/' . $item->thumbnail) }}"
                                                     alt="Product">
@@ -274,12 +276,12 @@
                                                     <div class="rating-stars">
                                                         {!! renderStarRating($item->reviews->avg('rating')) !!}
                                                     </div>
-                                                    <h4 class="product-price">
+                                                    {{-- <h4 class="product-price">
                                                         @if ($item->previous_price != 0)
                                                             <del>{{ PriceHelper::setPreviousPrice($item->previous_price) }}</del>
                                                         @endif
                                                         {{ PriceHelper::grandCurrencyPrice($item) }}
-                                                    </h4>
+                                                    </h4> --}}
                                                 </div>
 
                                             </div>
@@ -376,10 +378,11 @@
                                                     ">
                                                     {{ __('out of stock') }}</div>
                                             @endif
-                                            @if ($item->previous_price && $item->previous_price != 0)
-                                                <div class="product-badge product-badge2 bg-info">
-                                                    -{{ PriceHelper::DiscountPercentage($item) }}</div>
-                                            @endif
+
+                                            {{-- @if ($item->previous_price && $item->previous_price != 0)
+                                                <div class="product-badge product-badge2 bg-info">-{{ PriceHelper::DiscountPercentage($item) }}</div>
+                                            @endif --}}
+
                                             <img class="lazy"
                                                 data-src="{{ asset('storage/images/' . $item->thumbnail) }}"
                                                 alt="Product">
@@ -404,12 +407,12 @@
                                                 <div class="rating-stars">
                                                     {!! renderStarRating($item->reviews->avg('rating')) !!}
                                                 </div>
-                                                <h4 class="product-price">
+                                                {{-- <h4 class="product-price">
                                                     @if ($item->previous_price != 0)
                                                         <del>{{ PriceHelper::setPreviousPrice($item->previous_price) }}</del>
                                                     @endif
                                                     {{ PriceHelper::grandCurrencyPrice($item) }}
-                                                </h4>
+                                                </h4> --}}
                                             </div>
 
                                         </div>
@@ -449,10 +452,11 @@
                                                 ">
                                                     {{ __('out of stock') }}</div>
                                             @endif
-                                            @if ($item->previous_price && $item->previous_price != 0)
-                                                <div class="product-badge product-badge2 bg-info">
-                                                    -{{ PriceHelper::DiscountPercentage($item) }}</div>
-                                            @endif
+
+                                            {{-- @if ($item->previous_price && $item->previous_price != 0)
+                                                <div class="product-badge product-badge2 bg-info">-{{ PriceHelper::DiscountPercentage($item) }}</div>
+                                            @endif --}}
+
                                             <img class="lazy"
                                                 data-src="{{ asset('storage/images/' . $item->thumbnail) }}"
                                                 alt="Product">
@@ -478,12 +482,12 @@
                                                 <div class="rating-stars">
                                                     {!! renderStarRating($item->reviews->avg('rating')) !!}
                                                 </div>
-                                                <h4 class="product-price">
+                                                {{-- <h4 class="product-price">
                                                     @if ($item->previous_price != 0)
                                                         <del>{{ PriceHelper::setPreviousPrice($item->previous_price) }}</del>
                                                     @endif
                                                     {{ PriceHelper::grandCurrencyPrice($item) }}
-                                                </h4>
+                                                </h4> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -523,10 +527,11 @@
                                                 ">
                                                     {{ __('out of stock') }}</div>
                                             @endif
-                                            @if ($item->previous_price && $item->previous_price != 0)
-                                                <div class="product-badge product-badge2 bg-info">
-                                                    -{{ PriceHelper::DiscountPercentage($item) }}</div>
-                                            @endif
+
+                                            {{-- @if ($item->previous_price && $item->previous_price != 0)
+                                                <div class="product-badge product-badge2 bg-info">-{{ PriceHelper::DiscountPercentage($item) }}</div>
+                                            @endif --}}
+
                                             <img class="lazy"
                                                 data-src="{{ asset('storage/images/' . $item->thumbnail) }}"
                                                 alt="Product">
@@ -551,12 +556,12 @@
                                                 <div class="rating-stars">
                                                     {!! renderStarRating($item->reviews->avg('rating')) !!}
                                                 </div>
-                                                <h4 class="product-price">
+                                                {{-- <h4 class="product-price">
                                                     @if ($item->previous_price != 0)
                                                         <del>{{ PriceHelper::setPreviousPrice($item->previous_price) }}</del>
                                                     @endif
                                                     {{ PriceHelper::grandCurrencyPrice($item) }}
-                                                </h4>
+                                                </h4> --}}
                                             </div>
                                         </div>
                                     </div>

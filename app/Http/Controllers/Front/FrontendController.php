@@ -7,6 +7,17 @@ use Illuminate\{
     Support\Facades\Session
 };
 
+use Auth;
+use Exception;
+use Carbon\Carbon;
+use Twilio\Rest\Client;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Artisan;
+
+use function GuzzleHttp\json_decode;
+
+/* included models */
 use App\{
     Models\Item,
     Models\Setting,
@@ -17,6 +28,7 @@ use App\{
     Http\Requests\SubscribeRequest,
     Repositories\Front\FrontRepository
 };
+
 use App\Helpers\SmsHelper;
 use App\Models\Brand;
 use App\Models\CampaignItem;
@@ -31,11 +43,10 @@ use App\Models\Service;
 use App\Models\Slider;
 use App\Models\Subcategory;
 use App\Models\TrackOrder;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Config;
+use App\Models\PriceRequest;
 
-use function GuzzleHttp\json_decode;
+/* included mails */
+use App\Mail\PriceQuoteMail;
 
 class FrontendController extends Controller
 {
@@ -526,13 +537,63 @@ class FrontendController extends Controller
         return view('front.maintainance');
     }
 
-
-
     public function finalize()
     {
         //Artisan::call('migrate', ['--seed' => true]);
         copy(str_replace('core', '', base_path() . "updater/composer.json"), base_path('composer.json'));
         copy(str_replace('core', '', base_path() . "updater/composer.lock"), base_path('composer.lock'));
         return redirect(route('front.index'));
+    }
+
+    public function priceQuote(Request $request)
+    {
+        $this->validate($request, [
+            'price_name'    => 'required',
+            'price_email'   => 'required',
+            'price_mobile'  => 'required',
+        ]);
+
+        $price =  new PriceRequest;
+
+        $price->item_id         = $request->item_id;
+        $price->price_name      = $request->price_name;
+        $price->price_email     = $request->price_email;
+        $price->price_mobile    = $request->price_mobile;
+        $price->created_by      = Auth::id();
+
+        $price->save();
+
+        $setting = Setting::first();
+        $item = Item::where('id', $request->item_id)->first();
+
+        if ($request->price_email) {
+            Mail::to($setting->footer_email)->send(new PriceQuoteMail($setting, $price, $item));
+        }
+
+        if ($request->price_mobile) {
+            $twilioSid = env('TWILIO_SID');
+            $twilioToken = env('TWILIO_AUTH_TOKEN');
+            $twilioWhatsAppNumber = env('TWILIO_WHATSAPP_NUMBER');
+
+            $recipientNumber = "whatsapp:".$setting->footer_phone;
+
+            $message = $request->price_name.' has request for the price of '.$item->name;
+
+            try {
+                $twilio = new Client($twilioSid, $twilioToken);
+
+                $twilio->messages->create(
+                    $recipientNumber,
+                    [
+                        "from" => "whatsapp:+". $twilioWhatsAppNumber,
+                        "body" => $message,
+                    ]
+                );
+            } catch (Exception $e) {
+                return back()->with(['error' => $e->getMessage()]);
+            }
+        }
+
+        return redirect()->back()->with('success', "Request for price quotation sent successfully!");
     }
 }

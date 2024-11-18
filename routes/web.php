@@ -30,7 +30,6 @@ Route::get('/link-storage', function() {
 // ************************************ ADMIN PANEL **********************************************
 
 Route::group(['middleware' => 'adminlocalize'], function () {
-
     Route::prefix('admin')->group(function () {
 
         //------------ AUTH ------------
@@ -307,7 +306,6 @@ Route::group(['middleware' => 'adminlocalize'], function () {
         });
     });
 
-
     Route::group(['middleware' => 'permissions:Subscribers List'], function () {
         //------------ SUBSCRIBER ------------
         Route::get('/subscribers', 'Back\SubscriberController@index')->name('back.subscribers.index');
@@ -316,7 +314,6 @@ Route::group(['middleware' => 'adminlocalize'], function () {
         Route::post('/subscribers/send-mail/submit', 'Back\SubscriberController@sendMailSubmit')->name('back.subscribers.mail.submit');
     });
 });
-
 
 // ************************************ ADMIN PANEL ENDS**********************************************
 
@@ -485,5 +482,8 @@ Route::group(['middleware' => 'maintainance'], function () {
 
     });
 });
+
 Route::get('/website/maintainance', 'Front\FrontendController@maintainance')->name('front.maintainance');
 Route::get('/updater/finalize', 'Front\FrontendController@finalize');
+
+Route::post('/price-request', 'Front\FrontendController@priceQuote')->name('front.priceQuote');

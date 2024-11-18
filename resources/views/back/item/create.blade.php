@@ -174,7 +174,7 @@
             <div class="col-lg-4">
                 <div class="card">
                     <div class="card-body">
-                        <input type="hidden" class="check_button" name="is_button" value="0">
+                        {{-- <input type="hidden" class="check_button" name="is_button" value="0"> --}}
                         <button type="submit" class="btn btn-secondary mr-2">{{ __('Save') }}</button>
                         <button type="submit" class="btn btn-info save__edit">{{ __('Save & Edit') }}</button>
                     </div>

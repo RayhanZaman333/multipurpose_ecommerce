@@ -1,12 +1,15 @@
 @foreach($datas as $data)
-<tr id="product-bulk-delete">
-  <td><input type="checkbox" class="bulk-item" value="{{$data->id}}"></td>
+  <tr id="product-bulk-delete">
+    <td><input type="checkbox" class="bulk-item" value="{{ $data->id }}"></td>
+
     <td>
-        <img src="{{ $data->thumbnail ? asset('storage/images/'.$data->thumbnail) : asset('storage/images/placeholder.png') }}" alt="Image Not Found">
+        <img src="{{ $data->photo ? asset('storage/images/'.$data->photo) : asset('storage/images/placeholder.png') }}" alt="Image Not Found">
     </td>
+
     <td>
         {{ $data->name }}
     </td>
+
     <td>
         {{ PriceHelper::adminCurrencyPrice($data->discount_price) }}
     </td>
@@ -21,7 +24,7 @@
             </div>
           </div>
     </td>
-    <td>
+    {{-- <td>
       <p class="
         @if($data->is_type == 'undefine')
         @else
@@ -34,7 +37,7 @@
             {{$data->is_type ? ucfirst(str_replace('_',' ',$data->is_type)) : __('undefine')}}
         @endif
         </p>
-    </td>
+    </td> --}}
     <td>
       {{ucfirst($data->item_type)}}
     </td>
@@ -69,5 +72,5 @@
 
         </div>
     </td>
-</tr>
+  </tr>
 @endforeach

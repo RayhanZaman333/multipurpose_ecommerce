@@ -43,6 +43,8 @@
   <!-- Page Content-->
 <div class="container padding-bottom-1x mb-1">
     <div class="row">
+      @include('alerts.alerts')
+
       <!-- Poduct Gallery-->
       <div class="col-xxl-5 col-lg-6 col-md-6">
         <div class="product-gallery">
@@ -73,9 +75,9 @@
           ">{{__('out of stock')}}</span>
           @endif
 
-          @if($item->previous_price && $item->previous_price !=0)
-          <div class="product-badge bg-goldenrod  ppp-t"> -{{PriceHelper::DiscountPercentage($item)}}</div>
-          @endif
+          {{-- @if($item->previous_price && $item->previous_price != 0)
+            <div class="product-badge bg-goldenrod  ppp-t"> -{{ PriceHelper::DiscountPercentage($item) }}</div>
+          @endif --}}
 
           <div class="product-thumbnails insize">
             <div class="product-details-slider owl-carousel" >
@@ -130,18 +132,77 @@
 
 
                     @if($item->is_type == 'flash_deal')
-                    @if (date('d-m-y') != \Carbon\Carbon::parse($item->date)->format('d-m-y'))
-                    <div class="countdown countdown-alt mb-3" data-date-time="{{ $item->date }}">
-                    </div>
-                    @endif
+                      @if (date('d-m-y') != \Carbon\Carbon::parse($item->date)->format('d-m-y'))
+                        <div class="countdown countdown-alt mb-3" data-date-time="{{ $item->date }}">
+                        </div>
+                      @endif
                     @endif
 
-                    <span class="h3 d-block price-area">
-                    @if ($item->previous_price != 0)
-                        <small class="d-inline-block"><del>{{PriceHelper::setPreviousPrice($item->previous_price)}}</del></small>
+                    @if ($item->is_price_show == 1)
+                      <span class="h3 d-block price-area">
+                        @if ($item->previous_price != 0)
+                          <small class="d-inline-block"><del>{{ PriceHelper::setPreviousPrice($item->previous_price) }}</del></small>
+                        @endif
+
+                        <span id="main_price" class="main-price">{{ PriceHelper::grandCurrencyPrice($item) }}</span>
+                      </span>
+                    @else
+                      <div class="pb-2"><a class="btn btn-primary btn-block" href="#" data-bs-toggle="modal" data-bs-target="#priceRequest"><span>{{ __('Request for Price') }}</span></a></div>
+
+                      <div class="modal fade" id="priceRequest" tabindex="-1" aria-labelledby="priceRequestLabel" aria-modal="true">
+                        <div class="modal-dialog modal-md">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h4 class="modal-title">{{__('Request for Price')}}</h4>
+
+                              <button class="close modal_close" type="button" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            </div>
+
+                            <form action="{{ route('front.priceQuote') }}" method="post" id="priceRequest" tabindex="-1">
+                              <div class="modal-body">
+                                @csrf
+
+                                <input type="hidden" name="item_id" value="{{ $item->id }}">
+
+                                <div class="row">
+                                  <div class="col-sm-12">
+                                    <div class="form-group">
+                                      <label for="review-name">{{__('Your Name')}}</label>
+
+                                      <input class="form-control" type="text" id="price_name" name="price_name" value="{{ old('price_name') }}" placeholder="Enter Your Fullname" required>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div class="row">
+                                  <div class="col-sm-12">
+                                    <div class="form-group">
+                                      <label for="review-email">{{__('Your Email')}}</label>
+
+                                      <input class="form-control" type="email" id="price_email" name="price_email" value="{{ old('price_email') }}" placeholder="Enter Your Email" required>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div class="row">
+                                  <div class="col-sm-12">
+                                    <div class="form-group">
+                                      <label for="review-email">{{__('Your Mobile')}}</label>
+
+                                      <input class="form-control" type="text" id="price_mobile" name="price_mobile" value="{{ old('price_mobile') }}" placeholder="Enter Your Mobile Number" required>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="modal-footer">
+                                <button class="btn btn-primary" type="submit"><span>{{ __('Submit') }}</span></button>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
                     @endif
-                    <span id="main_price" class="main-price">{{PriceHelper::grandCurrencyPrice($item)}}</span>
-                    </span>
 
                     <p class="text-muted">{{$item->sort_details}} <a href="#details" class="scroll-to">{{__('Read more')}}</a></p>
 
@@ -387,10 +448,11 @@
                     <div class="progress-bar bg-warning" role="progressbar" style="width: {{$item->reviews->where('status',1)->where('rating',1)->sum('rating') * 20}}; height: 2px;" aria-valuenow="0" aria-valuemin="{{$item->reviews->where('rating',1)->sum('rating') * 20}}" aria-valuemax="100"></div>
                   </div>
                 </div>
+
                 @if (Auth::user())
-                    <div class="pb-2"><a class="btn btn-primary btn-block" href="#" data-bs-toggle="modal" data-bs-target="#leaveReview"><span>{{__('Leave a Review')}}</span></a></div>
-                    @else
-                    <div class="pb-2"><a class="btn btn-primary btn-block" href="{{route('user.login')}}" ><span>{{__('Login')}}</span></a></div>
+                  <div class="pb-2"><a class="btn btn-primary btn-block" href="#" data-bs-toggle="modal" data-bs-target="#leaveReview"><span>{{ __('Leave a Review') }}</span></a></div>
+                @else
+                  <div class="pb-2"><a class="btn btn-primary btn-block" href="{{ route('user.login') }}" ><span>{{ __('Login') }}</span></a></div>
                 @endif
               </div>
             </div>
@@ -439,12 +501,12 @@
                                     ">{{__('out of stock')}}</div>
                             @endif
                                     @if($related->previous_price && $related->previous_price !=0)
-                                    <div class="product-badge product-badge2 bg-info"> -{{PriceHelper::DiscountPercentage($related)}}</div>
+                                    {{-- <div class="product-badge product-badge2 bg-info"> -{{PriceHelper::DiscountPercentage($related)}}</div> --}}
                             @endif
 
-                            @if($related->previous_price && $related->previous_price !=0)
+                            {{-- @if($related->previous_price && $related->previous_price !=0)
                             <div class="product-badge product-badge2 bg-info"> -{{PriceHelper::DiscountPercentage($related)}}</div>
-                            @endif
+                            @endif --}}
                             <div class="product-thumb">
                                 <img class="lazy" data-src="{{asset('storage/images/'.$related->thumbnail)}}" alt="Product">
                                 <div class="product-button-group">
@@ -458,11 +520,14 @@
                               <h3 class="product-title"><a href="{{route('front.product',$related->slug)}}">
                                 {{ Str::limit($related->name, 35) }}
                             </a></h3>
-                              <h4 class="product-price">
+
+                              {{-- <h4 class="product-price">
                                 @if ($related->previous_price !=0)
-                                    <del>{{PriceHelper::setPreviousPrice($related->previous_price)}}</del>
+                                    <del>{{ PriceHelper::setPreviousPrice($related->previous_price) }}</del>
                                 @endif
-                                {{PriceHelper::grandCurrencyPrice($related)}} </h4>
+
+                                {{PriceHelper::grandCurrencyPrice($related)}} 
+                              </h4> --}}
                             </div>
 
                           </div>

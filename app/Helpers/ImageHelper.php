@@ -37,13 +37,13 @@ class ImageHelper
         }
     }
 
-
-
     public static function ItemhandleUploadedImage($file, $path, $delete=null) {
         if ($file) {
             if ($delete) {
-                if (file_exists(base_path('../').$path.'/'.$delete)) {
-                    unlink(base_path('../').$path.'/'.$delete);
+                $imagePath = public_path(). '/storage/images/' . $delete;
+
+                if(file_exists(public_path(). '/storage/images/' . $delete)){
+                    unlink($imagePath);
                 }
             }
 
@@ -73,7 +73,7 @@ class ImageHelper
     }
 
 
-    public static function ItemhandleUpdatedUploadedImage($file,$path,$data,$delete_path,$field) {
+    public static function ItemhandleUpdatedUploadedImage($file, $path, $data, $delete_path, $field) {
         $photo = time().$file->getClientOriginalName();
         $thum = Str::random(8).'.'.$file->getClientOriginalExtension();
       
@@ -88,12 +88,14 @@ class ImageHelper
                 unlink(base_path('../').$delete_path.$data['thumbnail']);
             }
         }
+
         if($data[$field] != null){
             if (file_exists(base_path('../').$delete_path.$data[$field])) {
                 unlink(base_path('../').$delete_path.$data[$field]);
             }
         }
-        return [$photo,$thum];
+
+        return [$photo, $thum];
     }
 
 

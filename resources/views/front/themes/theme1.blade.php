@@ -149,9 +149,10 @@
                                         ">{{__('out of stock')}}</div>
                                     @endif
 
-                                    @if($compaign_item->item->previous_price && $compaign_item->item->previous_price !=0)
+                                    {{-- @if($compaign_item->item->previous_price && $compaign_item->item->previous_price !=0)
                                         <div class="product-badge product-badge2 bg-info"> -{{PriceHelper::DiscountPercentage($compaign_item->item)}}</div>
-                                    @endif
+                                    @endif --}}
+
                                     <img class="lazy" data-src="{{asset('storage/images/'.$compaign_item->item->thumbnail)}}" alt="Product">
                                     <div class="product-button-group"><a class="product-button wishlist_store" href="{{route('user.wishlist.store',$compaign_item->item->id)}}" title="{{__('Wishlist')}}"><i class="icon-heart"></i></a>
                                         <a data-target="{{route('fornt.compare.product',$compaign_item->item->id)}}" class="product-button product_compare" href="javascript:;" title="{{__('Compare')}}"><i class="icon-repeat"></i></a>
@@ -172,13 +173,14 @@
                                         <div class="rating-stars">
                                             {!! renderStarRating($compaign_item->item->reviews->avg('rating')) !!}
                                         </div>
-                                        <h4 class="product-price">
+                                        {{-- <h4 class="product-price">
+
                                         @if ($compaign_item->item->previous_price != 0)
                                             <del>{{PriceHelper::setPreviousPrice($compaign_item->item->previous_price)}}</del>
                                         @endif
 
                                         {{PriceHelper::grandCurrencyPrice($compaign_item->item)}}
-                                        </h4>
+                                        </h4> --}}
 
                                     </div>
 
@@ -275,9 +277,11 @@
                                             <div class="product-badge bg-secondary border-default text-body
                                             ">{{__('out of stock')}}</div>
                                         @endif
-                                        @if($popular_category_item->previous_price && $popular_category_item->previous_price !=0)
-                                        <div class="product-badge product-badge2 bg-info"> -{{PriceHelper::DiscountPercentage($popular_category_item)}}</div>
-                                        @endif
+
+                                        {{-- @if($popular_category_item->previous_price && $popular_category_item->previous_price !=0)
+                                            <div class="product-badge product-badge2 bg-info"> -{{PriceHelper::DiscountPercentage($popular_category_item)}}</div>
+                                        @endif --}}
+
                                             <img class="lazy" data-src="{{asset('storage/images/'.$popular_category_item->thumbnail)}}" alt="Product">
                                             <div class="product-button-group">
                                                 <a class="product-button wishlist_store" href="{{route('user.wishlist.store',$popular_category_item->id)}}" title="{{__('Wishlist')}}"><i class="icon-heart"></i></a>
@@ -293,12 +297,13 @@
                                         <div class="rating-stars">
                                         <i class="far fa-star filled"></i><i class="far fa-star filled"></i><i class="far fa-star filled"></i><i class="far fa-star filled"></i><i class="far fa-star filled"></i>
                                         </div>
-                                        <h4 class="product-price">
+
+                                        {{-- <h4 class="product-price">
                                             @if ($popular_category_item->previous_price != 0)
                                             <del>{{PriceHelper::setPreviousPrice($popular_category_item->previous_price)}}</del>
                                             @endif
                                             {{PriceHelper::grandCurrencyPrice($popular_category_item)}}
-                                            </h4>
+                                            </h4> --}}
                                     </div>
                                 </div>
                             </div>
@@ -393,9 +398,9 @@
                                                     <div class="product-badge bg-secondary border-default text-body
                                                     ">{{__('out of stock')}}</div>
                                                 @endif
-                                                @if($item->previous_price && $item->previous_price !=0)
+                                                {{-- @if($item->previous_price && $item->previous_price !=0)
                                                 <div class="product-badge product-badge2 bg-info"> -{{PriceHelper::DiscountPercentage($item)}}</div>
-                                                @endif
+                                                @endif --}}
                                                 <img class="lazy" data-src="{{asset('storage/images/'.$item->thumbnail)}}" alt="Product">
                                                 <div class="product-button-group"><a class="product-button wishlist_store" href="{{route('user.wishlist.store',$item->id)}}" title="{{__('Wishlist')}}"><i class="icon-heart"></i></a>
                                                     <a data-target="{{route('fornt.compare.product',$item->id)}}" class="product-button product_compare" href="javascript:;" title="{{__('Compare')}}"><i class="icon-repeat"></i></a>
@@ -411,12 +416,12 @@
                                                 <div class="rating-stars">
                                                     {!! renderStarRating($item->reviews->avg('rating')) !!}
                                                 </div>
-                                                <h4 class="product-price">
+                                                {{-- <h4 class="product-price">
                                                 @if ($item->previous_price != 0)
                                                 <del>{{PriceHelper::setPreviousPrice($item->previous_price)}}</del>
                                                 @endif
                                                 {{PriceHelper::grandCurrencyPrice($item)}}
-                                                </h4>
+                                                </h4> --}}
                                             </div>
 
                                             </div>
@@ -455,9 +460,9 @@
                                             <div class="product-badge bg-secondary border-default text-body
                                             ">{{__('out of stock')}}</div>
                                             @endif
-                                            @if($item->previous_price && $item->previous_price !=0)
+                                            {{-- @if($item->previous_price && $item->previous_price !=0)
                                             <div class="product-badge product-badge2 bg-info"> -{{PriceHelper::DiscountPercentage($item)}}</div>
-                                            @endif
+                                            @endif --}}
                                             <img class="lazy" data-src="{{asset('storage/images/'.$item->thumbnail)}}" alt="Product">
                                             <div class="product-button-group"><a class="product-button wishlist_store" href="{{route('user.wishlist.store',$item->id)}}" title="{{__('Wishlist')}}"><i class="icon-heart"></i></a>
                                                 <a data-target="{{route('fornt.compare.product',$item->id)}}" class="product-button product_compare" href="javascript:;" title="{{__('Compare')}}"><i class="icon-repeat"></i></a>
@@ -474,13 +479,13 @@
                                                 <div class="rating-stars">
                                                     {!! renderStarRating($item->reviews->avg('rating')) !!}
                                                 </div>
-                                                <h4 class="product-price">
+                                                {{-- <h4 class="product-price">
                                                 @if ($item->previous_price != 0)
                                                 <del>{{PriceHelper::setPreviousPrice($item->previous_price)}}</del>
                                                 @endif
 
                                                 {{PriceHelper::grandCurrencyPrice($item)}}
-                                                </h4>
+                                                </h4> --}}
                                                 @if (date('d-m-y') != \Carbon\Carbon::parse($item->date)->format('d-m-y'))
                                                 <div class="countdown countdown-alt mb-3" data-date-time="{{ $item->date }}">
                                                 </div>
@@ -529,12 +534,13 @@
                                                 <div class="rating-stars">
                                                     {!! renderStarRating($two_column_category_item->reviews->avg('rating')) !!}
                                                 </div>
-                                                <h4 class="product-price">
+
+                                                {{-- <h4 class="product-price">
                                                 @if ($two_column_category_item->previous_price != 0)
                                                 <del>{{PriceHelper::setPreviousPrice($two_column_category_item->previous_price)}}</del>
                                                 @endif
                                                     {{PriceHelper::grandCurrencyPrice($two_column_category_item)}}
-                                                </h4>
+                                                </h4> --}}
                                             </div>
                                         </div>
                                         @endforeach
@@ -615,9 +621,11 @@
                                     <div class="product-badge bg-secondary border-default text-body
                                     ">{{__('out of stock')}}</div>
                                 @endif
-                                @if($feature_category_item->previous_price && $feature_category_item->previous_price !=0)
+
+                                {{-- @if($feature_category_item->previous_price && $feature_category_item->previous_price !=0)
                                 <div class="product-badge product-badge2 bg-info"> -{{PriceHelper::DiscountPercentage($feature_category_item)}}</div>
-                                @endif
+                                @endif --}}
+
                                     <img class="lazy" data-src="{{asset('storage/images/'.$feature_category_item->thumbnail)}}" alt="Product">
                                     <div class="product-button-group"><a class="product-button wishlist_store" href="{{route('user.wishlist.store',$feature_category_item->id)}}" title="{{__('Wishlist')}}"><i class="icon-heart"></i></a>
                                         <a data-target="{{route('fornt.compare.product',$feature_category_item->id)}}" class="product-button product_compare" href="javascript:;" title="{{__('Compare')}}"><i class="icon-repeat"></i></a>
@@ -634,12 +642,13 @@
                                 <div class="rating-stars">
                                 <i class="far fa-star filled"></i><i class="far fa-star filled"></i><i class="far fa-star filled"></i><i class="far fa-star filled"></i><i class="far fa-star filled"></i>
                                 </div>
-                                <h4 class="product-price">
+
+                                {{-- <h4 class="product-price">
                                     @if ($feature_category_item->previous_price != 0)
                                     <del>{{PriceHelper::setPreviousPrice($feature_category_item->previous_price)}}</del>
                                     @endif
                                     {{PriceHelper::grandCurrencyPrice($feature_category_item)}}
-                                    </h4>
+                                    </h4> --}}
                             </div>
 
                         </div>
