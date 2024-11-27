@@ -24,51 +24,42 @@
 					<!-- Nested Row within Card Body -->
 					<div class="row justify-content-center">
 						<div class="col-lg-12">
-								<form class="admin-form" action="{{ route('back.post.update',$post->id) }}"
-									method="POST" enctype="multipart/form-data">
+							<form class="admin-form" action="{{ route('back.post.update', $post->id) }}" method="POST" enctype="multipart/form-data">
+								@csrf
+                                @method('PUT')
 
-                                    @csrf
+								@include('alerts.alerts')
 
-                                    @method('PUT')
+								<h5 class="">
+									<b>{{ __('Multiple Images Uploading Are Allowed') }}</b>
+								</h5>
 
-									@include('alerts.alerts')
+                                <br>
 
-									<h5 class="">
-                                        <b>{{ __('Multiple Images Uploading Are Allowed') }}</b>
-                                    </h5>
+								<div class="d-block">
+									@forelse(json_decode($post->photo,true) as $key => $photo)
+										<div class="single-g-item d-inline-block m-2">
+											<span data-toggle="modal" data-target="#confirm-delete" href="javascript:;" data-href="{{ route('back.post.photo.delete', [$key,$post->id]) }}" class="remove-gallery-img">
+												<i class="fas fa-trash"></i>
+											</span>
 
-                                    <br>
+											<a class="popup-link" href="{{ $photo ? asset('storage/images/'.$photo) : asset('storage/images/placeholder.png') }}">
+												<img class="admin-gallery-img" src="{{ $photo ? asset('storage/images/'.$photo) : asset('storage/images/placeholder.png') }}" alt="No Image Found">
+											</a>
+										</div>
+									@empty
+										<h6><b>{{ __('No Images Added') }}</b></h6>
+									@endforelse
+								</div>
 
-                                    <div class="d-block">
+								<div class="form-group position-relative ">
+									<label class="file">
+										<input type="file" accept="image/*" name="photo[]" id="file" aria-label="File browser example" accept="image/*" multiple>
+										
+										<span class="file-custom text-left">{{ __('Upload Images...') }}</span>
+									</label>
+								</div>
 
-                                        @forelse(json_decode($post->photo,true) as $key => $photo)
-                                            <div class="single-g-item d-inline-block m-2">
-                                                    <span data-toggle="modal"
-                                                    data-target="#confirm-delete" href="javascript:;"
-                                                    data-href="{{ route('back.post.photo.delete',[$key,$post->id]) }}" class="remove-gallery-img">
-                                                        <i class="fas fa-trash"></i>
-                                                    </span>
-                                                    <a class="popup-link" href="{{ $photo ? asset('storage/images/'.$photo) : asset('storage/images/placeholder.png') }}">
-                                                        <img class="admin-gallery-img" src="{{ $photo ? asset('storage/images/'.$photo) : asset('storage/images/placeholder.png') }}"
-                                                            alt="No Image Found">
-                                                    </a>
-                                            </div>
-                                        @empty
-
-                                            <h6><b>{{ __('No Images Added') }}</b></h6>
-
-                                        @endforelse
-
-                                    </div>
-
-
-                                    <div class="form-group position-relative ">
-                                        <label class="file">
-                                            <input type="file"  accept="image/*"  name="photo[]" id="file"
-                                                aria-label="File browser example" accept="image/*" multiple>
-                                            <span class="file-custom text-left">{{ __('Upload Images...') }}</span>
-                                        </label>
-                                    </div>
 									<div class="form-group">
 										<label for="title">{{ __('Title') }} *</label>
 										<input type="text" name="title" class="form-control" id="title"

@@ -11,9 +11,9 @@
             <div class="row">
                 <div class="col-lg-12">
                     <ul class="breadcrumbs">
-                        <li><a href="{{ route('front.index') }}">{{ __('Home') }}</a> </li>
+                        <li><a href="{{ route('front.index') }}">{{ __('Home') }}</a></li>
                         <li class="separator"></li>
-                        <li>{{ __('Blog') }}</li>
+                        <li>{{ __('Our SOlutions') }}</li>
                     </ul>
                 </div>
             </div>
@@ -23,28 +23,26 @@
     <div class="container padding-bottom-3x mb-1 blog-page">
         <div class="row ">
             <!-- Content-->
-            <div class="col-xl-9 col-lg-8 order-lg-2">
+            <div class="col-xl-12 col-lg-12">
                 <div class="row">
                     @forelse ($posts as $post)
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <a href="{{ route('front.blog.details', $post->slug) }}" class="blog-post">
                                 <div class="post-thumb">
-                                    <img class="lazy"
-                                        data-src="{{ asset('storage/images/' . json_decode($post->photo, true)[array_key_first(json_decode($post->photo, true))]) }}"
-                                        alt="Blog Post">
+                                    <img class="lazy" data-src="{{ asset('storage/images/' . json_decode($post->photo, true)[array_key_first(json_decode($post->photo, true))]) }}" alt="Blog Post">
                                 </div>
+
                                 <div class="post-body">
+                                    <h3 class="post-title"> {{ Str::limit($post->title, 55) }}</h3>
 
-                                    <h3 class="post-title"> {{ Str::limit($post->title, 55) }}
-                                    </h3>
-                                    <ul class="post-meta">
-
+                                    {{-- <ul class="post-meta">
                                         <li><i class="icon-user"></i>{{ __('Admin') }}</li>
+
                                         <li><i class="icon-clock"></i>{{ date('jS F, Y', strtotime($post->created_at)) }}
                                         </li>
-                                    </ul>
-                                    <p>{{ Str::limit(strip_tags($post->details), 120) }}
-                                    </p>
+                                    </ul> --}}
+
+                                    <p>{{ Str::limit(strip_tags($post->details), 120) }}</p>
                                 </div>
                             </a>
                         </div>
@@ -57,35 +55,38 @@
                             </div>
                         </div>
                     @endforelse
-
                 </div>
+
                 <div class="row">
                     <div class="col-lg-12 text-center">
                         {{ $posts->links() }}
                     </div>
                 </div>
             </div>
-            <!-- Sidebar          -->
-            <div class="col-xl-3 col-lg-4 order-lg-1">
+
+            <!-- Sidebar-->
+            {{-- <div class="col-xl-3 col-lg-4 order-lg-1">
                 <div class="sidebar-toggle position-left"><i class="icon-filter"></i></div>
-                <aside class="sidebar sidebar-offcanvas position-left"><span class="sidebar-close"><i
-                            class="icon-x"></i></span>
+
+                <aside class="sidebar sidebar-offcanvas position-left"><span class="sidebar-close"><i class="icon-x"></i></span>
                     <!-- Widget Search-->
                     <section class="widget">
-                        <form action="{{ route('front.blog') }}" class="input-group form-group" method="get"><span
-                                class="input-group-btn">
-                                <button type="submit"><i class="icon-search"></i></button></span>
-                            <input class="form-control" name="search" type="text"
-                                placeholder="{{ __('Search blog') }}">
+                        <form action="{{ route('front.blog') }}" class="input-group form-group" method="get">
+                            <span class="input-group-btn">
+                                <button type="submit"><i class="icon-search"></i></button>
+                            </span>
+
+                            <input class="form-control" name="search" type="text" placeholder="{{ __('Search blog') }}">
                         </form>
                     </section>
+
                     <!-- Widget Categories-->
                     <section class="widget widget-categories card rounded p-4 mt-n3">
                         <h3 class="widget-title">{{ __('Blog Categories') }}</h3>
+
                         <ul>
                             @foreach ($categories as $category)
-                                <li><a
-                                        href="{{ route('front.blog') . '?category=' . $category->slug }}">{{ $category->name }}</a><span>{{ $category->posts_count }}</span>
+                                <li><a href="{{ route('front.blog') . '?category=' . $category->slug }}">{{ $category->name }}</a><span>{{ $category->posts_count }}</span>
                                 </li>
                             @endforeach
 
@@ -118,8 +119,7 @@
                         </div>
                     </section>
                 </aside>
-            </div>
-
+            </div> --}}
         </div>
     </div>
 @endsection

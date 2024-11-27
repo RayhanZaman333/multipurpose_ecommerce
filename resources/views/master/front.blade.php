@@ -150,25 +150,32 @@ body_theme4
                             <div class="search-box-inner align-self-center">
                                 <div class="search-box d-flex">
                                     <select name="category" id="category_select" class="categoris">
-                                        <option value="">{{__('All')}}</option>
+                                        <option value="">{{ __('All') }}</option>
+
                                         @foreach (DB::table('categories')->whereStatus(1)->get() as $category)
-                                        <option value="{{$category->slug}}">{{$category->name}}</option>
+                                            <option value="{{ $category->slug }}">{{ $category->name }}</option>
                                         @endforeach
-                                        </select>
-                                    <form class="input-group" id="header_search_form" action="{{route('front.catalog')}}" method="get">
+                                    </select>
+
+                                    <form class="input-group" id="header_search_form" action="{{ route('front.catalog') }}" method="get">
                                         <input type="hidden" name="category" value="" id="search__category">
+                                        
                                         <span class="input-group-btn">
-                                        <button type="submit"><i class="icon-search"></i></button>
+                                            <button type="submit"><i class="icon-search"></i></button>
                                         </span>
-                                        <input class="form-control" type="text" data-target="{{route('front.search.suggest')}}" id="__product__search" name="search" placeholder="{{__('Search by product name')}}">
+
+                                        <input class="form-control" type="text" data-target="{{ route('front.search.suggest') }}" id="__product__search" name="search" placeholder="{{ __('Search by product name') }}">
+
                                         <div class="serch-result d-none">
-                                        {{-- search result --}}
+                                            {{-- search result --}}
                                         </div>
                                     </form>
                                 </div>
                             </div>
+
                             <span class="d-block d-lg-none close-m-serch"><i class="icon-x"></i></span>
                         </div>
+
                         <!-- Toolbar-->
                         <div class="toolbar d-flex">
 
@@ -276,60 +283,71 @@ body_theme4
             </div>
         </div>
     </div>
-  <!-- Navbar-->
-  <div class="navbar">
+
+    <!-- Navbar-->
+    <div class="navbar">
         <div class="container">
             <div class="row g-3 w-100">
                 <div class="col-lg-3">
                     @include('includes.categories')
                 </div>
+
                 <div class="col-lg-9 d-flex justify-content-between">
                     <div class="nav-inner">
                         <nav class="site-menu">
                             <ul>
-                                <li class="{{ request()->routeIs('front.index') ? 'active' : '' }}"><a href="{{route('front.index')}}">{{__('Home')}}</a></li>
+                                <li class="{{ request()->routeIs('front.index') ? 'active' : '' }}"><a href="{{ route('front.index') }}">{{ __('Home') }}</a></li>
+
                                 @if ($setting->is_shop == 1)
-                                <li class="{{ request()->routeIs('front.catalog*')  ? 'active' : '' }}"><a href="{{route('front.catalog')}}">{{__('Shop')}}</a></li>
+                                    <li class="{{ request()->routeIs('front.catalog*')  ? 'active' : '' }}"><a href="{{ route('front.catalog') }}">{{ __('Shop') }}</a></li>
                                 @endif
-                                @if ($setting->is_campaign == 1)
+
+                                {{-- @if ($setting->is_campaign == 1)
                                 <li class="{{ request()->routeIs('front.campaign')  ? 'active' : '' }}"><a href="{{route('front.campaign')}}">{{__('Campaign')}}</a></li>
                                 @endif
                                 @if ($setting->is_brands == 1)
                                 <li class="{{ request()->routeIs('front.brand')  ? 'active' : '' }}"><a href="{{route('front.brand')}}">{{__('Brand')}}</a></li>
-                                @endif
+                                @endif --}}
+
                                 @if ($setting->is_blog == 1)
-                                <li class="{{ request()->routeIs('front.blog*') ? 'active' : '' }}"><a href="{{route('front.blog')}}">{{__('Blog')}}</a></li>
+                                    <li class="{{ request()->routeIs('front.blog*') ? 'active' : '' }}"><a href="{{ route('front.blog') }}">{{ __('Our Solutions') }}</a></li>
                                 @endif
 
-                                <li class="t-h-dropdown">
+                                @foreach (DB::table('pages')->wherePos(0)->orwhere('pos', 2)->get() as $page)
+                                    <li class="{{ request()->routeIs('front.page', $page->slug) ? 'active' : '' }}">
+                                        <a href="{{ route('front.page', $page->slug) }}">{{ $page->title }}</a>
+                                    </li>
+                                @endforeach
+
+                                {{-- <li class="t-h-dropdown">
                                     <a class="main-link" href="#">{{__('Pages')}} <i class="icon-chevron-down"></i></a>
                                     <div class="t-h-dropdown-menu">
                                         @if ($setting->is_faq == 1)
-                                        <a class="{{ request()->routeIs('front.faq*') ? 'active' : '' }}" href="{{route('front.faq')}}"><i class="icon-chevron-right pr-2"></i>{{__('Faq')}}</a>
+                                            <a class="{{ request()->routeIs('front.faq*') ? 'active' : '' }}" href="{{ route('front.faq') }}"><i class="icon-chevron-right pr-2"></i>{{ __('Faq') }}</a>
                                         @endif
+
                                         @foreach (DB::table('pages')->wherePos(0)->orwhere('pos',2)->get() as $page)
-                                        <a class="{{request()->url() == route('front.page',$page->slug) ? 'active' : ''}} " href="{{route('front.page',$page->slug)}}"><i class="icon-chevron-right pr-2"></i>{{$page->title}}</a>
+                                            <a class="{{ request()->url() == route('front.page', $page->slug) ? 'active' : '' }} " href="{{ route('front.page', $page->slug) }}"><i class="icon-chevron-right pr-2"></i>{{ $page->title }}</a>
                                         @endforeach
                                     </div>
-                                </li>
+                                </li> --}}
 
-                              @if ($setting->is_contact == 1)
-                                <li class="{{ request()->routeIs('front.contact') ? 'active' : '' }}"><a href="{{route('front.contact')}}">{{__('Contact')}}</a></li>
-                              @endif
+                                @if ($setting->is_contact == 1)
+                                    <li class="{{ request()->routeIs('front.contact') ? 'active' : '' }}"><a href="{{ route('front.contact') }}">{{ __('Contact') }}</a></li>
+                                @endif
                             </ul>
                         </nav>
-
                     </div>
+
                     @php
                         $free_shipping = DB::table('shipping_services')->whereStatus(1)->whereIsCondition(1)->first()
                     @endphp
-
                 </div>
             </div>
         </div>
     </div>
-
 </header>
+
 <!-- Page Content-->
 @yield('content')
 

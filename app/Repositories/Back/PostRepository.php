@@ -10,7 +10,6 @@ use Illuminate\Support\Str;
 
 class PostRepository
 {
-
     /**
      * Store post.
      *
@@ -22,13 +21,14 @@ class PostRepository
     {
         $input = $request->all();
         $input['slug'] = Str::slug($request->title);
+
         if($request->has('tags')){
             $input['tags'] = str_replace(["value", "{", "}", "[","]",":","\""], '', $request->tags);
         }
+
         if($request->photo){
-            $input['photo'] = json_encode($this->storeImageData($request),true);
+            $input['photo'] = json_encode($this->storeImageData($request), true);
         }
-        
         
         Post::create($input);
     }
@@ -44,12 +44,15 @@ class PostRepository
     {
         $input = $request->all();
         $input['slug'] = Str::slug($request->title);
+
         if($request->has('tags')){
             $input['tags'] = str_replace(["value", "{", "}", "[","]",":","\""], '', $request->tags);
         }
+
         if($request->photo){
-            $input['photo'] = json_encode($this->UpdateImageData($request,$post),true);
+            $input['photo'] = json_encode($this->UpdateImageData($request, $post), true);
         }
+
         $post->update($input);
     }
 
@@ -58,22 +61,23 @@ class PostRepository
     {
         
         $storeData = [];
+
         if ($photos = $request->file('photo')) {
             foreach($photos as $key => $photo){
-                $storeData[$key] = ImageHelper::handleUploadedImage($photo,'assets/images');
+                $storeData[$key] = ImageHelper::handleUploadedImage($photo, 'images/');
             }
         }
+
         return $storeData;
     }
 
     public function UpdateImageData($request,$post)
     {
-        
         $storeData = json_decode($post->photo,true);
         
         if ($photos = $request->file('photo')) {
             foreach($photos as $key => $photo){
-                array_push($storeData,ImageHelper::handleUploadedImage($photo,'assets/images'));
+                array_push($storeData, ImageHelper::handleUploadedImage($photo, 'images/'));
             }
         }
         

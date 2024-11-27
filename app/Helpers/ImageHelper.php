@@ -9,16 +9,25 @@ use Image;
 
 class ImageHelper
 {
-    public static function handleUploadedImage($file,$path,$delete=null) {
+    public static function handleUploadedImage($file, $path, $delete=null) {
         if ($file) {
-            if($delete){
-                
-                if (file_exists(base_path('../').$path.'/'.$delete)) {
-                    unlink(base_path('../').$path.'/'.$delete);
+            if ($delete) {
+                $imagePath = public_path(). '/storage/images/' . $delete;
+
+                if(file_exists(public_path(). '/storage/images/' . $delete)){
+                    unlink($imagePath);
                 }
             }
-            $name = Str::random(4).$file->getClientOriginalName();
-            $file->move($path,$name);
+
+            $cp = $file;
+            $thum = Str::random(8).'.'.$cp->getClientOriginalExtension();
+            $extension = strtolower($cp->getClientOriginalExtension());
+            $randomFileName = date('Y_m_d_his').'_'.rand(10000000,99999999).'.'.$extension;
+
+            Storage::disk('public')->put($path . $randomFileName, File::get($cp));
+
+            $name = $randomFileName;
+
             return $name;
         }
     }
