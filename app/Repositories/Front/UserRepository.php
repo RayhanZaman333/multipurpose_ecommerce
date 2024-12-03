@@ -69,7 +69,7 @@ class UserRepository
 
       
         if ($file = $request->file('photo')) {
-            $input['photo'] = ImageHelper::handleUpdatedUploadedImage($file,'/storage/images',$user,'/storage/images/','photo');
+            $input['photo'] = ImageHelper::handleUpdatedUploadedImage($file,'images/',$user,'/storage/images/','photo');
         }
 
         if($request->newsletter){

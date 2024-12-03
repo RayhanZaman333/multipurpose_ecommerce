@@ -190,7 +190,6 @@ Route::group(['middleware' => 'adminlocalize'], function () {
             Route::get('database/backup', 'Back\BackupController@databaseBackup')->name('back.database.backup');
         });
 
-
         Route::group(['middleware' => 'permissions:Manages Tickets'], function () {
             //------------ TICKET ------------
             Route::resource('ticket', 'Back\TicketController', ['as' => 'back', 'except' => 'show']);
@@ -206,7 +205,6 @@ Route::group(['middleware' => 'adminlocalize'], function () {
             Route::resource('post', 'Back\PostController', ['as' => 'back', 'except' => 'show']);
             Route::delete('post/delete/{key}/{id}', 'Back\PostController@delete')->name('back.post.photo.delete');
         });
-
 
         Route::group(['middleware' => 'permissions:Transactions'], function () {
             //------------ TRANSACTION ----------------//

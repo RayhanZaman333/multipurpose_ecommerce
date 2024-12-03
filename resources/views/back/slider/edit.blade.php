@@ -33,7 +33,7 @@
 
 									@include('alerts.alerts')
 
-									<input type="hidden" name="home_page" value="{{$slider->home_page}}">
+									<input type="hidden" name="home_page" value="{{ $slider->home_page }}">
 
 									@if ($slider->home_page != 'theme4')
 									<div class="form-group">

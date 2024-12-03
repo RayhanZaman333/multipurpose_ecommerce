@@ -20,8 +20,8 @@ class SliderRepository
     public function store($request)
     {
         $input = $request->all();
-        $input['photo'] = ImageHelper::handleUploadedImage($request->file('photo'),'assets/images');
-        $input['logo'] = ImageHelper::handleUploadedImage($request->file('logo'),'assets/images');
+        $input['photo'] = ImageHelper::handleUploadedImage($request->file('photo'),'images/');
+        $input['logo'] = ImageHelper::handleUploadedImage($request->file('logo'),'images/');
         Slider::create($input);
     }
 
@@ -36,10 +36,10 @@ class SliderRepository
     {
         $input = $request->all();
         if ($file = $request->file('photo')) {
-            $input['photo'] = ImageHelper::handleUpdatedUploadedImage($file,'/storage/images/',$slider,'/storage/images/','photo');
+            $input['photo'] = ImageHelper::handleUpdatedUploadedImage($file,'images/',$slider,'images/','photo');
         }
         if ($file = $request->file('logo')) {
-            $input['logo'] = ImageHelper::handleUpdatedUploadedImage($file,'/storage/images/',$slider,'/storage/images/','logo');
+            $input['logo'] = ImageHelper::handleUpdatedUploadedImage($file,'images/',$slider,'images/','logo');
         }
         $slider->update($input);
     }

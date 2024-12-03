@@ -35,7 +35,7 @@ class BrandRepository
     {
         $input = $request->all();
         if ($file = $request->file('photo')) {
-            $input['photo'] = ImageHelper::handleUpdatedUploadedImage($file,'/assets/images',$brand,'/storage/images/','photo');
+            $input['photo'] = ImageHelper::handleUpdatedUploadedImage($file,'images/',$brand,'/storage/images/','photo');
 
         }
         $brand->update($input);

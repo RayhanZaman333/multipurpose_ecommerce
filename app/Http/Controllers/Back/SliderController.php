@@ -25,6 +25,7 @@ class SliderController extends Controller
     {
         $this->middleware('auth:admin');
         $this->middleware('adminlocalize');
+        
         $this->repository = $repository;
     }
 
@@ -97,7 +98,9 @@ class SliderController extends Controller
             'photo' => 'image',
             'details' => 'required|max:255',
         ]);
+
         $this->repository->update($slider, $request);
+
         return redirect()->route('back.slider.index')->withSuccess(__('Slider Updated Successfully.'));
     }
 

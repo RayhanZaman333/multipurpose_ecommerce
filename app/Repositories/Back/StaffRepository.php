@@ -37,7 +37,7 @@ class StaffRepository
         $input = $request->all();
         $input['password'] = bcrypt($request['password']);
         if ($file = $request->file('photo')) {
-            $input['photo'] = ImageHelper::handleUpdatedUploadedImage($file,'/storage/images/',$staff,'/storage/images/','photo');
+            $input['photo'] = ImageHelper::handleUpdatedUploadedImage($file,'images/',$staff,'/storage/images/','photo');
         }
         $staff->update($input);
     }

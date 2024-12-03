@@ -36,7 +36,7 @@ class CategoryRepository
     {
         $input = $request->all();
         if ($file = $request->file('photo')) {
-            $input['photo'] = ImageHelper::handleUpdatedUploadedImage($file,'/storage/images/',$category,'/storage/images/','photo');
+            $input['photo'] = ImageHelper::handleUpdatedUploadedImage($file,'images/',$category,'images/','photo');
         }
         $category->update($input);
     }

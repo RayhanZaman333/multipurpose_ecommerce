@@ -1,4 +1,5 @@
 @extends('master.front')
+
 @section('meta')
     <meta name="keywords" content="{{ $setting->meta_keywords }}">
     <meta name="description" content="{{ $setting->meta_description }}">
@@ -26,7 +27,6 @@
         }
     @endphp
 
-
     @if ($setting->is_slider == 1)
         <div class="slider-area-wrapper">
             <div class="container">
@@ -36,12 +36,7 @@
                         <div class="hero-slider">
                             <div class="hero-slider-main owl-carousel dots-inside" >
                                 @foreach ($sliders as $slider)
-                                    <div class="item
-                                    @if (DB::table('languages')->where('is_default',1)->first()->rtl == 1)
-                                    d-flex justify-content-end
-                                    @endif
-                                    "
-                                        style="background: url('{{ asset('storage/images/' . $slider->photo) }}')">
+                                    <div class="item @if (DB::table('languages')->where('is_default',1)->first()->rtl == 1) d-flex justify-content-end @endif" style="background: url('{{ asset('storage/images/' . $slider->photo) }}')">
                                         <div class="item-inner">
                                             <div class="from-bottom">
                                                 @if ($slider->logo)
@@ -49,7 +44,9 @@
                                                     src="{{ asset('storage/images/' . $slider->logo) }}"
                                                     alt="logo">
                                                 @endif
+
                                                 <div class="title text-body">{{ $slider->title }}</div>
+                                                
                                                 <div class="subtitle text-body">{{ $slider->details }}</div>
                                             </div>
                                             @if($slider->link != '#')

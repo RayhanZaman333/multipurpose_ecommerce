@@ -35,7 +35,7 @@ class ServiceRepository
     {
         $input = $request->all();
         if ($file = $request->file('photo')) {
-            $input['photo'] = ImageHelper::handleUpdatedUploadedImage($file,'/storage/images',$service,'/storage/images/','photo');
+            $input['photo'] = ImageHelper::handleUpdatedUploadedImage($file,'images/',$service,'/storage/images/','photo');
         }
         $service->update($input);
     }
