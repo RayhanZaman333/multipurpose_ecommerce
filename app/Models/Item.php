@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Item extends Model
 {
-    protected $guarded = [];
+    // protected $guarded = [];
     
-    // protected $fillable = ['category_id','subcategory_id','childcategory_id','brand_id','name','slug','sku','tags','video','sort_details','specification_name','specification_description','is_specification','details','photo','thumbnail','discount_price','previous_price','stock','meta_keywords','meta_description','status','is_type','tax_id','date','item_type','file','link','file_type','license_name','license_key','affiliate_link'];
+    protected $fillable = ['category_id', 'subcategory_id', 'childcategory_id', 'brand_id', 'name', 'slug', 'sku', 'tags', 'video', 'sort_details', 'specification_name', 'specification_description', 'is_specification', 'details', 'photo', 'thumbnail', 'discount_price', 'previous_price', 'stock', 'meta_keywords', 'meta_description', 'status', 'is_type', 'tax_id', 'date', 'item_type', 'file', 'link', 'file_type', 'license_name', 'license_key', 'affiliate_link', 'is_price_show'];
 
     public function category()
     {
@@ -58,73 +58,66 @@ class Item extends Model
 
     public static function taxCalculate($item)
     {
-        if($item->tax){
+        if ($item->tax) {
             $price = $item->discount_price;
             $percentage = $item->tax->value;
             $tax = ($price * $percentage) / 100;
+
             return $tax;
-        }else{
+        } else {
             return 0;
         }
-        
     }
-
-
-
 
     public function getWishlistItemId()
     {
         return Wishlist::whereItemId($this->id)->first()->id;
     }
 
-
     public function user()
     {
     	return $this->belongsTo('App\Models\User','vendor_id')->withDefault();
     }
 
-
     public function is_stock()
     {
         $item = $this;
         // license product stock check------------
-        if($item->item_type == 'license'){
+        if ($item->item_type == 'license') {
             if($item->license_key){
                 $lisense_key = json_decode($item->license_key,true);
-                if(count($lisense_key) > 0){
+
+                if (count($lisense_key) > 0) {
                     return true;
-                }else{
+                } else {
                     return false;
                 }
-            }else{
+            } else {
                 return false;
             }
         }
 
         // digital product stock check-------------
 
-        if($item->item_type == 'digital'){
+        if ($item->item_type == 'digital') {
             return true;
         }
-        if($item->item_type == 'affiliate'){
+        if ($item->item_type == 'affiliate') {
             return true;
         }
 
         // physical product stock check
 
-        if($item->item_type == 'normal'){
-            if($item->stock){
-                if($item->stock != 0){
+        if ($item->item_type == 'normal') {
+            if ($item->stock) {
+                if ($item->stock != 0) {
                     return true;
-                }else{
+                } else {
                     return false;
                 }
-            }else{
+            } else {
                 return false;
             }
-          
         }
-     
     }
-
 }

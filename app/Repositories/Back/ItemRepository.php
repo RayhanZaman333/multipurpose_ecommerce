@@ -200,7 +200,7 @@ class ItemRepository
         $item->update($input);
 
         if (isset($input['galleries'])) {
-            $this->galleriesUpdate($request,$item->id);
+            $this->galleriesUpdate($request, $item->id);
         }
     }
 

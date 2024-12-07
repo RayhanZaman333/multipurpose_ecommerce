@@ -32,7 +32,6 @@ class ImageHelper
         }
     }
 
-
     public static function uploadSummernoteImage($file,$path) {
         
         if (!file_exists($path)) {
@@ -81,32 +80,33 @@ class ImageHelper
         return $name;
     }
 
-
     public static function ItemhandleUpdatedUploadedImage($file, $path, $data, $delete_path, $field) {
-        $photo = time().$file->getClientOriginalName();
+        $extension = strtolower($file->getClientOriginalExtension());
         $thum = Str::random(8).'.'.$file->getClientOriginalExtension();
-      
-        $image = \Image::make($file)->resize(230,230);
+        
+        $randomFileName = date('Y_m_d_his').'_'.rand(10000000,99999999).'.'.$extension;
 
-        $image->save(base_path('..').$path.'/'.$thum);
-
-        $file->move(base_path('..').$path,$photo);
+        Storage::disk('public')->put($path . $randomFileName, File::get($file));
+        Storage::disk('public')->put($path . $thum, File::get($file));
 
         if($data['thumbnail'] != null){
-            if (file_exists(base_path('../').$delete_path.$data['thumbnail'])) {
-                unlink(base_path('../').$delete_path.$data['thumbnail']);
+            $imagePath = public_path(). '/storage/images/' . $data['thumbnail'];
+
+            if(file_exists(public_path(). '/storage/images/' . $data['thumbnail'])){
+                unlink($imagePath);
             }
         }
 
         if($data[$field] != null){
-            if (file_exists(base_path('../').$delete_path.$data[$field])) {
-                unlink(base_path('../').$delete_path.$data[$field]);
+            $imagePath = public_path(). '/storage/images/' . $data[$field];
+
+            if(file_exists(public_path(). '/storage/images/' . $data[$field])){
+                unlink($imagePath);
             }
         }
 
-        return [$photo, $thum];
+        return [$randomFileName, $thum];
     }
-
 
     public static function handleDeletedImage($data,$field,$delete_path) {
         

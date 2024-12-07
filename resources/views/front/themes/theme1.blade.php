@@ -38,7 +38,7 @@
                                 @foreach ($sliders as $slider)
                                     <div class="item @if (DB::table('languages')->where('is_default',1)->first()->rtl == 1) d-flex justify-content-end @endif" style="background: url('{{ asset('storage/images/' . $slider->photo) }}')">
                                         <div class="item-inner">
-                                            <div class="from-bottom">
+                                            {{-- <div class="from-bottom">
                                                 @if ($slider->logo)
                                                     <img class="d-inline-block brand-logo"
                                                     src="{{ asset('storage/images/' . $slider->logo) }}"
@@ -46,9 +46,9 @@
                                                 @endif
 
                                                 <div class="title text-body">{{ $slider->title }}</div>
-                                                
+
                                                 <div class="subtitle text-body">{{ $slider->details }}</div>
-                                            </div>
+                                            </div> --}}
                                             @if($slider->link != '#')
                                             <a class="btn btn-primary scale-up delay-1"
                                                 href="{{ $slider->link }}"> <span>{{ __('Buy Now') }}</span>
@@ -117,7 +117,7 @@
     @endif
 
 
-    @if ($setting->campaign_status == 1)
+    {{-- @if ($setting->campaign_status == 1)
         <div class="deal-of-day-section mt-20">
             <div class="container">
                 <div class="row">
@@ -146,9 +146,9 @@
                                         ">{{__('out of stock')}}</div>
                                     @endif
 
-                                    {{-- @if($compaign_item->item->previous_price && $compaign_item->item->previous_price !=0)
+                                    @if($compaign_item->item->previous_price && $compaign_item->item->previous_price !=0)
                                         <div class="product-badge product-badge2 bg-info"> -{{PriceHelper::DiscountPercentage($compaign_item->item)}}</div>
-                                    @endif --}}
+                                    @endif
 
                                     <img class="lazy" data-src="{{asset('storage/images/'.$compaign_item->item->thumbnail)}}" alt="Product">
                                     <div class="product-button-group"><a class="product-button wishlist_store" href="{{route('user.wishlist.store',$compaign_item->item->id)}}" title="{{__('Wishlist')}}"><i class="icon-heart"></i></a>
@@ -170,14 +170,14 @@
                                         <div class="rating-stars">
                                             {!! renderStarRating($compaign_item->item->reviews->avg('rating')) !!}
                                         </div>
-                                        {{-- <h4 class="product-price">
+                                        <h4 class="product-price">
 
                                         @if ($compaign_item->item->previous_price != 0)
                                             <del>{{PriceHelper::setPreviousPrice($compaign_item->item->previous_price)}}</del>
                                         @endif
 
                                         {{PriceHelper::grandCurrencyPrice($compaign_item->item)}}
-                                        </h4> --}}
+                                        </h4>
 
                                     </div>
 
@@ -191,10 +191,10 @@
                 </div>
             </div>
         </div>
-    @endif
+    @endif --}}
 
 
-    @if ($setting->is_three_c_b_first == 1)
+    {{-- @if ($setting->is_three_c_b_first == 1)
         <div class="bannner-section mt-60">
             <div class="container ">
                 <div class="row gx-3">
@@ -240,7 +240,7 @@
                 </div>
             </div>
         </div>
-    @endif
+    @endif --}}
 
 
     @if ($setting->is_popular_category == 1)
@@ -313,7 +313,7 @@
         </section>
     @endif
 
-    @if ($setting->is_three_c_b_second == 1)
+    {{-- @if ($setting->is_three_c_b_second == 1)
         <div class="bannner-section mt-60">
             <div class="container ">
                 <div class="row gx-3">
@@ -362,7 +362,7 @@
                 </div>
             </div>
         </div>
-    @endif
+    @endif --}}
 
     @if ($setting->is_highlighted == 1)
         <section class="selected-product-section speacial-product-sec mt-50">
@@ -434,7 +434,7 @@
         </section>
     @endif
 
-    @if ($extra_settings->is_t1_falsh == 1)
+    {{-- @if ($extra_settings->is_t1_falsh == 1)
     <div class="flash-sell-new-section mt-50">
         <div class="container">
             <div class="row">
@@ -457,9 +457,11 @@
                                             <div class="product-badge bg-secondary border-default text-body
                                             ">{{__('out of stock')}}</div>
                                             @endif
-                                            {{-- @if($item->previous_price && $item->previous_price !=0)
+
+                                            @if($item->previous_price && $item->previous_price !=0)
                                             <div class="product-badge product-badge2 bg-info"> -{{PriceHelper::DiscountPercentage($item)}}</div>
-                                            @endif --}}
+                                            @endif
+
                                             <img class="lazy" data-src="{{asset('storage/images/'.$item->thumbnail)}}" alt="Product">
                                             <div class="product-button-group"><a class="product-button wishlist_store" href="{{route('user.wishlist.store',$item->id)}}" title="{{__('Wishlist')}}"><i class="icon-heart"></i></a>
                                                 <a data-target="{{route('fornt.compare.product',$item->id)}}" class="product-button product_compare" href="javascript:;" title="{{__('Compare')}}"><i class="icon-repeat"></i></a>
@@ -476,13 +478,15 @@
                                                 <div class="rating-stars">
                                                     {!! renderStarRating($item->reviews->avg('rating')) !!}
                                                 </div>
-                                                {{-- <h4 class="product-price">
+
+                                                <h4 class="product-price">
                                                 @if ($item->previous_price != 0)
                                                 <del>{{PriceHelper::setPreviousPrice($item->previous_price)}}</del>
                                                 @endif
 
                                                 {{PriceHelper::grandCurrencyPrice($item)}}
-                                                </h4> --}}
+                                                </h4>
+
                                                 @if (date('d-m-y') != \Carbon\Carbon::parse($item->date)->format('d-m-y'))
                                                 <div class="countdown countdown-alt mb-3" data-date-time="{{ $item->date }}">
                                                 </div>
@@ -500,7 +504,7 @@
             </div>
         </div>
     </div>
-    @endif
+    @endif --}}
 
     @if ($setting->is_two_column_category == 1)
         <div class="flash-sell-area mt-50">
@@ -555,7 +559,7 @@
         </div>
     @endif
 
-    @if ($setting->is_two_c_b == 1)
+    {{-- @if ($setting->is_two_c_b == 1)
         <div class="bannner-section mt-50">
             <div class="container ">
                 <div class="row gx-3">
@@ -588,7 +592,7 @@
                 </div>
             </div>
         </div>
-    @endif
+    @endif --}}
 
     @if ($setting->is_featured_category == 1)
         <section class="selected-product-section featured_cat_sec sps-two mt-50">
