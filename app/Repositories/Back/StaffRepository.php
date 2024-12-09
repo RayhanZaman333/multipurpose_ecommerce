@@ -21,7 +21,8 @@ class StaffRepository
     {
         $input = $request->all();
         $input['password'] = bcrypt($request['password']);
-        $input['photo'] = ImageHelper::handleUploadedImage($request->file('photo'),'assets/images');
+        $input['photo'] = ImageHelper::handleUploadedImage($request->file('photo'), 'images/');
+
         Admin::create($input);
     }
 
@@ -36,9 +37,11 @@ class StaffRepository
     {
         $input = $request->all();
         $input['password'] = bcrypt($request['password']);
+
         if ($file = $request->file('photo')) {
-            $input['photo'] = ImageHelper::handleUpdatedUploadedImage($file,'images/',$staff,'/storage/images/','photo');
+            $input['photo'] = ImageHelper::handleUpdatedUploadedImage($file, 'images/', $staff, '/storage/images/', 'photo');
         }
+
         $staff->update($input);
     }
 
@@ -51,7 +54,8 @@ class StaffRepository
 
     public function delete($staff)
     {
-        ImageHelper::handleDeletedImage($staff,'photo','storage/images/');
+        ImageHelper::handleDeletedImage($staff,'photo', 'storage/images/');
+
         $staff->delete();
     }
 
