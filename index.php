@@ -766,7 +766,7 @@
                                     </div>
                                     <div class="appendable-message-box"></div>
                                     <div class="check-db-connection">
-                                        <h2>Update OmniMart 5.0.0</h2>
+                                        <h2>Update TSE E-Commerce 5.0.0</h2>
                                         <div class="right-wrap">
                                             <button class="boxed-btn file_update_button" type="button" data-action="_update_controller_files">Update</button>
                                         </div>

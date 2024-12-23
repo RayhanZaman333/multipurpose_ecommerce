@@ -374,29 +374,32 @@
     </li>
     @endif
 
-    @if (in_array('System Backup',$section))
-    <li class="nav-item">
-        <a data-toggle="collapse" href="#backup">
-            <i class="fas fa-hdd"></i>
-            <p>{{ __('System Backup') }}</p>
-            <span class="caret"></span>
-        </a>
-        <div class="collapse" id="backup">
-            <ul class="nav nav-collapse">
-                <li>
-                    <a class="sub-link" href="{{ route('back.system.backup') }}">
-                        <span class="sub-item">{{ __('System Backup') }}</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="sub-link" href="{{ route('back.database.backup') }}">
-                        <span class="sub-item">{{ __('Database Backup') }}</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </li>
+    @if (in_array('System Backup', $section))
+        <li class="nav-item">
+            <a data-toggle="collapse" href="#backup">
+                <i class="fas fa-hdd"></i>
+                <p>{{ __('System Backup') }}</p>
+                <span class="caret"></span>
+            </a>
+
+            <div class="collapse" id="backup">
+                <ul class="nav nav-collapse">
+                    {{-- <li>
+                        <a class="sub-link" href="{{ route('back.system.backup') }}">
+                            <span class="sub-item">{{ __('System Backup') }}</span>
+                        </a>
+                    </li> --}}
+
+                    <li>
+                        <a class="sub-link" href="{{ route('back.database.backup') }}">
+                            <span class="sub-item">{{ __('Database Backup') }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
     @endif
+
     <li class="nav-item">
         <a href="{{ route('front.cache.clear') }}">
             <i class="fas fa-broom"></i>

@@ -333,19 +333,22 @@
             </ul>
         </div>
     </li>
+
     <li class="nav-item">
         <a data-toggle="collapse" href="#backup">
             <i class="fas fa-hdd"></i>
             <p>{{ __('System Backup') }}</p>
             <span class="caret"></span>
         </a>
+        
         <div class="collapse" id="backup">
             <ul class="nav nav-collapse">
-                <li>
+                {{-- <li>
                     <a class="sub-link" href="{{ route('back.system.backup') }}">
                         <span class="sub-item">{{ __('System Backup') }}</span>
                     </a>
-                </li>
+                </li> --}}
+
                 <li>
                     <a class="sub-link" href="{{ route('back.database.backup') }}">
                         <span class="sub-item">{{ __('Database Backup') }}</span>

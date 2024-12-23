@@ -328,7 +328,7 @@ body_theme4
 @yield('content')
 
 <!--    announcement banner section start   -->
-{{-- <a class="announcement-banner" href="#announcement-modal"></a>
+<a class="announcement-banner" href="#announcement-modal"></a>
 <div id="announcement-modal" class="mfp-hide white-popup">
     @if ($setting->announcement_type == 'newletter')
         <div class="announcement-with-content">
@@ -360,7 +360,7 @@ body_theme4
     @endif
 
 
-</div> --}}
+</div>
 <!--    announcement banner section end   -->
 
 <!-- Site Footer-->

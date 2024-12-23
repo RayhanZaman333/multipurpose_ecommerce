@@ -5,7 +5,7 @@
 @endsection
 
 @section('title')
-    OmniMart Installer
+    TSE E-Commerce Installer
 @endsection
 
 @section('container')
