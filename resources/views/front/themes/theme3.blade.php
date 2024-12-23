@@ -166,7 +166,7 @@
                 </div>
                 <div class="row">
                     <div class="type_product_view d-none">
-                        <img  src="{{asset('storage/images/ajax_loader.gif')}}" alt="">
+                        <img src="{{asset('storage/images/ajax_loader.gif')}}" alt="">
                     </div>
                     <div class="col-lg-12" id="type_product_view">
 
@@ -362,7 +362,7 @@
                     </div>
                 </div>
                 <div class="popular_category_view d-none">
-                    <img  src="{{asset('storage/images/ajax_loader.gif')}}" alt="">
+                    <img src="{{asset('storage/images/ajax_loader.gif')}}" alt="">
                 </div>
 
                 <div class="row" id="popular_category_view">

@@ -1,18 +1,17 @@
 @extends('master.back')
-@section('styles')
-    <link rel="stylesheet" href="{{asset('assets/back/css/select2.css')}}">
-@endsection
+    @section('styles')
+        <link rel="stylesheet" href="{{ asset('assets/back/css/select2.css') }}">
+    @endsection
 @section('content')
 
 <!-- Start of Main Content -->
 <div class="container-fluid">
-
 	<!-- Page Heading -->
     <div class="card mb-4">
         <div class="card-body">
             <div class="d-sm-flex align-items-center justify-content-between">
                 <h3 class="mb-0 bc-title"><b>{{ __('Language') }}</b></h3>
-                </div>
+            </div>
         </div>
     </div>
 
