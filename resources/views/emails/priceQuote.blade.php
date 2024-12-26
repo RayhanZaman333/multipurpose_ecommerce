@@ -188,7 +188,7 @@ xmlns:o="urn:schemas-microsoft-com:office:office">
                                                                             align="center">
 
                                                                             @if (env('APP_URL') != 'http://localhost')
-                                                                                <img align="center" border="0" src="{{ asset('storage/logo/' . $setting->logo) }}" alt="Logo" title="Logo" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: inline-block !important;border: none;height: auto;float: none;width: 29%;max-width: 168.2px;" width="168.2" />
+                                                                                <img align="center" border="0" src="{{ asset('storage/images/' . $setting->logo) }}" alt="Logo" title="Logo" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: inline-block !important;border: none;height: auto;float: none;width: 29%;max-width: 168.2px;" width="168.2" />
                                                                             @else
                                                                                 <img align="center" border="0" src="" alt="Logo" title="Logo" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: inline-block !important;border: none;height: auto;float: none;width: 29%;max-width: 168.2px;" width="168.2" />
                                                                             @endif
@@ -283,7 +283,7 @@ xmlns:o="urn:schemas-microsoft-com:office:office">
                                                                     </p>
 
                                                                     <p style="font-size: 14px; line-height: 140%;">
-                                                                        <span style="font-size: 14px; line-height: 25.2px; color: #000;">{{ $price->price_name }} has request for the price of {{ $item->name }}</span>
+                                                                        <span style="font-size: 14px; line-height: 25.2px; color: #000;">{{ $price->price_name }} has request for the price of {{ $item->name }}.</span>
                                                                     </p>
                                                                 </div>
 

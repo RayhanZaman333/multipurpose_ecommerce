@@ -559,9 +559,10 @@ class FrontendController extends Controller
         $price->price_name      = $request->price_name;
         $price->price_email     = $request->price_email;
         $price->price_mobile    = $request->price_mobile;
+
         $price->created_by      = Auth::id();
 
-        $price->save();
+        // $price->save();
 
         $setting = Setting::first();
         $item = Item::where('id', $request->item_id)->first();
@@ -577,7 +578,7 @@ class FrontendController extends Controller
 
             $recipientNumber = "whatsapp:".$setting->footer_phone;
 
-            $message = $request->price_name.' has request for the price of '.$item->name;
+            $message = $request->price_name.' (Mobile: '.$request->price_mobile.') has request for the price of '.$item->name;
 
             try {
                 $twilio = new Client($twilioSid, $twilioToken);

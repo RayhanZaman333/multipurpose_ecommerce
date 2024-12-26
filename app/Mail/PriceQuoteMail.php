@@ -24,7 +24,7 @@ class PriceQuoteMail extends Mailable
     {
         $this->setting      = $setting;
         $this->price        = $price;
-        $this->item        = $item;
+        $this->item         = $item;
     }
 
     /**

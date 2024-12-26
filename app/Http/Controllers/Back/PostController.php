@@ -115,10 +115,10 @@ class PostController extends Controller
     }
 
 
-    public function delete($key,$id)
+    public function delete($key, $id)
     {
-        $this->repository->photoDelete($key,$id);
-        return back()->withSuccess(__('Photo Deleted Successfully.'));
+        $this->repository->photoDelete($key, $id);
 
+        return back()->withSuccess(__('Photo Deleted Successfully.'));
     }
 }
