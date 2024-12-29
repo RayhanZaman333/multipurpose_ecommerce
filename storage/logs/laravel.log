@@ -536,3 +536,21 @@
 #62 D:\\development\\laravel\\its\\server.php(21): require_once('D:\\\\development\\\\...')
 #63 {main}
 "} 
+[2024-12-29 08:25:02] production.ERROR: There are no commands defined in the "install" namespace. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException(code: 0): There are no commands defined in the \"install\" namespace. at D:\\development\\laravel\\multipurpose_ecommerce\\vendor\\symfony\\console\\Application.php:669)
+[stacktrace]
+#0 D:\\development\\laravel\\multipurpose_ecommerce\\vendor\\symfony\\console\\Application.php(720): Symfony\\Component\\Console\\Application->findNamespace('install')
+#1 D:\\development\\laravel\\multipurpose_ecommerce\\vendor\\symfony\\console\\Application.php(266): Symfony\\Component\\Console\\Application->find('install:broadca...')
+#2 D:\\development\\laravel\\multipurpose_ecommerce\\vendor\\symfony\\console\\Application.php(175): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 D:\\development\\laravel\\multipurpose_ecommerce\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(201): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 D:\\development\\laravel\\multipurpose_ecommerce\\artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 {main}
+"} 
+[2024-12-29 08:28:02] production.ERROR: There are no commands defined in the "broadcasting" namespace. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException(code: 0): There are no commands defined in the \"broadcasting\" namespace. at D:\\development\\laravel\\multipurpose_ecommerce\\vendor\\symfony\\console\\Application.php:669)
+[stacktrace]
+#0 D:\\development\\laravel\\multipurpose_ecommerce\\vendor\\symfony\\console\\Application.php(720): Symfony\\Component\\Console\\Application->findNamespace('broadcasting')
+#1 D:\\development\\laravel\\multipurpose_ecommerce\\vendor\\symfony\\console\\Application.php(266): Symfony\\Component\\Console\\Application->find('broadcasting:in...')
+#2 D:\\development\\laravel\\multipurpose_ecommerce\\vendor\\symfony\\console\\Application.php(175): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 D:\\development\\laravel\\multipurpose_ecommerce\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(201): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 D:\\development\\laravel\\multipurpose_ecommerce\\artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 {main}
+"} 
