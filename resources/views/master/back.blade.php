@@ -151,8 +151,9 @@
                     @else
                         @include('master.inc.normal')
                     @endif
+
                     <div class="sidebar-footer text-primary d-block text-center pt-3">
-                        <span class="d-inline-block"><b>Version 5.0.0</b></span>
+                        <span class="d-inline-block"><b>Version 1.0.0</b></span>
                     </div>
 
                 </div>
