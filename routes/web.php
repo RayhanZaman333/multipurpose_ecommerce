@@ -94,7 +94,7 @@ Route::group(['middleware' => 'adminlocalize'], function () {
             Route::get('order/csv/export', 'Back\CsvProductController@orderExport')->name('back.csv.order.export');
 
             // summernote image upload 
-            Route::post('/summernote/image/upload', 'Back\ItemController@summernoteUpload')->name('back.summernote.image.upload');
+            Route::post('/summernote/image/upload', 'Back\ItemController@summernoteUpload')->name('back.summernote.image.upload'); 
 
             // Campain offer.
             Route::resource('/campaign', 'Back\CampaignController', ['as' => 'back', 'except' => 'show']);
