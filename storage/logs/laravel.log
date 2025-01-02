@@ -1057,8 +1057,6 @@
   +\"<span class=sf-dump-public title=\"Runtime added dynamic property\">campaign_title</span>\": \"<span class=sf-dump-str title=\"17 characters\">Deals Of The Week</span>\"
   +\"<span class=sf-dump-public title=\"Runtime added dynamic property\">campaign_end_date</span>\": \"<span class=sf-dump-str title=\"10 characters\">10/10/2025</span>\"
   +\"<span class=sf-dump-public title=\"Runtime added dynamic property\">campaign_status</span>\": <span class=sf-dump-num>2</span>
-  +\"<span class=sf-dump-public title=\"Runtime added dynamic property\">twilio_sid</span>\": \"<span class=sf-dump-str title=\"34 characters\">AC7f2718c489ba3f12e3852668123acbd9</span>\"
-  +\"<span class=sf-dump-public title=\"Runtime added dynamic property\">twilio_token</span>\": \"<span class=sf-dump-str title=\"32 characters\">220b1b18153f485ba6656fe84e9db81c</span>\"
   +\"<span class=sf-dump-public title=\"Runtime added dynamic property\">twilio_form_number</span>\": \"<span class=sf-dump-str title=\"11 characters\">14155238886</span>\"
   +\"<span class=sf-dump-public title=\"Runtime added dynamic property\">twilio_country_code</span>\": \"<span class=sf-dump-str title=\"4 characters\">+880</span>\"
   +\"<span class=sf-dump-public title=\"Runtime added dynamic property\">is_announcement</span>\": <span class=sf-dump-num>1</span>
