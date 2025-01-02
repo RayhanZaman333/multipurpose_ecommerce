@@ -165,36 +165,40 @@ class AccountRepository
 
     public function getTotalEarning()
     {
-        $orders = Order::whereOrderStatus('Delivered')->get();
         $total = 0;
+        $orders = Order::whereOrderStatus('Delivered')->get();
+
         foreach($orders as $order){
             $total += PriceHelper::OrderTotalChart($order);
         }
-        $curr = Currency::where('is_default',1)->first();
+
+        $curr = Currency::where('is_default', 1)->first();
         $setting = Setting::first();
       
-        if($setting->currency_direction == 1){
-            return $curr->sign . $total;
-        }else{
-            return  $total . $curr->sign;
+        if ($setting->currency_direction == 1) {
+            return $curr->sign .' '. $total;
+        } else {
+            return  $total .' '. $curr->sign;
         }
     }
 
     public function getTodayEarning()
     {
-        $current_date = Carbon::now();
         $total = 0;
+        $current_date = Carbon::now();
         $orders = Order::whereDate('created_at','=',$current_date)->get();
-        foreach($orders as $order){
+
+        foreach($orders as $order) {
             $total += PriceHelper::OrderTotalChart($order);
         }
 
         $curr = Currency::where('is_default',1)->first();
         $setting = Setting::first();
-        if($setting->currency_direction == 1){
-            return $curr->sign . $total;
-        }else{
-            return  $total . $curr->sign;
+
+        if ($setting->currency_direction == 1) {
+            return $curr->sign .' '. $total;
+        } else {
+            return  $total .' '. $curr->sign;
         }
     }
 
@@ -206,18 +210,19 @@ class AccountRepository
         $implode= implode("-",$explode);
         $first_day = Carbon::parse($implode);
         $total = 0;
-        $orders = Order::whereOrderStatus('Delivered')->whereDate('created_at','>=',$first_day)->whereDate('created_at','<=',$current_date)->get();
+        $orders = Order::whereOrderStatus('Delivered')->whereDate('created_at', '>=', $first_day)->whereDate('created_at', '<=', $current_date)->get();
 
-        foreach($orders as $order){
+        foreach($orders as $order) {
             $total += PriceHelper::OrderTotalChart($order);
         }
 
         $curr = Currency::where('is_default',1)->first();
         $setting = Setting::first();
-        if($setting->currency_direction == 1){
-            return $curr->sign . $total;
-        }else{
-            return  $total . $curr->sign;
+
+        if ($setting->currency_direction == 1) {
+            return $curr->sign .' '. $total;
+        } else {
+            return  $total .' '. $curr->sign;
         }
     }
 
@@ -229,24 +234,25 @@ class AccountRepository
         $year = date('Y-m-d', strtotime('today - 365 days'));
         $total = 0;
         $orders = Order::whereOrderStatus('Delivered')->whereDate('created_at','>=',$year)->whereDate('created_at','<=',$current_date)->get();
-        foreach($orders as $order){
+
+        foreach($orders as $order) {
             $total += PriceHelper::OrderTotalChart($order);
         }
 
         $curr = Currency::where('is_default',1)->first();
         $setting = Setting::first();
-        if($setting->currency_direction == 1){
-            return $curr->sign . $total;
-        }else{
-            return  $total . $curr->sign;
+
+        if ($setting->currency_direction == 1) {
+            return $curr->sign .' '. $total;
+        } else {
+            return  $total .' '. $curr->sign;
         }
     }
 
     public function getSystemUser()
     {
-        return Admin::where('id','!=',1)->count();
+        return Admin::where('id', '!=', 1)->count();
     }
-
 
     public function getTotalUsers()
     {

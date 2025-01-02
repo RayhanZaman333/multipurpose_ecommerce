@@ -233,18 +233,14 @@
             <div class="card">
                 <div class="card-body">
                     <div class="form-group">
-                        <label for="discount_price">{{ __('Current Price') }}
-                            *</label>
+                        <label for="discount_price">{{ __('Current Price') }} *</label>
+
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span
-                                    class="input-group-text">{{ $curr->sign }}</span>
+                                <span class="input-group-text">{{ $curr->sign }}</span>
                             </div>
-                            <input type="text" id="discount_price"
-                                name="discount_price" class="form-control"
-                                placeholder="{{ __('Enter Current Price') }}"
-                                min="1" step="0.1"
-                                value="{{ round($item->discount_price * $curr->value,2) }}" >
+
+                            <input type="text" id="discount_price" name="discount_price" class="form-control" placeholder="{{ __('Enter Current Price') }}" min="1" step="0.1" value="{{ round($item->discount_price * $curr->value, 2) }}" >
                         </div>
                     </div>
 
@@ -295,6 +291,7 @@
                     </div>
                     <div class="form-group">
                         <label for="brand_id">{{ __('Select Brand') }} </label>
+
                         <select name="brand_id" id="brand_id" class="form-control" >
                             <option value="" selected>{{__('Select Brand')}}</option>
                             @foreach(DB::table('brands')->whereStatus(1)->get() as $brand)
@@ -304,19 +301,20 @@
                     </div>
                 </div>
             </div>
+
             <div class="card">
                 <div class="card-body">
                     <div class="form-group">
-                        <label for="stock">{{ __('Total in stock') }}
-                            *</label>
+                        <label for="stock">{{ __('Total in stock') }} *</label>
+
                         <div class="input-group mb-3">
-                            <input type="number" id="stock"
-                                name="stock" class="form-control"
-                                placeholder="{{ __('Total in stock') }}" value="{{$item->stock}}" >
+                            <input type="number" id="stock" name="stock" class="form-control" placeholder="{{ __('Total in stock') }}" value="{{ $item->stock }}" >
                         </div>
                     </div>
+
                     <div class="form-group">
                         <label for="tax_id">{{ __('Select Tax') }} *</label>
+
                         <select name="tax_id" id="tax_id" class="form-control">
                             <option value="">{{__('Select One')}}</option>
                             @foreach(DB::table('taxes')->whereStatus(1)->get() as $tax)

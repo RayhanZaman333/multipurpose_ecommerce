@@ -29,7 +29,6 @@
     @endif
 
     @yield('styles')
-
 </head>
 
 <body>

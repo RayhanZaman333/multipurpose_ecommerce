@@ -28,8 +28,6 @@ class OrderController extends Controller
         $this->middleware('adminlocalize');
     }
 
-
-
     /**
      * Display a listing of the resource.
      *
@@ -37,27 +35,25 @@ class OrderController extends Controller
      */
     public function index(Request $request)
     {
-        
-      
-        if($request->type){
-            if($request->start_date && $request->end_date){
+        if ($request->type) {
+            if ($request->start_date && $request->end_date) {
                 $datas = $start_date = Carbon::parse($request->start_date);
                 $end_date = Carbon::parse($request->end_date);
-                $datas = Order::latest('id')->whereOrderStatus($request->type)->whereDate('created_at','>=',$start_date)->whereDate('created_at','<=',$end_date)->get();
-            }else{
+                $datas = Order::latest('id')->whereOrderStatus($request->type)->whereDate('created_at', '>=', $start_date)->whereDate('created_at', '<=', $end_date)->get();
+            } else {
                 $datas = Order::latest('id')->whereOrderStatus($request->type)->get();
             }
-            
-        }else{
-            if($request->start_date && $request->end_date){
+        } else {
+            if ($request->start_date && $request->end_date) {
                 $datas = $start_date = Carbon::parse($request->start_date);
                 $end_date = Carbon::parse($request->end_date);
-                $datas = Order::latest('id')->whereDate('created_at','>=',$start_date)->whereDate('created_at','<=',$end_date)->get();
-            }else{
+                $datas = Order::latest('id')->whereDate('created_at', '>=', $start_date)->whereDate('created_at', '<=', $end_date)->get();
+            } else {
                 $datas = Order::latest('id')->get();
             }
         }
-        return view('back.order.index',compact('datas'));
+
+        return view('back.order.index', compact('datas'));
     }
 
     /**
