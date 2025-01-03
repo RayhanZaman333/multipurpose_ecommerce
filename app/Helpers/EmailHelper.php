@@ -73,9 +73,7 @@ class EmailHelper
 
     public function sendCustomMail(array $emailData)
     {
-
         try {
-
             $this->mail->setFrom($this->setting->email_from, $this->setting->email_from_name);
             $this->mail->addAddress($emailData['to']);
             $this->mail->isHTML(true);
@@ -86,7 +84,7 @@ class EmailHelper
         } catch (Exception $e) {
              dd($e->getMessage());
         }
-
+        
         return true;
     }
 

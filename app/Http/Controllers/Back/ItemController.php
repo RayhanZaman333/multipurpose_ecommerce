@@ -35,7 +35,6 @@ class ItemController extends Controller
         $this->repository = $repository;
     }
 
-
     public function summernoteUpload(Request $request)
     {
         $name = ImageHelper::uploadSummernoteImage($request->file('image'), 'storage/images/summernote');
@@ -46,11 +45,11 @@ class ItemController extends Controller
         ]);
     }
 
-
     public function add()
     {
         return view('back.item.add');
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -62,27 +61,33 @@ class ItemController extends Controller
         $is_type = $request->has('is_type') ? ($request->is_type ? $request->is_type : '') : '';
         $category_id = $request->has('category_id') ? ($request->category_id ? $request->category_id : '') : '';
         $orderby = $request->has('orderby') ? ($request->orderby ? $request->orderby : 'desc') : 'desc';
-
+        $status = $request->has('status') ? $request->status : '';
+        
+        $curr = Currency::where('is_default', 1)->first();
         $datas = Item::when($item_type, function ($query, $item_type) {
-                return $query->where('item_type', $item_type);
-            })
-            ->when($is_type, function ($query, $is_type) {
-                if ($is_type != 'outofstock') {
-                    return $query->where('is_type', $is_type);
-                } else {
-                    return $query->whereStock(0)->whereItemType('normal');
-                }
-            })
-            ->when($category_id, function ($query, $category_id) {
-                return $query->where('category_id', $category_id);
-            })
-            ->when($orderby, function ($query, $orderby) {
-                return $query->orderby('id', $orderby);
-            })
-            ->get();
+                        return $query->where('item_type', $item_type);
+                    })
+                    ->when($is_type, function ($query, $is_type) {
+                        if ($is_type != 'outofstock') {
+                            return $query->where('is_type', $is_type);
+                        } else {
+                            return $query->whereStock(0)->whereItemType('normal');
+                        }
+                    })
+                    ->when($category_id, function ($query, $category_id) {
+                        return $query->where('category_id', $category_id);
+                    })
+                    ->when($status, function ($query, $status) {
+                        return $query->where('status', $status);
+                    })
+                    ->when($orderby, function ($query, $orderby) {
+                        return $query->orderby('id', $orderby);
+                    })
+                    ->get();
 
         return view('back.item.index', [
-            'datas' => $datas
+            'datas' => $datas,
+            'curr' => $curr
         ]);
     }
 
@@ -196,6 +201,7 @@ class ItemController extends Controller
     public function status(Item $item, $status)
     {
         $item->update(['status' => $status]);
+
         return redirect()->back()->withSuccess(__('Status Updated Successfully.'));
     }
 
@@ -208,6 +214,7 @@ class ItemController extends Controller
     public function destroy(Item $item)
     {
         $this->repository->delete($item);
+
         return redirect()->back()->withSuccess(__('Product Deleted Successfully.'));
     }
 
@@ -230,6 +237,7 @@ class ItemController extends Controller
     public function galleriesUpdate(GalleryRequest $request)
     {
         $this->repository->galleriesUpdate($request);
+
         return redirect()->back()->withSuccess(__('Gallery Information Updated Successfully.'));
     }
 
@@ -242,9 +250,9 @@ class ItemController extends Controller
     public function galleryDelete(Gallery $gallery)
     {
         $this->repository->galleryDelete($gallery);
+
         return redirect()->back()->withSuccess(__('Successfully Deleted From Gallery.'));
     }
-
 
     public function highlight(Item $item)
     {
@@ -252,17 +260,15 @@ class ItemController extends Controller
             'item' => $item
         ]);
     }
+
     public function highlight_update(Item $item, Request $request)
     {
         $this->repository->highlight($item, $request);
+
         return redirect()->route('back.item.index')->withSuccess(__('Product Updated Successfully.'));
     }
 
-
-
-
     // ---------------- DIGITAL PRODUCT START ---------------//
-
     public function deigitalItemCreate()
     {
         return view('back.item.digital.create', [
@@ -273,6 +279,7 @@ class ItemController extends Controller
     public function deigitalItemStore(ItemRequest $request)
     {
         $this->repository->store($request);
+
         return redirect()->route('back.item.index')->withSuccess(__('New Product Added Successfully.'));
     }
 
@@ -290,9 +297,7 @@ class ItemController extends Controller
         ]);
     }
 
-
     // ---------------- LICENSE PRODUCT START ---------------//
-
     public function licenseItemCreate()
     {
         return view('back.item.license.create', [
@@ -303,6 +308,7 @@ class ItemController extends Controller
     public function licenseItemStore(ItemRequest $request)
     {
         $this->repository->store($request);
+
         return redirect()->route('back.item.index')->withSuccess(__('New Product Added Successfully.'));
     }
 
@@ -322,10 +328,30 @@ class ItemController extends Controller
         ]);
     }
 
-
     public function stockOut()
     {
         $datas = Item::where('item_type', 'normal')->where('stock', 0)->get();
+
         return view('back.item.stockout', compact('datas'));
+    }
+
+    //price update method
+    public function updatePrice(Request $request, Item $item)
+    {
+        $curr = Currency::where('is_default', 1)->first();
+
+        $input['discount_price'] = $request->discount_price / $curr->value;
+
+        $item->update($input);
+
+        return redirect()->back()->withSuccess(__('Price Updated Successfully!'));
+    }
+
+    //stock update method
+    public function updateStock(Request $request, Item $item)
+    {
+        $item->update(['stock' => $request->stock]);
+
+        return redirect()->back()->withSuccess(__('Stock Quantity Updated Successfully!'));
     }
 }

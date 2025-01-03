@@ -1,5 +1,14 @@
 @extends('master.back')
 
+@section('styles')
+    <style>
+        a:hover {
+            color: #575962;
+            text-decoration: none;
+        }
+    </style>
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <div class="card mb-4">
@@ -11,9 +20,9 @@
         <!-- Content Row -->
         <div class="row">
             <div class="col-xl-3 col-md-6">
-                <a href="{{ route('back.order.invoice', $data->order_id) }}">
-                    <div class="card card-stats card-round">
-                        <div class="card-body ">
+                <div class="card card-stats card-round">
+                    <div class="card-body">
+                        <a href="{{ route('back.order.index') }}" style="color: #575962;">
                             <div class="row align-items-center">
                                 <div class="col-icon">
                                     <div class="icon-big text-center icon-success bubble-shadow-small">
@@ -28,102 +37,122 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div class="col-xl-3 col-md-6">
-                <div class="card card-stats card-round">
-                    <div class="card-body ">
-                        <div class="row align-items-center">
-                            <div class="col-icon">
-                                <div class="icon-big text-center icon-success bubble-shadow-small">
-                                    <i class="fas fa-shopping-cart"></i>
-                                </div>
-                            </div>
-                            <div class="col col-stats ml-3 ml-sm-0">
-                                <div class="numbers">
-                                    <p class="mb-0"><b>{{ __('Pending Orders') }}</b></p>
-                                    <h4 class="card-title">{{ $totalPendingOrders }}</h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-md-6">
-                <div class="card card-stats card-round">
-                    <div class="card-body ">
-                        <div class="row align-items-center">
-                            <div class="col-icon">
-                                <div class="icon-big text-center icon-success bubble-shadow-small">
-                                    <i class="fas fa-shopping-cart"></i>
-                                </div>
-                            </div>
-                            <div class="col col-stats ml-3 ml-sm-0">
-                                <div class="numbers">
-                                    <p class="mb-0"><b>{{ __('Delivered Orders') }}</b></p>
-                                    <h4 class="card-title">{{$totalDeliveredOrders}}</h4>
-                                </div>
-                            </div>
-                        </div>
+                        </a>
                     </div>
                 </div>
             </div>
 
             <div class="col-xl-3 col-md-6">
                 <div class="card card-stats card-round">
-                    <div class="card-body ">
-                        <div class="row align-items-center">
-                            <div class="col-icon">
-                                <div class="icon-big text-center icon-success bubble-shadow-small">
-                                    <i class="fas fa-shopping-cart"></i>
+                    <div class="card-body">
+                        <a href="{{ route('back.order.index').'?type='.'Pending' }}" style="color: #575962;">
+                            <div class="row align-items-center">
+                                <div class="col-icon">
+                                    <div class="icon-big text-center icon-success bubble-shadow-small">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </div>
+                                </div>
+
+                                <div class="col col-stats ml-3 ml-sm-0">
+                                    <div class="numbers">
+                                        <p class="mb-0"><b>{{ __('Pending Orders') }}</b></p>
+
+                                        <h4 class="card-title">{{ $totalPendingOrders }}</h4>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col col-stats ml-3 ml-sm-0">
-                                <div class="numbers">
-                                    <p class="mb-0"><b>{{ __('Canceled Orders') }}</b></p>
-                                    <h4 class="card-title">{{$totalCanceledOrders}}</h4>
-                                </div>
-                            </div>
-                        </div>
+                        </a>
                     </div>
                 </div>
             </div>
 
             <div class="col-xl-3 col-md-6">
                 <div class="card card-stats card-round">
-                    <div class="card-body ">
+                    <div class="card-body">
+                        <a href="{{ route('back.order.index').'?type='.'Delivered' }}" style="color: #575962;">
+                            <div class="row align-items-center">
+                                <div class="col-icon">
+                                    <div class="icon-big text-center icon-success bubble-shadow-small">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </div>
+                                </div>
+
+                                <div class="col col-stats ml-3 ml-sm-0">
+                                    <div class="numbers">
+                                        <p class="mb-0"><b>{{ __('Delivered Orders') }}</b></p>
+
+                                        <h4 class="card-title">{{ $totalDeliveredOrders }}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6">
+                <div class="card card-stats card-round">
+                    <div class="card-body">
+                        <a href="{{ route('back.order.index').'?type='.'Canceled' }}" style="color: #575962;">
+                            <div class="row align-items-center">
+                                <div class="col-icon">
+                                    <div class="icon-big text-center icon-success bubble-shadow-small">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </div>
+                                </div>
+
+                                <div class="col col-stats ml-3 ml-sm-0">
+                                    <div class="numbers">
+                                        <p class="mb-0"><b>{{ __('Canceled Orders') }}</b></p>
+
+                                        <h4 class="card-title">{{ $totalCanceledOrders }}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6">
+                <div class="card card-stats card-round">
+                    <div class="card-body">
+                        <a href="{{ route('back.order.index').'?type='.'Canceled' }}" style="color: #575962;">
+                            <div class="row align-items-center">
+                                <div class="col-icon">
+                                    <div class="icon-big text-center icon-secondary  bubble-shadow-small">
+                                        <i class="far fa-chart-bar"></i>
+                                    </div>
+                                </div>
+
+                                <div class="col col-stats ml-3 ml-sm-0">
+                                    <div class="numbers">
+                                        <p class="mb-0"><b>{{ __('Total Product Sale') }}</b></p>
+
+                                        <h4 class="card-title">{{ $totalProductSale }}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6">
+                <div class="card card-stats card-round">
+                    <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col-icon">
                                 <div class="icon-big text-center icon-secondary  bubble-shadow-small">
                                     <i class="far fa-chart-bar"></i>
                                 </div>
                             </div>
-                            <div class="col col-stats ml-3 ml-sm-0">
-                                <div class="numbers">
-                                    <p class="mb-0"><b>{{ __('Total Product Sale') }}</b></p>
-                                    <h4 class="card-title">{{$totalProductSale}}</h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-md-6">
-                <div class="card card-stats card-round">
-                    <div class="card-body ">
-                        <div class="row align-items-center">
-                            <div class="col-icon">
-                                <div class="icon-big text-center icon-secondary  bubble-shadow-small">
-                                    <i class="far fa-chart-bar"></i>
-                                </div>
-                            </div>
+
                             <div class="col col-stats ml-3 ml-sm-0">
                                 <div class="numbers">
                                     <p class="mb-0"><b>{{ __('Today Product Order') }}</b></p>
-                                    <h4 class="card-title">{{$totalTodayProductSale}}</h4>
+
+                                    <h4 class="card-title">{{ $totalTodayProductSale }}</h4>
                                 </div>
                             </div>
                         </div>
@@ -133,17 +162,19 @@
 
             <div class="col-xl-3 col-md-6">
                 <div class="card card-stats card-round">
-                    <div class="card-body ">
+                    <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col-icon">
                                 <div class="icon-big text-center icon-secondary  bubble-shadow-small">
                                     <i class="far fa-chart-bar"></i>
                                 </div>
                             </div>
+
                             <div class="col col-stats ml-3 ml-sm-0">
                                 <div class="numbers">
                                     <p class="mb-0"><b>{{ __('This Month Sale') }}</b></p>
-                                    <h4 class="card-title">{{$totalCurrentMonthProductSale}}</h4>
+
+                                    <h4 class="card-title">{{ $totalCurrentMonthProductSale }}</h4>
                                 </div>
                             </div>
                         </div>
@@ -153,17 +184,19 @@
 
             <div class="col-xl-3 col-md-6">
                 <div class="card card-stats card-round">
-                    <div class="card-body ">
+                    <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col-icon">
                                 <div class="icon-big text-center icon-secondary  bubble-shadow-small">
                                     <i class="far fa-chart-bar"></i>
                                 </div>
                             </div>
+
                             <div class="col col-stats ml-3 ml-sm-0">
                                 <div class="numbers">
                                     <p class="mb-0"><b>{{ __('This Year Product Sale') }}</b></p>
-                                    <h4 class="card-title">{{$totalLatYearProductSale}}</h4>
+
+                                    <h4 class="card-title">{{ $totalLatYearProductSale }}</h4>
                                 </div>
                             </div>
                         </div>
@@ -173,17 +206,19 @@
 
             <div class="col-xl-3 col-md-6">
                 <div class="card card-stats card-round">
-                    <div class="card-body ">
+                    <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col-icon">
                                 <div class="icon-big text-center icon-danger  bubble-shadow-small">
                                     <i class="fas fa-money-bill-wave"></i>
                                 </div>
                             </div>
+
                             <div class="col col-stats ml-3 ml-sm-0">
                                 <div class="numbers">
                                     <p class="mb-0"><b>{{ __('Total Earning') }}</b></p>
-                                    <h4 class="card-title">{{$totalEarning}}</h4>
+
+                                    <h4 class="card-title">{{ $totalEarning }}</h4>
                                 </div>
                             </div>
                         </div>
@@ -191,21 +226,21 @@
                 </div>
             </div>
 
-
-
             <div class="col-xl-3 col-md-6">
                 <div class="card card-stats card-round">
-                    <div class="card-body ">
+                    <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col-icon">
                                 <div class="icon-big text-center icon-danger  bubble-shadow-small">
                                     <i class="fas fa-money-bill-wave"></i>
                                 </div>
                             </div>
+
                             <div class="col col-stats ml-3 ml-sm-0">
                                 <div class="numbers">
                                     <p class="mb-0"><b>{{ __('Today Pending Earning') }}</b></p>
-                                    <h4 class="card-title">{{$totalTodayEarning}}</h4>
+
+                                    <h4 class="card-title">{{ $totalTodayEarning }}</h4>
                                 </div>
                             </div>
                         </div>
@@ -215,17 +250,19 @@
 
             <div class="col-xl-3 col-md-6">
                 <div class="card card-stats card-round">
-                    <div class="card-body ">
+                    <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col-icon">
                                 <div class="icon-big text-center icon-danger  bubble-shadow-small">
                                     <i class="fas fa-money-bill-wave"></i>
                                 </div>
                             </div>
+
                             <div class="col col-stats ml-3 ml-sm-0">
                                 <div class="numbers">
                                     <p class="mb-0"><b>{{ __('This Month Earning') }}</b></p>
-                                    <h4 class="card-title">{{$totalMonthEarning}}</h4>
+
+                                    <h4 class="card-title">{{ $totalMonthEarning }}</h4>
                                 </div>
                             </div>
                         </div>
@@ -235,17 +272,19 @@
 
             <div class="col-xl-3 col-md-6">
                 <div class="card card-stats card-round">
-                    <div class="card-body ">
+                    <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col-icon">
                                 <div class="icon-big text-center icon-danger  bubble-shadow-small">
                                     <i class="fas fa-money-bill-wave"></i>
                                 </div>
                             </div>
+
                             <div class="col col-stats ml-3 ml-sm-0">
                                 <div class="numbers">
                                     <p class="mb-0"><b>{{ __('This Year Erning') }}</b></p>
-                                    <h4 class="card-title">{{$totalYearEarning}}</h4>
+
+                                    <h4 class="card-title">{{ $totalYearEarning }}</h4>
                                 </div>
                             </div>
                         </div>
@@ -253,86 +292,368 @@
                 </div>
             </div>
 
-
-
-                <!-- Pending Requests Card Example -->
-                <div class="col-xl-3 col-md-6">
-                    <div class="card card-stats card-round">
-                        <div class="card-body ">
+            <!-- Pending Requests Card Example -->
+            <div class="col-xl-3 col-md-6">
+                <div class="card card-stats card-round">
+                    <div class="card-body">
+                        <a href="{{ route('back.item.add') }}" style="color: #575962;">
                             <div class="row align-items-center">
                                 <div class="col-icon">
                                     <div class="icon-big text-center icon-info bubble-shadow-small">
                                         <i class="far fa-check-circle"></i>
                                     </div>
                                 </div>
+
                                 <div class="col col-stats ml-3 ml-sm-0">
                                     <div class="numbers">
                                         <p class="mb-0"><b>{{ __('Total Products') }}</b></p>
+
                                         <h4 class="card-title">{{ $totalItems }}</h4>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-
-            <div class="col-xl-3 col-md-6">
-                <div class="card card-stats card-round">
-                    <div class="card-body ">
-                        <div class="row align-items-center">
-                            <div class="col-icon">
-                                <div class="icon-big text-center icon-info bubble-shadow-small">
-                                    <i class="far fa-check-circle"></i>
-                                </div>
-                            </div>
-                            <div class="col col-stats ml-3 ml-sm-0">
-                                <div class="numbers">
-                                    <p class="mb-0"><b>{{ __('Total Customers') }}</b></p>
-                                    <h4 class="card-title">{{ $totalUsers }}</h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-
-            <div class="col-xl-3 col-md-6">
-                <div class="card card-stats card-round">
-                    <div class="card-body ">
-                        <div class="row align-items-center">
-                            <div class="col-icon">
-                                <div class="icon-big text-center icon-info bubble-shadow-small">
-                                    <i class="far fa-check-circle"></i>
-                                </div>
-                            </div>
-                            <div class="col col-stats ml-3 ml-sm-0">
-                                <div class="numbers">
-                                    <p class="mb-0"><b>{{ __('Total Categories') }}</b></p>
-                                    <h4 class="card-title">{{ $totalCategory }}</h4>
-                                </div>
-                            </div>
-                        </div>
+                        </a>
                     </div>
                 </div>
             </div>
 
             <div class="col-xl-3 col-md-6">
                 <div class="card card-stats card-round">
-                    <div class="card-body ">
+                    <div class="card-body">
+                        <a href="{{ route('back.user.index') }}" style="color: #575962;">
+                            <div class="row align-items-center">
+                                <div class="col-icon">
+                                    <div class="icon-big text-center icon-info bubble-shadow-small">
+                                        <i class="far fa-check-circle"></i>
+                                    </div>
+                                </div>
+
+                                <div class="col col-stats ml-3 ml-sm-0">
+                                    <div class="numbers">
+                                        <p class="mb-0"><b>{{ __('Total Customers') }}</b></p>
+
+                                        <h4 class="card-title">{{ $totalUsers }}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6">
+                <div class="card card-stats card-round">
+                    <div class="card-body">
+                        <a href="{{ route('back.category.index') }}" style="color: #575962;">
+                            <div class="row align-items-center">
+                                <div class="col-icon">
+                                    <div class="icon-big text-center icon-info bubble-shadow-small">
+                                        <i class="far fa-check-circle"></i>
+                                    </div>
+                                </div>
+
+                                <div class="col col-stats ml-3 ml-sm-0">
+                                    <div class="numbers">
+                                        <p class="mb-0"><b>{{ __('Total Categories') }}</b></p>
+
+                                        <h4 class="card-title">{{ $totalCategory }}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6">
+                <div class="card card-stats card-round">
+                    <div class="card-body">
+                        <a href="{{ route('back.brand.index') }}" style="color: #575962;">
+                            <div class="row align-items-center">
+                                <div class="col-icon">
+                                    <div class="icon-big text-center icon-info bubble-shadow-small">
+                                        <i class="far fa-check-circle"></i>
+                                    </div>
+                                </div>
+
+                                <div class="col col-stats ml-3 ml-sm-0">
+                                    <div class="numbers">
+                                        <p class="mb-0"><b>{{ __('Total Brands') }}</b></p>
+
+                                        <h4 class="card-title">{{ $totalBrand }}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6">
+                <div class="card card-stats card-round">
+                    <div class="card-body">
+                        <a href="{{ route('back.review.index') }}" style="color: #575962;">
+                            <div class="row align-items-center">
+                                <div class="col-icon">
+                                    <div class="icon-big text-center icon-info bubble-shadow-small">
+                                        <i class="far fa-check-circle"></i>
+                                    </div>
+                                </div>
+
+                                <div class="col col-stats ml-3 ml-sm-0">
+                                    <div class="numbers">
+                                        <p class="mb-0"><b>{{ __('Total Reviews') }}</b></p>
+
+                                        <h4 class="card-title">{{ $totalReview }}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6">
+                <div class="card card-stats card-round">
+                    <div class="card-body">
+                        <a href="{{ route('back.transaction.index') }}" style="color: #575962;">
+                            <div class="row align-items-center">
+                                <div class="col-icon">
+                                    <div class="icon-big text-center icon-info bubble-shadow-small">
+                                        <i class="far fa-check-circle"></i>
+                                    </div>
+                                </div>
+
+                                <div class="col col-stats ml-3 ml-sm-0">
+                                    <div class="numbers">
+                                        <p class="mb-0"><b>{{ __('Total Transactions') }}</b></p>
+
+                                        <h4 class="card-title">{{ $totalTransaction }}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6">
+                <div class="card card-stats card-round">
+                    <div class="card-body">
+                        <a href="{{ route('back.ticket.index') }}" style="color: #575962;">
+                            <div class="row align-items-center">
+                                <div class="col-icon">
+                                    <div class="icon-big text-center icon-info bubble-shadow-small">
+                                        <i class="far fa-check-circle"></i>
+                                    </div>
+                                </div>
+
+                                <div class="col col-stats ml-3 ml-sm-0">
+                                    <div class="numbers">
+                                        <p class="mb-0"><b>{{ __('Total Tickets') }}</b></p>
+
+                                        <h4 class="card-title">{{ $totalTicket }}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6">
+                <div class="card card-stats card-round">
+                    <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col-icon">
                                 <div class="icon-big text-center icon-info bubble-shadow-small">
                                     <i class="far fa-check-circle"></i>
                                 </div>
                             </div>
+
                             <div class="col col-stats ml-3 ml-sm-0">
                                 <div class="numbers">
-                                    <p class="mb-0"><b>{{ __('Total Brands') }}</b></p>
-                                    <h4 class="card-title">{{ $totalBrand }}</h4>
+                                    <p class="mb-0"><b>{{ __('Pending Tickets') }}</b></p>
+
+                                    <h4 class="card-title">{{ $totalPendingTicket }}</h4>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6">
+                <div class="card card-stats card-round">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-icon">
+                                <div class="icon-big text-center icon-info bubble-shadow-small">
+                                    <i class="far fa-check-circle"></i>
+                                </div>
+                            </div>
+
+                            <div class="col col-stats ml-3 ml-sm-0">
+                                <div class="numbers">
+                                    <p class="mb-0"><b>{{ __('Open Tickets') }}</b></p>
+
+                                    <h4 class="card-title">{{ $totalTicket }}</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6">
+                <div class="card card-stats card-round">
+                    <div class="card-body">
+                        <a href="{{ route('back.post.index') }}" style="color: #575962;">
+                            <div class="row align-items-center">
+                                <div class="col-icon">
+                                    <div class="icon-big text-center icon-info bubble-shadow-small">
+                                        <i class="far fa-check-circle"></i>
+                                    </div>
+                                </div>
+
+                                <div class="col col-stats ml-3 ml-sm-0">
+                                    <div class="numbers">
+                                        <p class="mb-0"><b>{{ __('Total Blogs') }}</b></p>
+
+                                        <h4 class="card-title">{{ $totalBlog }}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6">
+                <div class="card card-stats card-round">
+                    <div class="card-body">
+                        <a href="{{ route('back.subscribers.index') }}" style="color: #575962;">
+                            <div class="row align-items-center">
+                                <div class="col-icon">
+                                    <div class="icon-big text-center icon-info bubble-shadow-small">
+                                        <i class="far fa-check-circle"></i>
+                                    </div>
+                                </div>
+
+                                <div class="col col-stats ml-3 ml-sm-0">
+                                    <div class="numbers">
+                                        <p class="mb-0"><b>{{ __('Total Subscribers') }}</b></p>
+
+                                        <h4 class="card-title">{{ $totalSubscriber }}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6">
+                <div class="card card-stats card-round">
+                    <div class="card-body">
+                        <a href="{{ route('back.staff.index') }}" style="color: #575962;">
+                            <div class="row align-items-center">
+                                <div class="col-icon">
+                                    <div class="icon-big text-center icon-info  bubble-shadow-small">
+                                        <i class="far fa-check-circle"></i>
+                                    </div>
+                                </div>
+
+                                <div class="col col-stats ml-3 ml-sm-0">
+                                    <div class="numbers">
+                                        <p class="mb-0"><b>{{ __('Total System User') }}</b></p>
+
+                                        <h4 class="card-title">{{ $totalSystemUserEarning }}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Row -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">{{ __('Monthly Product Sales Report') }} </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="chart-container">
+                            <canvas id="multipleLineChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">{{ __('Monthly Earnings Report') }} </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="chart-container">
+                            <canvas id="multipleLineChart2"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">{{ __('Recent Orders') }}</div>
+                    </div>
+
+                    <div class="card-body pb-0">
+                        <div class="card-body">
+                            @if ($recentOrders->count() > 0)
+                                <div class="gd-responsive-table">
+                                    <table class="table table-bordered table-striped" id="recent-orders" width="100%" cellspacing="0">
+                                        <thead>
+                                            <th>{{ __('Customer') }}</th>
+                                            <th>{{ __('Order ID') }}</th>
+                                            <th>{{ __('Payment Method') }}</th>
+                                            <th>{{ __('Total') }}</th>
+                                        </thead>
+
+                                        <tbody>
+                                            @foreach($recentOrders as $data)
+                                                <tr>
+                                                    <td>
+                                                        <a href="{{ route('back.user.show', $data->user_id) }}">{{ $data->user->displayName() }}</a>
+                                                    </td>
+
+                                                    <td>
+                                                        <a href="{{ route('back.order.invoice', $data->id) }}">{{ $data->transaction_number }}</a>
+                                                    </td>
+
+                                                    <td>
+                                                        {{ $data->payment_method }}
+                                                    </td>
+
+                                                    <td>
+                                                        {{ $data->currency_sign }}{{PriceHelper::OrderTotal($data)}}
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            @else
+                                <p class="d-block text-center">
+                                    {{ __('No Order Found') }}
+                                </p>
+                            @endif
                         </div>
                     </div>
                 </div>

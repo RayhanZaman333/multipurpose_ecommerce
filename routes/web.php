@@ -63,20 +63,14 @@ Route::group(['middleware' => 'adminlocalize'], function () {
             Route::get('/order/status/{id}/{field}/{value}', 'Back\OrderController@status')->name('back.order.status');
         });
 
-
-
         //------------ NOTIFICATIONS ------------
         Route::get('/notifications', 'Back\NotificationController@notifications')->name('back.notifications');
         Route::get('/notifications/view', 'Back\NotificationController@view_notification')->name('back.view.notification');
         Route::get('/notification/delete/{id}', 'Back\NotificationController@delete')->name('back.notification.delete');
         Route::get('/notifications/clear', 'Back\NotificationController@clear_notf')->name('back.notifications.clear');
 
-
-
         Route::group(['middleware' => 'permissions:Manage Products'], function () {
-
             //------------ ITEM ------------
-
             Route::get('item/add', 'Back\ItemController@add')->name('back.item.add');
             Route::get('item/status/{item}/{status}', 'Back\ItemController@status')->name('back.item.status');
             Route::get('get/subcategory', 'Back\ItemController@getsubCategory')->name('back.get.subcategory');
@@ -89,6 +83,9 @@ Route::group(['middleware' => 'adminlocalize'], function () {
             Route::post('item/galleries/update', 'Back\ItemController@galleriesUpdate')->name('back.item.galleries.update');
             Route::delete('item/gallery/{gallery}/delete', 'Back\ItemController@galleryDelete')->name('back.item.gallery.delete');
 
+            Route::post('item/update-price/{item}', 'Back\ItemController@updatePrice')->name('back.item.updatePrice');
+            Route::post('item/update-stock/{item}', 'Back\ItemController@updateStock')->name('back.item.updateStock');
+
             // Bulk product upload
             Route::get('/product/csv/export', 'Back\CsvProductController@export')->name('back.csv.export');
             Route::get('bulk/product/index', 'Back\CsvProductController@index')->name('back.bulk.product.index');
@@ -97,7 +94,7 @@ Route::group(['middleware' => 'adminlocalize'], function () {
             Route::get('order/csv/export', 'Back\CsvProductController@orderExport')->name('back.csv.order.export');
 
             // summernote image upload 
-            Route::post('/summernote/image/upload', 'Back\ItemController@summernoteUpload')->name('back.summernote.image.upload');
+            Route::post('/summernote/image/upload', 'Back\ItemController@summernoteUpload')->name('back.summernote.image.upload'); 
 
             // Campain offer.
             Route::resource('/campaign', 'Back\CampaignController', ['as' => 'back', 'except' => 'show']);
@@ -117,16 +114,12 @@ Route::group(['middleware' => 'adminlocalize'], function () {
             Route::resource('affiliate', 'Back\AffiliateController', ['as' => 'back']);
             // ----------- AFFILIATE PRODUCT -----------//
 
-
-
             Route::prefix('{item}')->group(function () {
                 //------------ ATTRIBUTE ------------
                 Route::resource('attribute', 'Back\AttributeController', ['as' => 'back', 'except' => 'show']);
                 //------------ ATTRIBUTE OPTION ------------
                 Route::resource('option', 'Back\AttributeOptionController', ['as' => 'back', 'except' => 'show']);
             });
-
-
 
             //------------ BRAND ------------
             Route::get('brand/status/{id}/{status}/{type}', 'Back\BrandController@status')->name('back.brand.status');

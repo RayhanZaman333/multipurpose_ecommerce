@@ -431,21 +431,24 @@ class FrontendController extends Controller
         if (Setting::first()->is_contact == 0) {
             return back();
         }
+
         return view('front.contact');
     }
 
     public function contactEmail(Request $request)
     {
         $request->validate([
-            'first_name' => 'required|max:50',
-            'last_name' => 'required|max:50',
-            'email' => 'required|email|max:50',
-            'phone' => 'required|max:50',
-            'message' => 'required|max:250',
+            'first_name'    => 'required|max:50',
+            'last_name'     => 'required|max:50',
+            'email'         => 'required|email|max:50',
+            'phone'         => 'required|max:50',
+            'message'       => 'required|max:250',
         ]);
+
         $input = $request->all();
 
         $setting = Setting::first();
+
         $name  = $input['first_name'] . ' ' . $input['last_name'];
         $subject = "Email From " . $name;
         $to = $setting->contact_email;
@@ -461,12 +464,13 @@ class FrontendController extends Controller
 
         $email = new EmailHelper();
         $email->sendCustomMail($emailData);
+
         Session::flash('success', __('Thank you for contacting with us, we will get back to you shortly.'));
+
         return redirect()->back();
     }
 
     // -------------------------------- REVIEW ----------------------------------------
-
     public function reviews()
     {
         return view('front.reviews');

@@ -11,7 +11,6 @@ use App\Models\Currency;
 
 class ItemRepository
 {
-
     /**
      * Store item.
      *
@@ -21,8 +20,8 @@ class ItemRepository
 
     public function store($request)
     {
-        
         $input = $request->all();
+
         if ($file = $request->file('photo')) {
             $images_name = ImageHelper::ItemhandleUploadedImage($request->file('photo'),'assets/images');
 
@@ -87,7 +86,6 @@ class ItemRepository
             }
         }
 
-
         $input['is_type'] = 'undefine';
 
         $item_id = Item::create($input)->id;
@@ -97,7 +95,6 @@ class ItemRepository
         }
 
         return $item_id;
-
     }
 
     /**
@@ -107,7 +104,7 @@ class ItemRepository
      * @return void
      */
 
-    public function update($item,$request)
+    public function update($item, $request)
     {
         $input = $request->all();
 
@@ -118,20 +115,19 @@ class ItemRepository
             $input['thumbnail'] = $images_name[1];
         }
 
-
         if($request->has('meta_keywords')){
             $input['meta_keywords'] = str_replace(["value", "{", "}", "[","]",":","\""], '', $request->meta_keywords);
         }
 
-        $curr = Currency::where('is_default',1)->first();
+        $curr = Currency::where('is_default', 1)->first();
+
         $input['discount_price'] = $request->discount_price / $curr->value;
         $input['previous_price'] = $request->previous_price / $curr->value;
 
-
-        if($request->has('is_social')){
+        if ($request->has('is_social')) {
             $input['social_icons'] = json_encode($input['social_icons']);
             $input['social_links'] = json_encode($input['social_links']);
-        }else{
+        } else {
             $input['is_social']    = 0;
             $input['social_icons'] = null;
             $input['social_links'] = null;
@@ -158,7 +154,6 @@ class ItemRepository
             $input['license_key'] = null;
         }
 
-
         if($request->item_type == 'digital'){
             if(!$request->hasFile('file')){
                 if($request->link){
@@ -169,6 +164,7 @@ class ItemRepository
                 }
             }
         }
+
         // digital product file upload
         if($request->item_type == 'digital'){
             if($request->hasFile('file')){
@@ -187,6 +183,7 @@ class ItemRepository
         }
 
         $item->update($input);
+
         if(isset($input['galleries'])){
             $this->galleriesUpdate($request,$item->id);
         }
@@ -195,9 +192,11 @@ class ItemRepository
     public function highlight($item,$request)
     {
         $input = $request->all();
+
         if($request->is_type != 'flash_deal'){
             $input['date'] = null;
         }
+
         $item->update($input);
     }
 
