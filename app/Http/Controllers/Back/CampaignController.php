@@ -20,6 +20,7 @@ class CampaignController extends Controller
     public function index()
     {
         $datas = Item::whereStatus(1)->select('name','id')->orderBy('id','desc')->get();
+        
         return view('back.item.campaign',[
             'datas' => $datas,
             'items' => CampaignItem::orderby('id','desc')->get()

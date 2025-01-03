@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Back;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Transaction;
+
 class TranactionController extends Controller
 {
-    
     public function __construct()
     {
         $this->middleware('auth:admin');
@@ -15,11 +15,10 @@ class TranactionController extends Controller
     }
 
     // ------- Index -------//
-
     public function index()
     {
         return view('back.transactions.index',[
-            'datas' => Transaction::orderby('id','desc')->get()
+            'datas' => Transaction::orderby('id', 'desc')->get()
         ]);
     }
 
@@ -27,6 +26,7 @@ class TranactionController extends Controller
     public function Delete($id)
     {
         Transaction::findOrFail($id)->delete();
+
         return redirect()->back()->withSuccess(__('Transaction Updated Successfully.'));
     }
 }
