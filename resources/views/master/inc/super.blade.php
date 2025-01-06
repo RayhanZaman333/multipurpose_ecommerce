@@ -1,5 +1,4 @@
 <ul class="nav">
-
     <li class="nav-item">
         <a href="{{ route('back.dashboard') }}">
             <i class="fas fa-home"></i>
@@ -337,7 +336,6 @@
         </a>
     </li>
 
-
     {{-- <li class="nav-item">
         <a href="{{ route('back.subscribers.index') }}">
             <i class="fab fa-telegram-plane"></i>
@@ -351,6 +349,7 @@
             <p>{{ __('System User') }}</p>
             <span class="caret"></span>
         </a>
+
         <div class="collapse" id="user">
             <ul class="nav nav-collapse">
                 <li>
@@ -358,6 +357,7 @@
                         <span class="sub-item">{{ __('Role') }}</span>
                     </a>
                 </li>
+
                 <li>
                     <a class="sub-link" href="{{ route('back.staff.index') }}">
                         <span class="sub-item">{{ __('System User') }}</span>
@@ -366,19 +366,22 @@
             </ul>
         </div>
     </li>
+
     <li class="nav-item">
         <a data-toggle="collapse" href="#backup">
             <i class="fas fa-hdd"></i>
             <p>{{ __('System Backup') }}</p>
             <span class="caret"></span>
         </a>
+
         <div class="collapse" id="backup">
             <ul class="nav nav-collapse">
-                <li>
+                {{-- <li>
                     <a class="sub-link" href="{{ route('back.system.backup') }}">
                         <span class="sub-item">{{ __('System Backup') }}</span>
                     </a>
-                </li>
+                </li> --}}
+
                 <li>
                     <a class="sub-link" href="{{ route('back.database.backup') }}">
                         <span class="sub-item">{{ __('Database Backup') }}</span>
@@ -394,5 +397,4 @@
             <p>{{ __('Cache Clear') }}</p>
         </a>
     </li>
-
 </ul>

@@ -304,12 +304,12 @@ class FrontendController extends Controller
         return redirect()->back();
     }
 
-
     public function product($slug)
     {
-
         $item = Item::with('category')->whereStatus(1)->whereSlug($slug)->firstOrFail();
+        
         $video = explode('=', $item->video);
+
         return view('front.catalog.product', [
             'item'          => $item,
             'reviews'       => $item->reviews()->where('status', 1)->paginate(3),
@@ -321,8 +321,6 @@ class FrontendController extends Controller
             'related_items' => $item->category->items()->whereStatus(1)->where('id', '!=', $item->id)->take(8)->get()
         ]);
     }
-
-
 
     public function brands()
     {
@@ -595,6 +593,6 @@ class FrontendController extends Controller
             }
         }
 
-        return redirect()->back()->with('success', "Request for price quotation sent successfully!");
+        return redirect()->back()->with('success', "Request Price Quote quotation sent successfully!");
     }
 }

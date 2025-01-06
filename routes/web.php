@@ -62,20 +62,14 @@ Route::group(['middleware' => 'adminlocalize'], function () {
             Route::get('/order/status/{id}/{field}/{value}', 'Back\OrderController@status')->name('back.order.status');
         });
 
-
-
         //------------ NOTIFICATIONS ------------
         Route::get('/notifications', 'Back\NotificationController@notifications')->name('back.notifications');
         Route::get('/notifications/view', 'Back\NotificationController@view_notification')->name('back.view.notification');
         Route::get('/notification/delete/{id}', 'Back\NotificationController@delete')->name('back.notification.delete');
         Route::get('/notifications/clear', 'Back\NotificationController@clear_notf')->name('back.notifications.clear');
 
-
-
         Route::group(['middleware' => 'permissions:Manage Products'], function () {
-
             //------------ ITEM ------------
-
             Route::get('item/add', 'Back\ItemController@add')->name('back.item.add');
             Route::get('item/status/{item}/{status}', 'Back\ItemController@status')->name('back.item.status');
             Route::get('get/subcategory', 'Back\ItemController@getsubCategory')->name('back.get.subcategory');

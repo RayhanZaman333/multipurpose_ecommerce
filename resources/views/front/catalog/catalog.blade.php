@@ -85,13 +85,13 @@
 
                                 {{ PriceHelper::grandCurrencyPrice($item) }}
                             {{-- @else
-                                <div class="pb-2"><a class="btn btn-primary btn-block" href="#" data-bs-toggle="modal" data-bs-target="#priceRequest"><span>{{ __('Request for Price') }}</span></a></div>
+                                <div class="pb-2"><a class="btn btn-primary btn-block" href="#" data-bs-toggle="modal" data-bs-target="#priceRequest"><span>{{ __('Request Price Quote') }}</span></a></div>
 
                                 <div class="modal fade" id="priceRequest" tabindex="-1" aria-labelledby="priceRequestLabel" aria-modal="true">
                                     <div class="modal-dialog modal-md">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                            <h4 class="modal-title">{{__('Request for Price')}}</h4>
+                                            <h4 class="modal-title">{{__('Request Price Quote')}}</h4>
 
                                             <button class="close modal_close" type="button" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                             </div>
@@ -209,13 +209,13 @@
 
                                         {{ PriceHelper::grandCurrencyPrice($item)}}
                                     {{-- @else
-                                        <div class="pb-2"><a class="btn btn-primary btn-block" href="#" data-bs-toggle="modal" data-bs-target="#priceRequest"><span>{{ __('Request for Price') }}</span></a></div>
+                                        <div class="pb-2"><a class="btn btn-primary btn-block" href="#" data-bs-toggle="modal" data-bs-target="#priceRequest"><span>{{ __('Request Price Quote') }}</span></a></div>
 
                                         <div class="modal fade" id="priceRequest" tabindex="-1" aria-labelledby="priceRequestLabel" aria-modal="true">
                                             <div class="modal-dialog modal-md">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                    <h4 class="modal-title">{{__('Request for Price')}}</h4>
+                                                    <h4 class="modal-title">{{__('Request Price Quote')}}</h4>
 
                                                     <button class="close modal_close" type="button" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                     </div>
