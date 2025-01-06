@@ -393,39 +393,37 @@ class FrontendController extends Controller
     // -------------------------------- FAQ ----------------------------------------
 
     // -------------------------------- CAMPAIGN ----------------------------------------
-
     public function compaignProduct()
     {
         if (Setting::first()->is_campaign == 0) {
             return back();
         }
+
         $compaign_items =  CampaignItem::whereStatus(1)->orderby('id', 'desc')->get();
+
         return view('front.campaign', ['campaign_items' => $compaign_items]);
     }
-
     // -------------------------------- CAMPAIGN ----------------------------------------
-
 
     // -------------------------------- CURRENCY ----------------------------------------
     public function currency($id)
     {
         Session::put('currency', $id);
+        
         return back();
     }
     // -------------------------------- CURRENCY ----------------------------------------
-
 
     // -------------------------------- LANGUAGE ----------------------------------------
     public function language($id)
     {
         Session::put('language', $id);
+
         return back();
     }
     // -------------------------------- LANGUAGE ----------------------------------------
 
-
     // -------------------------------- FAQ ----------------------------------------
-
     public function page($slug)
     {
         return view('front.page', [
@@ -434,12 +432,12 @@ class FrontendController extends Controller
     }
 
     // -------------------------------- CONTACT ----------------------------------------
-
     public function contact()
     {
         if (Setting::first()->is_contact == 0) {
             return back();
         }
+
         return view('front.contact');
     }
 
@@ -452,6 +450,7 @@ class FrontendController extends Controller
             'phone' => 'required|max:50',
             'message' => 'required|max:250',
         ]);
+
         $input = $request->all();
 
         $setting = Setting::first();

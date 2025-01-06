@@ -462,11 +462,9 @@ Route::group(['middleware' => 'maintainance'], function () {
 
         //------------ PAGE ------------
         Route::get('/{slug}', 'Front\FrontendController@page')->name('front.page');
-
         // ************************************ FRONTEND ENDS**********************************************
-
+        
         // ************************************ GLOBAL LOCALIZATION ENDS **********************************************
-
     });
 });
 

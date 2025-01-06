@@ -283,8 +283,8 @@
                                                                 <a class="{{ request()->routeIs('front.faq*') ? 'active' : '' }}" href="{{ route('front.faq') }}"><i class="icon-chevron-right pr-2"></i>{{__('Faq')}}</a>
                                                             @endif
 
-                                                            @foreach (DB::table('pages')->wherePos(0)->orwhere('pos',2)->get() as $page)
-                                                                <a class="{{ request()->url() == route('front.page',$page->slug) ? 'active' : '' }} " href="{{route('front.page',$page->slug)}}"><i class="icon-chevron-right pr-2"></i>{{ $page->title }}</a>
+                                                            @foreach (DB::table('pages')->wherePos(0)->orWhere('pos', 2)->get() as $page)
+                                                                <a class="{{ request()->url() == route('front.page', $page->slug) ? 'active' : '' }} " href="{{ route('front.page', $page->slug) }}"><i class="icon-chevron-right pr-2"></i>{{ $page->title }}</a>
                                                             @endforeach
                                                         </div>
                                                     </li>
