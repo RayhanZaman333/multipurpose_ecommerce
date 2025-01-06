@@ -290,7 +290,6 @@ Route::group(['middleware' => 'adminlocalize'], function () {
             //------------ SERVICE ------------
             Route::resource('service', 'Back\ServiceController', ['as' => 'back', 'except' => 'show']);
 
-
             // --------- Genarate Sitemap _______
             Route::get('/sitemap', 'Back\SitemapController@index')->name('admin.sitemap.index');
             Route::get('/sitemap/add', 'Back\SitemapController@add')->name('admin.sitemap.add');
@@ -300,7 +299,6 @@ Route::group(['middleware' => 'adminlocalize'], function () {
         });
     });
 
-
     Route::group(['middleware' => 'permissions:Subscribers List'], function () {
         //------------ SUBSCRIBER ------------
         Route::get('/subscribers', 'Back\SubscriberController@index')->name('back.subscribers.index');
@@ -309,8 +307,6 @@ Route::group(['middleware' => 'adminlocalize'], function () {
         Route::post('/subscribers/send-mail/submit', 'Back\SubscriberController@sendMailSubmit')->name('back.subscribers.mail.submit');
     });
 });
-
-
 // ************************************ ADMIN PANEL ENDS**********************************************
 
 
