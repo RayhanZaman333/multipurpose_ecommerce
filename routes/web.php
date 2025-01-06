@@ -207,7 +207,6 @@ Route::group(['middleware' => 'adminlocalize'], function () {
         });
 
         Route::group(['middleware' => 'permissions:Manage Faqs Contents'], function () {
-
             //------------ FAQ CATEGORY ------------
             Route::get('faq-category/status/{id}/{status}', 'Back\FcategoryController@status')->name('back.fcategory.status');
             Route::resource('fcategory', 'Back\FcategoryController', ['as' => 'back', 'except' => 'show']);
@@ -217,7 +216,6 @@ Route::group(['middleware' => 'adminlocalize'], function () {
         });
 
         Route::group(['middleware' => 'permissions:Manage System User'], function () {
-
             //------------ ROLE ------------
             Route::resource('role', 'Back\RoleController', ['as' => 'back', 'except' => 'show']);
 
@@ -226,15 +224,12 @@ Route::group(['middleware' => 'adminlocalize'], function () {
         });
 
         Route::group(['middleware' => 'permissions:Manages Pages'], function () {
-
             //------------ PAGE ------------
             Route::get('page/pos/{id}/{pos}', 'Back\PageController@pos')->name('back.page.pos');
             Route::resource('page', 'Back\PageController', ['as' => 'back', 'except' => 'show']);
         });
 
-
         Route::group(['middleware' => 'permissions:Manage Site'], function () {
-
             //------------ SOCIAL ------------
             Route::resource('social', 'Back\SocialController', ['as' => 'back', 'except' => 'show']);
 
