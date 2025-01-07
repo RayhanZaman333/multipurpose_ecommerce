@@ -20,8 +20,8 @@ class SliderRepository
     public function store($request)
     {
         $input = $request->all();
-        $input['photo'] = ImageHelper::handleUploadedImage($request->file('photo'),'assets/images');
-        $input['logo'] = ImageHelper::handleUploadedImage($request->file('logo'),'assets/images');
+        $input['photo'] = ImageHelper::handleUploadedImage($request->file('photo'),'images/');
+        $input['logo'] = ImageHelper::handleUploadedImage($request->file('logo'),'images/');
         Slider::create($input);
     }
 

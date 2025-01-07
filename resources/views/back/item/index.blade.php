@@ -96,7 +96,7 @@
                                         <select class="form-control" name="status">
                                             <option  disabled>{{ __('Select Status') }}</option>
 
-                                            <option value="">{{__('All Status Products')}}</option>
+                                            <option value="">{{ __('All Status Products') }}</option>
                                             <option value="1" {{ request()->input('status') == '1' ? 'selected' : '' }}>{{ __('Publish') }}</option>
                                             <option value="0" {{ request()->input('status') == '0' ? 'selected' : '' }}>{{ __('Unpublish') }}</option>
                                         </select>
@@ -123,6 +123,8 @@
                                     <th> <input type="checkbox" data-target="product-bulk-delete" class="form-control bulk_all_delete"> </th>
                                     <th>{{ __('Image') }}</th>
                                     <th width="30%">{{ __('Name') }}</th>
+                                    <th width="30%">{{ __('Category') }}</th>
+                                    <th>{{ __('Stock Quantity') }}</th>
                                     <th>{{ __('Price') }}</th>
                                     <th>{{ __('Status') }}</th>
                                     <th>{{ __('Type') }}</th>

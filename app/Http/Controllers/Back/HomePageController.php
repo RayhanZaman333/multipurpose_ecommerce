@@ -41,75 +41,87 @@ class HomePageController extends Controller
     public function hero_banner_update(Request $request)
     {
         $request->validate([
-            'img1' => 'image',
-            'img2' => 'image',
-            'title1' => 'required|max:200',
-            'title2' => 'required|max:200',
-            'subtitle1' => 'required|max:200',
-            'url1' => 'required|max:200',
-            'url2' => 'required|max:200',
+            'img1'      => 'image',
+            'img2'      => 'image',
+            'title1'    => 'required|max:200',
+            'title2'    => 'required|max:200',
+            // 'subtitle1' => 'required|max:200',
+            'url1'      => 'required|max:200',
+            'url2'      => 'required|max:200',
 
         ]);
-        $all_images_names = ['img1','img2'];
+
+        $all_images_names = ['img1', 'img2'];
+
         $input = $request->all();
+
         foreach($all_images_names as $single_image){
-            if($request->hasFile($single_image)){
+            if ($request->hasFile($single_image)) {
                 $data = HomeCutomize::first();
-                $check = json_decode($data->hero_banner,true);
-                $input[$single_image] = ImageHelper::handleUploadedImage($request->$single_image,'assets/images',isset($check[$single_image]) ? $check[$single_image] : null);
+
+                $check = json_decode($data->hero_banner, true);
+
+                $input[$single_image] = ImageHelper::handleUploadedImage($request->$single_image, 'images/', isset($check[$single_image]) ? $check[$single_image] : null);
             }
         }
 
         unset($input['_token']);
+
         $data = HomeCutomize::first();
-        foreach(json_decode($data->hero_banner,true) as $key => $value){
-            if(isset($input[$key])){
+
+        foreach(json_decode($data->hero_banner,true) as $key => $value) {
+            if (isset($input[$key])) {
                 $input[$key] =  $input[$key];
-            }else{
+            } else {
                 $input[$key] = $value;
             }
         }
 
+        $data->hero_banner = json_encode($input, true);
 
-        $data->hero_banner = json_encode($input,true);
         $data->update();
-        return redirect()->back()->withSuccess(__('Banner Update Successfully'));
 
+        return redirect()->back()->withSuccess(__('Banner Updated Successfully!'));
     }
+
     public function first_banner_update(Request $request)
     {
         $request->validate([
-            'img1' => 'image',
-            'img2' => 'image',
-            'img3' => 'image',
+            'img1'      => 'image',
+            'img2'      => 'image',
+            'img3'      => 'image',
             'firsturl1' => 'required|max:200',
             'firsturl2' => 'required|max:200',
             'firsturl3' => 'required|max:200',
         ]);
-        $all_images_names = ['img1','img2','img3'];
+
+        $all_images_names = ['img1', 'img2', 'img3'];
 
         $input = $request->all();
 
         $data = HomeCutomize::first();
 
-        foreach($all_images_names as $single_image){
-            if($request->hasFile($single_image)){
+        foreach($all_images_names as $single_image) {
+            if ($request->hasFile($single_image)) {
                 $data = HomeCutomize::first();
-                $check = json_decode($data->banner_first,true);
-                $input[$single_image] = ImageHelper::handleUploadedImage($request->$single_image,'assets/images',$check[$single_image]);
-            }else{
-                $check = json_decode($data->banner_first,true);
+
+                $check = json_decode($data->banner_first, true);
+
+                $input[$single_image] = ImageHelper::handleUploadedImage($request->$single_image, 'images/', $check[$single_image]);
+            } else {
+                $check = json_decode($data->banner_first, true);
+
                 $input[$single_image] = $check[$single_image];
             }
         }
 
         unset($input['_token']);
 
+        $data->banner_first = json_encode($input, true);
 
-        $data->banner_first = json_encode($input,true);
         $data->update();
-        return redirect()->back()->withSuccess(__('Banner Update Successfully'));
 
+        return redirect()->back()->withSuccess(__('Banner Updated Successfully!'));
     }
 
     public function secend_banner_update(Request $request)
@@ -122,64 +134,72 @@ class HomePageController extends Controller
             'url2' => 'required|max:200',
             'url3' => 'required|max:200',
         ]);
-        $all_images_names = ['img1','img2','img3'];
+
+        $all_images_names = ['img1', 'img2', 'img3'];
+
         $input = $request->all();
 
         $data = HomeCutomize::first();
 
-        foreach($all_images_names as $single_image){
-            if($request->hasFile($single_image)){
+        foreach($all_images_names as $single_image) {
+            if ($request->hasFile($single_image)) {
                 $data = HomeCutomize::first();
+
+                $check = json_decode($data->banner_secend, true);
+
+                $input[$single_image] = ImageHelper::handleUploadedImage($request->$single_image, 'images/', $check[$single_image]);
+            } else {
                 $check = json_decode($data->banner_secend,true);
-                $input[$single_image] = ImageHelper::handleUploadedImage($request->$single_image,'assets/images',$check[$single_image]);
-            }else{
-                $check = json_decode($data->banner_secend,true);
+
                 $input[$single_image] = $check[$single_image];
             }
         }
 
         unset($input['_token']);
 
-
         $data->banner_secend = json_encode($input,true);
-        $data->update();
-        return redirect()->back()->withSuccess(__('Banner Update Successfully'));
 
+        $data->update();
+
+        return redirect()->back()->withSuccess(__('Banner Updated Successfully!'));
     }
 
     public function third_banner_update(Request $request)
     {
-
         $request->validate([
             'img1' => 'image',
             'img2' => 'image',
             'url1' => 'required|max:200',
             'url2' => 'required|max:200',
         ]);
-        $all_images_names = ['img1','img2'];
+
+        $all_images_names = ['img1', 'img2'];
 
         $input = $request->all();
+
         $data = HomeCutomize::first();
 
-        foreach($all_images_names as $single_image){
-            if($request->hasFile($single_image)){
+        foreach($all_images_names as $single_image) {
+            if ($request->hasFile($single_image)) {
                 $data = HomeCutomize::first();
+
+                $check = json_decode($data->banner_third, true);
+
+                $input[$single_image] = ImageHelper::handleUploadedImage($request->$single_image, 'images/', $check[$single_image]);
+            } else {
                 $check = json_decode($data->banner_third,true);
-                $input[$single_image] = ImageHelper::handleUploadedImage($request->$single_image,'assets/images',$check[$single_image]);
-            }else{
-                $check = json_decode($data->banner_third,true);
+
                 $input[$single_image] = $check[$single_image];
             }
         }
+
         unset($input['_token']);
 
+        $data->banner_third = json_encode($input ,true);
 
-
-
-        $data->banner_third = json_encode($input,true);
         $data->update();
-        return redirect()->back()->withSuccess(__('Banner Update Successfully'));
 
+        return redirect()->back()->withSuccess(__('Banner Updated Successfully!'));
     }
 
 
@@ -246,7 +266,7 @@ class HomePageController extends Controller
             if($request->hasFile($single_image)){
                 $data = HomeCutomize::first();
                 $check = json_decode($data->home_page4,true);
-                $input[$single_image] = ImageHelper::handleUploadedImage($request->$single_image,'assets/images',$check[$single_image]);
+                $input[$single_image] = ImageHelper::handleUploadedImage($request->$single_image,'images/',$check[$single_image]);
             }
         }
 

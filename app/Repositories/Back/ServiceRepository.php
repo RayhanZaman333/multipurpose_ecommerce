@@ -20,7 +20,7 @@ class ServiceRepository
     public function store($request)
     {
         $input = $request->all();
-        $input['photo'] = ImageHelper::handleUploadedImage($request->file('photo'),'assets/images');
+        $input['photo'] = ImageHelper::handleUploadedImage($request->file('photo'),'images/');
         Service::create($input);
     }
 

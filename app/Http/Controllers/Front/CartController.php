@@ -23,54 +23,59 @@ class CartController extends Controller
     public function __construct(CartRepository $repository)
     {
         $this->repository = $repository;
+
         $this->middleware('localize');
     }
 
 	public function index()
 	{
-        if(Session::has('cart')){
+        if (Session::has('cart')) {
             $cart = Session::get('cart');
-        }else{
+        } else {
             $cart = [];
         }
-        return view('front.catalog.cart',[
+
+        return view('front.catalog.cart', [
             'cart' => $cart
         ]);
     }
 
-
     public function addToCart(Request $request)
     {
-
         $msg = $this->repository->store($request);
-        if($request->ajax()){
+
+        if ($request->ajax()) {
             return $msg;
         }
-
-
     }
 
 	public function store(Request $request)
 	{
         $msg = $this->repository->store($request);
-        if(isset($request->addtocart)){
+
+        if (isset($request->addtocart)) {
            Session::flash('success_message',__('Cart Added Successfully'));
+
            return back();
         }
+
         return redirect()->route('front.cart')->withSuccess($msg);
 	}
 
     public function destroy($id)
     {
-
         $cart = Session::get('cart');
+
         unset($cart[$id]);
-        if(count($cart) > 0){
-            Session::put('cart',$cart);
-        }else{
+
+        if (count($cart) > 0) {
+            Session::put('cart', $cart);
+        } else {
             Session::forget('cart');
         }
-        Session::flash('success',__('Cart item remove successfully.'));
+
+        Session::flash('success', __('Cart item remove successfully.'));
+
         return back();
     }
 
@@ -84,7 +89,6 @@ class CartController extends Controller
         return redirect()->route('front.checkout');
     }
 
-
     public function update($id)
     {
         return view('front.catalog.cart_form',[
@@ -94,25 +98,29 @@ class CartController extends Controller
         ]);
     }
 
-
     public function shippingCharge(Request $request)
     {
-
         $charges = [];
         $items = [];
-        foreach($request->user_id as $data){
+
+        foreach($request->user_id as $data) {
             $check = explode('|',$data);
             $charges[] = $check[0];
             $items[] = $check[1];
         }
+
         $cart = Session::get('cart');
+
         $delivery_amount = 0;
-        foreach($charges as $index => $charge){
-            if($charge != 0){
+
+        foreach($charges as $index => $charge) {
+            if ($charge != 0) {
                  $vendor_charge = Item::findOrFail($items[$index])->user->shipping->price;
+
                 $delivery_amount += $vendor_charge;
+
                 $cart[$items[$index]]['delivery_charge'] = $vendor_charge;
-            }else{
+            } else {
                 $cart[$items[$index]]['delivery_charge'] = 0;
             }
         }
@@ -120,14 +128,13 @@ class CartController extends Controller
         Session::put('cart',$cart);
 
         return response()->json(['delivery' => PriceHelper::setPrice($delivery_amount),'main' => $delivery_amount]);
-
     }
-
 
     public function headerCartLoad()
     {
         return view('includes.header_cart');
     }
+
     public function CartLoad()
     {
         return view('includes.cart');
@@ -137,15 +144,14 @@ class CartController extends Controller
     {
         Session::forget('cart');
         Session::flash('success',__('Cart clear successfully'));
+
         return back();
     }
 
     public function promoDelete() {
         Session::forget('coupon');
         Session::flash('success',__('Promo code remove successfully'));
+
         return back();
     }
-
 }
-
-

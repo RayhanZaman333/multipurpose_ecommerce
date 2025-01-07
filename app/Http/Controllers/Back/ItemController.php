@@ -32,6 +32,7 @@ class ItemController extends Controller
     {
         $this->middleware('auth:admin');
         $this->middleware('adminlocalize');
+
         $this->repository = $repository;
     }
 
@@ -61,29 +62,36 @@ class ItemController extends Controller
         $is_type = $request->has('is_type') ? ($request->is_type ? $request->is_type : '') : '';
         $category_id = $request->has('category_id') ? ($request->category_id ? $request->category_id : '') : '';
         $orderby = $request->has('orderby') ? ($request->orderby ? $request->orderby : 'desc') : 'desc';
-        $status = $request->has('status') ? $request->status : '';
+        // $status = $request->has('status') ? ($request->status ? $request->status : '') : '';
         
         $curr = Currency::where('is_default', 1)->first();
-        $datas = Item::when($item_type, function ($query, $item_type) {
-                        return $query->where('item_type', $item_type);
-                    })
-                    ->when($is_type, function ($query, $is_type) {
-                        if ($is_type != 'outofstock') {
-                            return $query->where('is_type', $is_type);
-                        } else {
-                            return $query->whereStock(0)->whereItemType('normal');
-                        }
-                    })
-                    ->when($category_id, function ($query, $category_id) {
-                        return $query->where('category_id', $category_id);
-                    })
-                    ->when($status, function ($query, $status) {
-                        return $query->where('status', $status);
-                    })
-                    ->when($orderby, function ($query, $orderby) {
-                        return $query->orderby('id', $orderby);
-                    })
-                    ->get();
+        $query = Item::query();
+        
+        if ($item_type != '') {
+            $query->where('item_type', $item_type);
+        }
+
+        if ($is_type != '') {
+            if ($is_type != 'outofstock') {
+                return $query->where('is_type', $is_type);
+            } else {
+                return $query->whereStock(0)->whereItemType('normal');
+            }
+        }
+
+        if ($category_id != '') {
+            $query->where('category_id', $category_id);
+        }
+
+        if (isset($request->status) && ($request->status != '')) {
+            $query->where('status', $request->status);
+        }
+
+        if ($orderby != '') {
+            $query->orderby('id', $orderby);
+        }
+        
+        $datas = $query->get();
 
         return view('back.item.index', [
             'datas' => $datas,
