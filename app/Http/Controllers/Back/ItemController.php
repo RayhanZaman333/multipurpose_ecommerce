@@ -35,7 +35,6 @@ class ItemController extends Controller
         $this->repository = $repository;
     }
 
-
     public function summernoteUpload(Request $request)
     {
         $name = ImageHelper::uploadSummernoteImage($request->file('image'), 'storage/images/summernote');
@@ -45,7 +44,6 @@ class ItemController extends Controller
             'image' => asset('storage/images/summernote/' . $name)
         ]);
     }
-
 
     public function add()
     {
