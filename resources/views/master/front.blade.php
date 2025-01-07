@@ -257,25 +257,31 @@
                                         <div class="tab-pane fade show active" id="mmenu" role="tabpanel" aria-labelledby="mmenu-tab">
                                             <nav class="slideable-menu">
                                                 <ul>
-                                                    <li class="{{ request()->routeIs('front.index') ? 'active' : '' }}"><a href="{{ route('front.index') }}"><i class="icon-chevron-right"></i>{{__('Home')}}</a></li>
+                                                    <li class="{{ request()->routeIs('front.index') ? 'active' : '' }}"><a href="{{ route('front.index') }}"><i class="icon-chevron-right"></i>{{ __('Home') }}</a></li>
 
                                                     @if ($setting->is_shop == 1)
-                                                        <li class="{{ request()->routeIs('front.catalog*')  ? 'active' : '' }}"><a href="{{ route('front.catalog') }}"><i class="icon-chevron-right"></i>{{__('Shop')}}</a></li>
+                                                        <li class="{{ request()->routeIs('front.catalog*')  ? 'active' : '' }}"><a href="{{ route('front.catalog') }}"><i class="icon-chevron-right"></i>{{ __('Shop') }}</a></li>
                                                     @endif
 
                                                     @if ($setting->is_campaign == 1)
-                                                        <li class="{{ request()->routeIs('front.campaign')  ? 'active' : '' }}"><a href="{{ route('front.campaign') }}"><i class="icon-chevron-right"></i>{{__('Campaign')}}</a></li>
+                                                        <li class="{{ request()->routeIs('front.campaign')  ? 'active' : '' }}"><a href="{{ route('front.campaign') }}"><i class="icon-chevron-right"></i>{{ __('Campaign') }}</a></li>
                                                     @endif
 
                                                     @if ($setting->is_brands == 1)
-                                                        <li class="{{ request()->routeIs('front.brand')  ? 'active' : '' }}"><a href="{{ route('front.brand') }}"><i class="icon-chevron-right"></i>{{__('Brand')}}</a></li>
+                                                        <li class="{{ request()->routeIs('front.brand')  ? 'active' : '' }}"><a href="{{ route('front.brand') }}"><i class="icon-chevron-right"></i>{{ __('Brand') }}</a></li>
                                                     @endif
 
                                                     @if ($setting->is_blog == 1)
-                                                        <li class="{{ request()->routeIs('front.blog*') ? 'active' : '' }}"><a href="{{ route('front.blog') }}"><i class="icon-chevron-right"></i>{{__('Blog')}}</a></li>
+                                                        <li class="{{ request()->routeIs('front.blog*') ? 'active' : '' }}"><a href="{{ route('front.blog') }}"><i class="icon-chevron-right"></i>{{ __('Blog') }}</a></li>
                                                     @endif
 
-                                                    <li class="t-h-dropdown">
+                                                    @if (count(DB::table('pages')->wherePos(0)->orWhere('pos', 2)->get()) > 0)
+                                                        @foreach (DB::table('pages')->wherePos(0)->orWhere('pos', 2)->get() as $page)
+                                                            <li class="{{ request()->routeIs('front.page', $page->slug) ? 'active' : '' }}"><a href="{{ route('front.page', $page->slug) }}"><i class="icon-chevron-right"></i>{{ $page->title }}</a></li>
+                                                        @endforeach
+                                                    @endif
+
+                                                    {{-- <li class="t-h-dropdown">
                                                         <a class="" href="#"><i class="icon-chevron-right"></i>{{ __('Pages') }} <i class="icon-chevron-down"></i></a>
 
                                                         <div class="t-h-dropdown-menu">
@@ -287,7 +293,7 @@
                                                                 <a class="{{ request()->url() == route('front.page', $page->slug) ? 'active' : '' }} " href="{{ route('front.page', $page->slug) }}"><i class="icon-chevron-right pr-2"></i>{{ $page->title }}</a>
                                                             @endforeach
                                                         </div>
-                                                    </li>
+                                                    </li> --}}
 
                                                     @if ($setting->is_contact == 1)
                                                         <li class="{{ request()->routeIs('front.contact') ? 'active' : '' }}"><a href="{{ route('front.contact') }}"><i class="icon-chevron-right"></i>{{ __('Contact') }}</a></li>
