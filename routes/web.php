@@ -99,6 +99,10 @@ Route::group(['middleware' => 'adminlocalize'], function () {
             // Campain offer.
             Route::resource('/campaign', 'Back\CampaignController', ['as' => 'back', 'except' => 'show']);
             Route::get('campaign/status/{id}/{status}/{type}', 'Back\CampaignController@status')->name('back.campaign.status');
+            
+            Route::get('campaign/add-item/{id}', 'Back\CampaignController@itemAdd')->name('back.campaign.itemAdd');
+            Route::post('campaign/item-store', 'Back\CampaignController@itemStore')->name('back.campaign.itemStore');
+            Route::get('campaign/status/{id}/{status}', 'Back\CampaignController@changeStatus')->name('back.campaign.changeStatus');
 
             // --------- DIGITAL PRODUCT -----------//
             Route::get('/digital/create', 'Back\ItemController@deigitalItemCreate')->name('back.digital.item.create');
@@ -184,7 +188,6 @@ Route::group(['middleware' => 'adminlocalize'], function () {
             Route::get('database/backup', 'Back\BackupController@databaseBackup')->name('back.database.backup');
         });
 
-
         Route::group(['middleware' => 'permissions:Manages Tickets'], function () {
             //------------ TICKET ------------
             Route::resource('ticket', 'Back\TicketController', ['as' => 'back', 'except' => 'show']);
@@ -201,7 +204,6 @@ Route::group(['middleware' => 'adminlocalize'], function () {
             Route::delete('post/delete/{key}/{id}', 'Back\PostController@delete')->name('back.post.photo.delete');
         });
 
-
         Route::group(['middleware' => 'permissions:Transactions'], function () {
             //------------ TRANSACTION ----------------//
             Route::get('/transactions', 'Back\TranactionController@index')->name('back.transaction.index');
@@ -209,7 +211,6 @@ Route::group(['middleware' => 'adminlocalize'], function () {
         });
 
         Route::group(['middleware' => 'permissions:Manage Faqs Contents'], function () {
-
             //------------ FAQ CATEGORY ------------
             Route::get('faq-category/status/{id}/{status}', 'Back\FcategoryController@status')->name('back.fcategory.status');
             Route::resource('fcategory', 'Back\FcategoryController', ['as' => 'back', 'except' => 'show']);
@@ -375,12 +376,7 @@ Route::group(['middleware' => 'maintainance'], function () {
 
         // ************************************ USER PANEL ENDS**********************************************
 
-
-
-
-
         // ************************************ FRONTEND **********************************************
-
         //------------ FRONT ------------
         Route::get('/', 'Front\FrontendController@index')->name('front.index');
         Route::get('/extra-index', 'Front\FrontendController@extraIndex')->name('front.extraindex');

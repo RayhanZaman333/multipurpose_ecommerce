@@ -9,7 +9,6 @@ use App\{
 
 class SettingRepository
 {
-
     /**
      * Update setting.
      *
@@ -19,24 +18,19 @@ class SettingRepository
 
     public function update($request)
     {
-
-
-
         $data = Setting::find(1);
+
         $input = $request->all();
     
-
         $image_files = ['logo','favicon','loader','feature_image','announcement','footer_gateway_img','maintainance_image'];
 
         $social_fields = ['facebook_check','google_check'];
-
         
         foreach($image_files as $image_file){
             if ($file = $request->file($image_file)) {
                 $input[$image_file] = ImageHelper::handleUpdatedUploadedImage($file, 'images/', $data, '/storage/images/', $image_file);
             }
         }
-
 
         if($request->social_icons && $request->social_links){
             $links = ['icons'=>$request->social_icons,'links'=>$request->social_links];

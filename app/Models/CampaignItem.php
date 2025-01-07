@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class CampaignItem extends Model
 {
     public $timestamps = false;
-    protected $fillable = ['item_id', 'status','is_feature'];
+
+    // protected $fillable = ['item_id', 'status', 'is_feature'];
+    protected $guarded = [];
 
     public function item()
     {
