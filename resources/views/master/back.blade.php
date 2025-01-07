@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-
     <head>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <title>{{ $setting->title }}</title>
+
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+
         <link rel="icon" type="image/x-icon" href="{{ asset('storage/images/' . $setting->favicon) }}" />
 
         <!-- Fonts and icons -->
         <script src="{{ asset('assets/back/js/plugin/webfont/webfont.min.js') }}"></script>
-        <script id="setFont" data-src="{{ asset('assets/back/css/fonts.css') }}"
-            src="{{ asset('assets/back/js/plugin/webfont/setfont.js') }}"></script>
+        <script id="setFont" data-src="{{ asset('assets/back/css/fonts.css') }}" src="{{ asset('assets/back/js/plugin/webfont/setfont.js') }}"></script>
 
         <!-- CSS Files -->
         <link rel="stylesheet" href="{{ asset('assets/back/css/bootstrap.min.css') }}">
@@ -20,8 +20,20 @@
         <link rel="stylesheet" href="{{ asset('assets/back/css/bootstrap-iconpicker.css') }}">
         <link rel="stylesheet" href="{{ asset('assets/back/css/magnific-popup.css') }}">
 
+        <!-- include summernote css -->
+        <link href="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.css" rel="stylesheet">
+
         <!-- Custom CSS -->
         <link rel="stylesheet" href="{{ asset('assets/back/css/custom.css') }}">
+
+        <style>
+            .btn-default {
+                color: #000 !important;
+            }
+            .btn-default:disabled, .btn-default:focus, .btn-default:hover {
+                color: #000 !important;
+            }
+        </style>
 
         @if (DB::table('languages')->where('type', 'Dashboard')->where('is_default', 1)->first()->rtl == 1)
             <link rel="stylesheet" href="{{ asset('assets/back/css/rtl.css') }}">
@@ -230,8 +242,10 @@
         <!-- Azzara JS -->
         <script src="{{ asset('assets/back/js/ready.min.js') }}"></script>
 
-        <!-- Custom JS -->
+        <!-- include summernote js -->
+        <script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.js"></script>
 
+        <!-- Custom JS -->
         @yield('scripts')
 
         <script src="{{ asset('assets/back/js/custom.js') }}"></script>

@@ -62,20 +62,14 @@ Route::group(['middleware' => 'adminlocalize'], function () {
             Route::get('/order/status/{id}/{field}/{value}', 'Back\OrderController@status')->name('back.order.status');
         });
 
-
-
         //------------ NOTIFICATIONS ------------
         Route::get('/notifications', 'Back\NotificationController@notifications')->name('back.notifications');
         Route::get('/notifications/view', 'Back\NotificationController@view_notification')->name('back.view.notification');
         Route::get('/notification/delete/{id}', 'Back\NotificationController@delete')->name('back.notification.delete');
         Route::get('/notifications/clear', 'Back\NotificationController@clear_notf')->name('back.notifications.clear');
 
-
-
         Route::group(['middleware' => 'permissions:Manage Products'], function () {
-
             //------------ ITEM ------------
-
             Route::get('item/add', 'Back\ItemController@add')->name('back.item.add');
             Route::get('item/status/{item}/{status}', 'Back\ItemController@status')->name('back.item.status');
             Route::get('get/subcategory', 'Back\ItemController@getsubCategory')->name('back.get.subcategory');
@@ -213,7 +207,6 @@ Route::group(['middleware' => 'adminlocalize'], function () {
         });
 
         Route::group(['middleware' => 'permissions:Manage Faqs Contents'], function () {
-
             //------------ FAQ CATEGORY ------------
             Route::get('faq-category/status/{id}/{status}', 'Back\FcategoryController@status')->name('back.fcategory.status');
             Route::resource('fcategory', 'Back\FcategoryController', ['as' => 'back', 'except' => 'show']);
@@ -223,7 +216,6 @@ Route::group(['middleware' => 'adminlocalize'], function () {
         });
 
         Route::group(['middleware' => 'permissions:Manage System User'], function () {
-
             //------------ ROLE ------------
             Route::resource('role', 'Back\RoleController', ['as' => 'back', 'except' => 'show']);
 
@@ -232,15 +224,12 @@ Route::group(['middleware' => 'adminlocalize'], function () {
         });
 
         Route::group(['middleware' => 'permissions:Manages Pages'], function () {
-
             //------------ PAGE ------------
             Route::get('page/pos/{id}/{pos}', 'Back\PageController@pos')->name('back.page.pos');
             Route::resource('page', 'Back\PageController', ['as' => 'back', 'except' => 'show']);
         });
 
-
         Route::group(['middleware' => 'permissions:Manage Site'], function () {
-
             //------------ SOCIAL ------------
             Route::resource('social', 'Back\SocialController', ['as' => 'back', 'except' => 'show']);
 
@@ -473,11 +462,9 @@ Route::group(['middleware' => 'maintainance'], function () {
 
         //------------ PAGE ------------
         Route::get('/{slug}', 'Front\FrontendController@page')->name('front.page');
-
         // ************************************ FRONTEND ENDS**********************************************
-
+        
         // ************************************ GLOBAL LOCALIZATION ENDS **********************************************
-
     });
 });
 

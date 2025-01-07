@@ -304,12 +304,12 @@ class FrontendController extends Controller
         return redirect()->back();
     }
 
-
     public function product($slug)
     {
-
         $item = Item::with('category')->whereStatus(1)->whereSlug($slug)->firstOrFail();
+        
         $video = explode('=', $item->video);
+
         return view('front.catalog.product', [
             'item'          => $item,
             'reviews'       => $item->reviews()->where('status', 1)->paginate(3),
@@ -321,8 +321,6 @@ class FrontendController extends Controller
             'related_items' => $item->category->items()->whereStatus(1)->where('id', '!=', $item->id)->take(8)->get()
         ]);
     }
-
-
 
     public function brands()
     {
@@ -395,39 +393,37 @@ class FrontendController extends Controller
     // -------------------------------- FAQ ----------------------------------------
 
     // -------------------------------- CAMPAIGN ----------------------------------------
-
     public function compaignProduct()
     {
         if (Setting::first()->is_campaign == 0) {
             return back();
         }
+
         $compaign_items =  CampaignItem::whereStatus(1)->orderby('id', 'desc')->get();
+
         return view('front.campaign', ['campaign_items' => $compaign_items]);
     }
-
     // -------------------------------- CAMPAIGN ----------------------------------------
-
 
     // -------------------------------- CURRENCY ----------------------------------------
     public function currency($id)
     {
         Session::put('currency', $id);
+        
         return back();
     }
     // -------------------------------- CURRENCY ----------------------------------------
-
 
     // -------------------------------- LANGUAGE ----------------------------------------
     public function language($id)
     {
         Session::put('language', $id);
+
         return back();
     }
     // -------------------------------- LANGUAGE ----------------------------------------
 
-
     // -------------------------------- FAQ ----------------------------------------
-
     public function page($slug)
     {
         return view('front.page', [
@@ -436,12 +432,12 @@ class FrontendController extends Controller
     }
 
     // -------------------------------- CONTACT ----------------------------------------
-
     public function contact()
     {
         if (Setting::first()->is_contact == 0) {
             return back();
         }
+
         return view('front.contact');
     }
 
@@ -454,6 +450,7 @@ class FrontendController extends Controller
             'phone' => 'required|max:50',
             'message' => 'required|max:250',
         ]);
+
         $input = $request->all();
 
         $setting = Setting::first();
@@ -595,6 +592,6 @@ class FrontendController extends Controller
             }
         }
 
-        return redirect()->back()->with('success', "Request for price quotation sent successfully!");
+        return redirect()->back()->with('success', "Request Price Quote quotation sent successfully!");
     }
 }

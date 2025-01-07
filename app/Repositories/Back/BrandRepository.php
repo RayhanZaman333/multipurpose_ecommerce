@@ -20,7 +20,7 @@ class BrandRepository
     public function store($request)
     {
         $input = $request->all();
-        $input['photo'] = ImageHelper::handleUploadedImage($request->file('photo'),'assets/images');
+        $input['photo'] = ImageHelper::handleUploadedImage($request->file('photo'),'images/');
         Brand::create($input);
     }
 
