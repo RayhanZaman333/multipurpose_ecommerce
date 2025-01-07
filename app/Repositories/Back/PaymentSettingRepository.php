@@ -81,7 +81,7 @@ class PaymentSettingRepository
         $pay_data = PaymentSetting::whereUniqueKeyword($input['unique_keyword'])->first();
 
         if ($file = $request->file('photo')) {
-            $input['photo'] = ImageHelper::handleUpdatedUploadedImage($file,'/assets/images',$pay_data,'/storage/images/','photo');
+            $input['photo'] = ImageHelper::handleUpdatedUploadedImage($file,'/images/',$pay_data,'/storage/images/','photo');
         }
 
         

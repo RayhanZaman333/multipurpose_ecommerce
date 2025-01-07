@@ -23,7 +23,7 @@ class ItemRepository
         $input = $request->all();
 
         if ($file = $request->file('photo')) {
-            $images_name = ImageHelper::ItemhandleUploadedImage($request->file('photo'),'assets/images');
+            $images_name = ImageHelper::ItemhandleUploadedImage($request->file('photo'),'images/');
 
             $input['photo'] = $images_name[0];
             $input['thumbnail'] = $images_name[1];
@@ -110,7 +110,7 @@ class ItemRepository
 
         if ( $request->file('photo')) {
 
-            $images_name = ImageHelper::ItemhandleUpdatedUploadedImage($request->photo,'/assets/images',$item,'/storage/images/','photo');
+            $images_name = ImageHelper::ItemhandleUpdatedUploadedImage($request->photo,'/images/',$item,'/storage/images/','photo');
             $input['photo'] = $images_name[0];
             $input['thumbnail'] = $images_name[1];
         }
@@ -273,7 +273,7 @@ class ItemRepository
         if ($galleries = $request->file('galleries')) {
             foreach($galleries as $key => $gallery){
                 $storeData[$key] = [
-                    'photo'=>  ImageHelper::handleUploadedImage($gallery,'assets/images'),
+                    'photo'=>  ImageHelper::handleUploadedImage($gallery,'images/'),
                     'item_id' => $item_id ? $item_id : $request['item_id'],
                 ];
             }

@@ -60,7 +60,7 @@ class PostRepository
         $storeData = [];
         if ($photos = $request->file('photo')) {
             foreach($photos as $key => $photo){
-                $storeData[$key] = ImageHelper::handleUploadedImage($photo,'assets/images');
+                $storeData[$key] = ImageHelper::handleUploadedImage($photo,'images/');
             }
         }
         return $storeData;
@@ -73,7 +73,7 @@ class PostRepository
         
         if ($photos = $request->file('photo')) {
             foreach($photos as $key => $photo){
-                array_push($storeData,ImageHelper::handleUploadedImage($photo,'assets/images'));
+                array_push($storeData,ImageHelper::handleUploadedImage($photo,'images/'));
             }
         }
         

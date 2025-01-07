@@ -21,7 +21,7 @@ class StaffRepository
     {
         $input = $request->all();
         $input['password'] = bcrypt($request['password']);
-        $input['photo'] = ImageHelper::handleUploadedImage($request->file('photo'),'assets/images');
+        $input['photo'] = ImageHelper::handleUploadedImage($request->file('photo'),'images/');
         Admin::create($input);
     }
 

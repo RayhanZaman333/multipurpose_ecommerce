@@ -6,9 +6,9 @@
       <img src="{{ $data->thumbnail ? asset('storage/images/'.$data->thumbnail) : asset('storage/images/placeholder.png') }}" alt="Image Not Found">
     </td>
 
-    <td>
-      {{ $data->name }}
-    </td>
+    <td>{{ $data->name }}</td>
+
+    <td>{{ $data->category->name ?? '' }}</td>
 
     <td>
       {{ $data->stock }}
@@ -52,7 +52,7 @@
 
     <td>
       {{ PriceHelper::adminCurrencyPrice($data->discount_price) }}
-
+      
       <br>
 
       <button class="btn btn-sm btn-warning mt-2" data-toggle="modal" data-target="#updatePrice{{ $data->id }}"><span>{{ __('Update Price') }}</span></button>
