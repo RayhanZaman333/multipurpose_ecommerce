@@ -73,9 +73,9 @@ class ItemController extends Controller
 
         if ($is_type != '') {
             if ($is_type != 'outofstock') {
-                return $query->where('is_type', $is_type);
+                $query->where('is_type', $is_type);
             } else {
-                return $query->whereStock(0)->whereItemType('normal');
+                $query->whereStock(0)->whereItemType('normal');
             }
         }
 
