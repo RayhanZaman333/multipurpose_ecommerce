@@ -52,7 +52,7 @@
 
     @if ($compaigns)
         @foreach ($compaigns as $compaign)
-            @if ($compaign->campaign_end_date <= date('m/d/Y'))
+            @if ($compaign->campaign_end_date >= date('m/d/Y'))
                 <div class="deal-of-day-section pb-5">
                     <div class="container">
                         <div class="row">
