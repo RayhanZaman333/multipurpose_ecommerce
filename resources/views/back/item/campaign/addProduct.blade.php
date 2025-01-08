@@ -32,7 +32,7 @@
 
                                 <input type="hidden" name="campaign_id" id="campaign_id" value="{{ $data->id }}">
 
-                                <div class="col-md-6">
+                                <div class="col-md-10">
                                     <div class="form-group ">
                                         <select id="basic" name="item_id[]" class="form-control" multiple>
                                             <option value="" disabled>{{ __('Select Product') }}</option>

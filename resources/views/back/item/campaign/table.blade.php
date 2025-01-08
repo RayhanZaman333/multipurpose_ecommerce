@@ -24,7 +24,7 @@
                     <i class="fas fa-edit"></i>
                 </a>
 
-                <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirm-delete" href="javascript:;" data-href="{{ route('back.campaign.destroy', $data->id) }}">
+                <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirm-delete" href="javascript:;" data-href="{{ route('back.campaign.delete', $data->id) }}">
                     <i class="fas fa-trash-alt"></i>
                 </a>
             </div>

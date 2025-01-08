@@ -17,6 +17,11 @@ use App\{
     Http\Requests\SubscribeRequest,
     Repositories\Front\FrontRepository
 };
+
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Config;
+
 use App\Helpers\SmsHelper;
 use App\Models\Brand;
 use App\Models\CampaignItem;
@@ -31,15 +36,12 @@ use App\Models\Service;
 use App\Models\Slider;
 use App\Models\Subcategory;
 use App\Models\TrackOrder;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Config;
+use App\Models\Campaign;
 
 use function GuzzleHttp\json_decode;
 
 class FrontendController extends Controller
 {
-
     /**
      * Constructor Method.
      *
@@ -360,9 +362,7 @@ class FrontendController extends Controller
         ]);
     }
 
-
     // -------------------------------- FAQ ----------------------------------------
-
     public function faq()
     {
         if (Setting::first()->is_faq == 0) {
@@ -377,34 +377,34 @@ class FrontendController extends Controller
         if (Setting::first()->is_faq == 0) {
             return back();
         }
+
         $category =  Fcategory::whereSlug($slug)->first();
+
         return view('front.faq.show', ['category' => $category]);
     }
-
     // -------------------------------- FAQ ----------------------------------------
 
     // -------------------------------- CAMPAIGN ----------------------------------------
-
     public function compaignProduct()
     {
-        if (Setting::first()->is_campaign == 0) {
-            return back();
-        }
-        $compaign_items =  CampaignItem::whereStatus(1)->orderby('id', 'desc')->get();
-        return view('front.campaign', ['campaign_items' => $compaign_items]);
+        // if (Setting::first()->is_campaign == 0) {
+        //     return back();
+        // }
+
+        $compaigns = Campaign::where('campaign_status', 1)->orderby('id', 'desc')->get();
+
+        return view('front.campaign', compact('compaigns'));
     }
-
     // -------------------------------- CAMPAIGN ----------------------------------------
-
 
     // -------------------------------- CURRENCY ----------------------------------------
     public function currency($id)
     {
         Session::put('currency', $id);
+
         return back();
     }
     // -------------------------------- CURRENCY ----------------------------------------
-
 
     // -------------------------------- LANGUAGE ----------------------------------------
     public function language($id)
@@ -414,16 +414,13 @@ class FrontendController extends Controller
     }
     // -------------------------------- LANGUAGE ----------------------------------------
 
-
     // -------------------------------- FAQ ----------------------------------------
-
     public function page($slug)
     {
         return view('front.page', [
             'page' => $this->repository->displayPage($slug)
         ]);
     }
-
     // -------------------------------- CONTACT ----------------------------------------
 
     public function contact()

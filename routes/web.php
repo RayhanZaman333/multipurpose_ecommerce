@@ -103,6 +103,8 @@ Route::group(['middleware' => 'adminlocalize'], function () {
             Route::get('campaign/add-item/{id}', 'Back\CampaignController@itemAdd')->name('back.campaign.itemAdd');
             Route::post('campaign/item-store', 'Back\CampaignController@itemStore')->name('back.campaign.itemStore');
             Route::get('campaign/status/{id}/{status}', 'Back\CampaignController@changeStatus')->name('back.campaign.changeStatus');
+            Route::post('campaign/item-update', 'Back\CampaignController@itemUpdate')->name('back.campaign.itemUpdate');
+            Route::get('campaign/delete/{id}', 'Back\CampaignController@delete')->name('back.campaign.delete');
 
             // --------- DIGITAL PRODUCT -----------//
             Route::get('/digital/create', 'Back\ItemController@deigitalItemCreate')->name('back.digital.item.create');

@@ -86,7 +86,7 @@ class CategoryRepository
        
 
        if($check){
-           return ['message' => __('This Category allready used Home page section . Please change this category then delete this category') , 'status' => 0];
+           return ['message' => __('This Category already used Home page section . Please change this category then delete this category') , 'status' => 0];
        }else{
         ImageHelper::handleDeletedImage($category,'photo','storage/images/');
         $category->delete();
