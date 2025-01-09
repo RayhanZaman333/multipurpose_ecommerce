@@ -234,10 +234,9 @@
     <script src="{{ asset('assets/back/js/ready.min.js') }}"></script>
 
     <!-- Custom JS -->
-
     @yield('scripts')
-    <script src="{{ asset('assets/back/js/custom.js') }}"></script>
 
+    <script src="{{ asset('assets/back/js/custom.js') }}"></script>
 </body>
 
 </html>

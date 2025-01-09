@@ -132,7 +132,7 @@
                                   </div>
                             </td>
                               <td>
-                                <a class="btn btn-danger btn-sm " data-toggle="modal"
+                                <a class="btn btn-danger btn-sm" data-toggle="modal"
                                     data-target="#confirm-delete" href="javascript:;"
                                     data-href="{{ route('back.campaign.destroy',$data->id) }}">
                                     <i class="fas fa-trash-alt"></i>

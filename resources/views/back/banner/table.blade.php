@@ -30,7 +30,7 @@
     </td>
     <td>
         <div class="action-list">
-            <a class="btn btn-secondary btn-sm "
+            <a class="btn btn-secondary btn-sm"
                 href="{{ route('back.banner.edit',$data->id) }}">
                 <i class="fas fa-edit"></i>
             </a>

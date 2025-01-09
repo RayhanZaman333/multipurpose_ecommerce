@@ -47,7 +47,7 @@
                 href="{{ route('back.order.invoice',$data->id) }}">
                 <i class="fas fa-eye"></i>
             </a>
-            <a class="btn btn-danger btn-sm " data-toggle="modal"
+            <a class="btn btn-danger btn-sm" data-toggle="modal"
                 data-target="#confirm-delete" href="javascript:;"
                 data-href="{{ route('back.order.delete',$data->id) }}">
                 <i class="fas fa-trash-alt"></i>

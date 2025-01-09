@@ -26,10 +26,10 @@
 
         <td>
             <div class="action-list">
-                <a class="btn btn-secondary btn-sm " href="{{ route('back.slider.edit', $data->id) }}">
+                <a class="btn btn-secondary btn-sm" href="{{ route('back.slider.edit', $data->id) }}">
                     <i class="fas fa-edit"></i>
                 </a>
-                <a class="btn btn-danger btn-sm " data-toggle="modal" data-target="#confirm-delete" href="javascript:;"
+                <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirm-delete" href="javascript:;"
                     data-href="{{ route('back.slider.destroy', $data->id) }}">
                     <i class="fas fa-trash-alt"></i>
                 </a>

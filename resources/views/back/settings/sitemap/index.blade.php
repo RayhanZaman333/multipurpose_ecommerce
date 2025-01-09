@@ -45,7 +45,7 @@
                                         Download
                                         </button>
                                 </form>
-                                <a class="btn btn-danger btn-sm " data-toggle="modal"
+                                <a class="btn btn-danger btn-sm" data-toggle="modal"
                                     data-target="#confirm-delete" href="javascript:;"
                                     data-href="{{ route('admin.sitemap.delete',[$sitemap->id]) }}">
                                     <i class="fas fa-trash-alt"></i>

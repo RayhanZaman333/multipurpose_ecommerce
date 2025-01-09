@@ -38,6 +38,7 @@ class TicketController extends Controller
         } else {
             $datas = Ticket::orderBy('id', 'desc')->get();
         }
+        
         return view('back.ticket.index', [
             'datas' => $datas
         ]);
@@ -62,13 +63,14 @@ class TicketController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'file' => 'file|mimes:zip|max:5000',
-            'email' => 'required|exists:users,email',
-            'message' => 'required|max:255',
-            'subject' => 'required|max:255'
+            'file'      => 'file|mimes:zip|max:5000',
+            'email'     => 'required|exists:users,email',
+            'message'   => 'required|max:255',
+            'subject'   => 'required|max:255'
         ]);
 
         $this->repository->store($request);
+
         return redirect()->route('back.ticket.index')->withSuccess(__('New Ticket Added Successfully.'));
     }
 

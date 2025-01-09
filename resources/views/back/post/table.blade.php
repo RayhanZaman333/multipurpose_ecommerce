@@ -15,11 +15,11 @@
 
     <td>
         <div class="action-list">
-            <a class="btn btn-secondary btn-sm "
+            <a class="btn btn-secondary btn-sm"
                 href="{{ route('back.post.edit',$data->id) }}">
                 <i class="fas fa-edit"></i>
             </a>
-            <a class="btn btn-danger btn-sm " data-toggle="modal"
+            <a class="btn btn-danger btn-sm" data-toggle="modal"
                 data-target="#confirm-delete" href="javascript:;"
                 data-href="{{ route('back.post.destroy',$data->id) }}">
                 <i class="fas fa-trash-alt"></i>

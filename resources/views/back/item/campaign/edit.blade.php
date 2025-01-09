@@ -160,7 +160,7 @@
                                     </td>
 
                                     <td>
-                                        <a class="btn btn-danger btn-sm " data-toggle="modal" data-target="#confirm-delete" href="javascript:;" data-href="{{ route('back.campaign.destroy', $product->id) }}">
+                                        <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirm-delete" href="javascript:;" data-href="{{ route('back.campaign.destroy', $product->id) }}">
                                             <i class="fas fa-trash-alt"></i>
                                         </a>
                                     </td>

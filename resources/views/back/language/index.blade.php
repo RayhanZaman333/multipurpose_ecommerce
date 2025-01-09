@@ -66,7 +66,7 @@
                                 </td>
                                 <td>
                                     <div class="action-list">
-                                        <a class="btn btn-secondary btn-sm "
+                                        <a class="btn btn-secondary btn-sm"
                                             href="{{ route('back.language.edit',$data->id) }}">
                                             <i class="fas fa-edit"></i> {{ __('Edit') }}
                                         </a>
@@ -127,7 +127,7 @@
                                 </td>
                                 <td>
                                     <div class="action-list">
-                                        <a class="btn btn-secondary btn-sm "
+                                        <a class="btn btn-secondary btn-sm"
                                             href="{{ route('back.language.edit',$data->id) }}">
                                             <i class="fas fa-edit"></i> {{ __('Edit') }}
                                         </a>
