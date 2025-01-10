@@ -167,8 +167,8 @@
                 </div>
             </div>
         </div>
-
     </div>
+
     @php
         $mainbs = [];
         $mainbs['is_announcement'] = $setting->is_announcement;
@@ -182,6 +182,7 @@
         var mainbs = {!! $mainbs !!};
         var summernot_upload_url = '{{ route('back.summernote.image.upload') }}';
     </script>
+    
     <!--   Core JS Files   -->
     <script src="{{ asset('assets/back/js/core/jquery.3.6.0.min.js') }}"></script>
     <script src="{{ asset('assets/back/js/core/popper.min.js') }}"></script>

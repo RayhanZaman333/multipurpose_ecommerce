@@ -12,23 +12,25 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 
 /* included models */
+use App\Models\User;
 use App\Models\Ticket;
+use App\Models\Message;
 
 class SupportTicket implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $message;
+    public $ticket;
 
     /**
      * Create a new event instance.
      *
-     * @param Chat $message
+     * @param Ticket $ticket
      * @return void
      */
-    public function __construct(Ticket $message)
+    public function __construct(Ticket $ticket)
     {
-        $this->message = $message;
+        $this->ticket = $ticket;
     }
 
     /**
@@ -48,27 +50,38 @@ class SupportTicket implements ShouldBroadcastNow
      */
     public function broadcastWith()
     {
-        $user = User::find($this->message->user_id); 
+        $user = User::find($this->ticket->user_id); 
+        $lastMessage = Message::where('ticket_id', $this->ticket->id)->latest()->first(); 
 
         if ($user) {
             return [
-                'id ' => $this->message->id,
-                'subject' => $this->message->subject,
-                'message' => $this->message->message,
-                'status' => $this->message->status,
-                'created_at' => $this->message->created_at,
+                'id '           => $this->ticket->id,
+                'subject'       => $this->ticket->subject,
+                'message'       => $this->ticket->message,
+                'status'        => $this->ticket->status,
+                'user'          => [
+                    'id'            => $user->id,
+                    'first_name'    => $user->first_name,
+                ],
+                'lastMessage'   => [
+                    'id'            => $lastMessage->id,
+                    'created_at'    => $lastMessage->created_at,
+                ],
             ];
         } else {
             return [
-                'message' => $this->message->message,
-                'receiver_id' => $this->message->receiver_id,
-                'sender_id' => $this->message->sender_id,
-                'user' => [
-                    'id' => null,
-                    'name' => 'Unknown User',
-                    'image' => asset('storage/default-avatar.png'), // Default image if user is not found
+                'id '           => $this->ticket->id,
+                'subject'       => $this->ticket->subject,
+                'message'       => $this->ticket->message,
+                'status'        => $this->ticket->status,
+                'user'          => [
+                    'id'            => null,
+                    'first_name'    => null,
                 ],
-                'created_at' => $this->message->created_at,
+                'lastMessage'   => [
+                    'id'            => null,
+                    'created_at'    => null,
+                ],
             ];
         }
     }

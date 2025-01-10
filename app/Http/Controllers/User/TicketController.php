@@ -78,7 +78,7 @@ class TicketController extends Controller
         $message->save();
 
         // Broadcast the message using the SendUserMessage event
-        event(new SupportTicket($message));
+        event(new SupportTicket($ticket));
 
         if (Setting::first()->ticket_mail == 1) {
             $mailData = [

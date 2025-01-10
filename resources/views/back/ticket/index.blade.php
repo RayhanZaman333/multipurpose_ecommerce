@@ -62,8 +62,8 @@
                             </tr>
                         </thead>
 
-                        <tbody>
-                            @include('back.ticket.table',compact('datas'))
+                        <tbody id="append">
+                            @include('back.ticket.table', compact('datas'))
                         </tbody>
                     </table>
                 </div>
@@ -123,29 +123,54 @@
         channel.bind('ticket-event', function(data) {
             // alert(JSON.stringify(data));
 
-            let senderId    = data.sender_id;
-            let message     = data.message;
-            let senderName  = data.admin.name;
-            let senderImage = data.admin.image;
-            let messageTime = new Date(data.created_at).toLocaleTimeString([], {
+            let id                  = data.id;
+            let subject             = data.subject;
+            let message             = data.message;
+            let status              = data.status;
+            let first_name          = data.user.first_name;
+            let created_at          = data.lastMessage.created_at;
+            // let createdAtHumanized  = new Date(createdAt).toLocaleTimeString([], {
+            //     hour: '2-digit',
+            //     minute: '2-digit'
+            // });
+            let createdAt = new Date(data.lastMessage.created_at);
+            let dateFormatter = new Intl.DateTimeFormat('en-US', {
+                day: '2-digit',
+                month: 'short',
+                year: 'numeric'
+            });
+            let timeFormatter = new Intl.DateTimeFormat('en-US', {
                 hour: '2-digit',
-                minute: '2-digit'
+                minute: '2-digit',
+                hour12: true
             });
 
-            // Create message HTML with proper asset URL
-            let messageHtml = `
-                <div class="chat-message receiver"> <!-- Left alignment for received messages -->
-                    <div class="message-avatar">
-                        <img src="${senderImage}" class="rounded-circle avatar" alt="${senderName} Avatar">
-                    </div>
-                    <div class="message-content">
-                        <p><strong>${senderName}:</strong> ${message}</p>
-                        <div class="timestamp">${messageTime}</div>
-                    </div>
-                </div>`;
+            let formattedDate = dateFormatter.format(createdAt);
+            let formattedTime = timeFormatter.format(createdAt);
 
-            // Append message to chat container
-            document.getElementById('chatMessageContainer').insertAdjacentHTML('beforeend', messageHtml);
+            let formattedDateTime = `${formattedDate} at ${formattedTime}`;
+
+            let messageHtml = `<tr>
+                                    <td>${first_name}</td>
+                                    <td>
+                                        <span class="badge badge-primary">${status}</span>
+                                    </td>
+                                    <td>${created_at ? formattedDateTime : 'No Reply'}</td>
+                                    <td>
+                                        <div class="action-list">
+                                            <a class="btn btn-secondary btn-sm" href="/admin/ticket/edit/${id}">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+
+                                            <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirm-delete" href="javascript:;" data-href="/admin/ticket/destroy/${id}">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>`;
+
+            // Append message
+            document.getElementById('append').insertAdjacentHTML('beforeend', messageHtml);
         });
     </script>
 @endsection

@@ -1,15 +1,20 @@
 @foreach($datas as $data)
+    @php
+        $lastMessage = App\Models\Message::where('ticket_id', $data->id)->latest()->first();
+    @endphp
+
     <tr>
-        <td>{{ $data->user->first_name ?? }}</td>
+        <td>{{ $data->user->first_name ?? '' }}</td>
 
         <td>
             <span class="badge badge-primary">{{ $data->status }}</span>
         </td>
 
-        @if ($data->lastMessage)
-            <td>{{ \Carbon\Carbon::parse($data->lastMessage->created_at)->diffForHumans() }}</td>
+        @if ($lastMessage)
+            {{-- <td>{{ \Carbon\Carbon::parse($lastMessage->created_at ?? '')->diffForHumans() }}</td> --}}
+            <td>{{ date('d M, Y', strtotime($lastMessage->created_at ?? '')) }} at {{ date('h:i a', strtotime($lastMessage->created_at ?? '')) }}</td>
         @else
-            <td> {{__('No Reply')}}</td>
+            <td> {{ __('No Reply') }}</td>
         @endif
 
         <td>

@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Back;
 
+use Illuminate\Http\Request;
+
 use App\{
     Models\Ticket,
+    Models\Message,
     Repositories\Back\TicketRepository,
     Http\Controllers\Controller
 };
-use Illuminate\Http\Request;
 
 class TicketController extends Controller
 {
@@ -23,6 +25,7 @@ class TicketController extends Controller
     {
         $this->middleware('auth:admin');
         $this->middleware('adminlocalize');
+
         $this->repository = $repository;
     }
 

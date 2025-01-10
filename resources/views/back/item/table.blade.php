@@ -114,7 +114,7 @@
         @if ($data->is_type == 'undefine')
           {{ __('Not Define') }}
         @else
-          {{ $data->is_type ? ucfirst(str_replace('_',' ',$data->is_type)) : __('undefine') }}
+          {{ $data->is_type ? ucfirst(str_replace('_', ' ', $data->is_type)) : __('undefine') }}
         @endif
       </p>
     </td>
@@ -146,6 +146,7 @@
 
           @if ($data->item_type == 'normal')
             <a class="dropdown-item" href="{{ route('back.attribute.index', $data->id) }}"><i class="fas fa-angle-double-right"></i> {{ __('Attributes') }}</a>
+            
             <a class="dropdown-item" href="{{ route('back.option.index', $data->id) }}"><i class="fas fa-angle-double-right"></i> {{ __('Attribute Options') }}</a>
           @endif
 
