@@ -12,7 +12,7 @@
 
         @if ($lastMessage)
             {{-- <td>{{ \Carbon\Carbon::parse($lastMessage->created_at ?? '')->diffForHumans() }}</td> --}}
-            <td>{{ date('d M, Y', strtotime($lastMessage->created_at ?? '')) }} at {{ date('h:i a', strtotime($lastMessage->created_at ?? '')) }}</td>
+            <td>{{ date('M d, Y', strtotime($lastMessage->created_at ?? '')) }} at {{ date('h:i A', strtotime($lastMessage->created_at ?? '')) }}</td>
         @else
             <td> {{ __('No Reply') }}</td>
         @endif
