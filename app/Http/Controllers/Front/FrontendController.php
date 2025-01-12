@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Crypt;
 
 use App\Helpers\SmsHelper;
 use App\Models\Brand;
+use App\Models\Campaign;
 use App\Models\CampaignItem;
 use App\Models\Category;
 use App\Models\ChieldCategory;
@@ -37,7 +38,6 @@ use App\Models\Service;
 use App\Models\Slider;
 use App\Models\Subcategory;
 use App\Models\TrackOrder;
-use App\Models\Campaign;
 
 use function GuzzleHttp\json_decode;
 
@@ -255,7 +255,7 @@ class FrontendController extends Controller
             'hero_banner'   => $home_customize->hero_banner != '[]' ? json_decode($home_customize->hero_banner, true) : null,
             'banner_first'   => json_decode($home_customize->banner_first, true),
             'sliders'  => $sliders,
-            'campaign_items' => CampaignItem::with('item')->whereStatus(1)->whereIsFeature(1)->orderby('id', 'desc')->get(),
+            'compaigns' => Campaign::where('campaign_status', 1)->orderby('id', 'desc')->get(),
             'services' => Service::orderby('id', 'desc')->get(),
             'posts'    => Post::with('category')->orderby('id', 'desc')->take(8)->get(),
             'brands'   => Brand::whereStatus(1)->get(),

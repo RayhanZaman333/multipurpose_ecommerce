@@ -429,9 +429,9 @@
                                 <span class="input-group-addon"><i class="icon-mail"></i></span> 
                             </div>
 
-                            <div aria-hidden="true">
+                            {{-- <div aria-hidden="true">
                                 <input type="hidden" name="" tabindex="-1">
-                            </div>
+                            </div> --}}
 
                             <button class="btn btn-primary btn-block mt-2" type="submit">
                                 <span>{{ __('Subscribe') }}</span>
@@ -512,9 +512,9 @@
                                         <span class="input-group-addon"><i class="icon-mail"></i></span> 
                                     </div>
 
-                                    <div aria-hidden="true">
+                                    {{-- <div aria-hidden="true">
                                         <input type="hidden" name="" tabindex="-1">
-                                    </div>
+                                    </div> --}}
                                 </div>
 
                                 <div class="col-sm-12">

@@ -119,81 +119,97 @@
         </section>
     @endif
 
+    @if ($campaigns)
+        @foreach ($campaigns as $campaign)
+            @if (date('d-m-y') <= \Carbon\Carbon::parse($campaign->campaign_end_date)->format('d-m-y'))
+                <div class="deal-of-day-section mt-20">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="section-title">
+                                    <h2 class="h3">{{ $campaign->campaign_title }}</h2>
 
-    @if ($setting->campaign_status == 1)
-        <div class="deal-of-day-section mt-20">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="section-title">
-                            <h2 class="h3">{{ $setting->campaign_title }}</h2>
-                            <div class="right-area">
-                                    <div class="countdown countdown-alt" data-date-time="{{$setting->campaign_end_date}}"></div>
-                                    <a class="right_link" href="{{route('front.campaign')}}">{{ __('View All') }} <i class="icon-chevron-right"></i></a>
+                                    <div class="right-area">
+                                        <div class="countdown countdown-alt" data-date-time="{{ $campaign->campaign_end_date }}"></div>
 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row g-3">
-
-                    <div class="col-lg-12">
-                    <div class="popular-category-slider owl-carousel">
-                        @foreach ($campaign_items as $compaign_item)
-
-                        <div class="slider-item">
-                            <div class="product-card">
-                                <div class="product-thumb">
-                                    @if (!$compaign_item->item->is_stock())
-                                        <div class="product-badge bg-secondary border-default text-body
-                                        ">{{__('out of stock')}}</div>
-                                    @endif
-
-                                    @if($compaign_item->item->previous_price && $compaign_item->item->previous_price !=0)
-                                        <div class="product-badge product-badge2 bg-info"> -{{PriceHelper::DiscountPercentage($compaign_item->item)}}</div>
-                                    @endif
-                                    <img class="lazy" data-src="{{asset('storage/images/'.$compaign_item->item->thumbnail)}}" alt="Product">
-                                    <div class="product-button-group"><a class="product-button wishlist_store" href="{{route('user.wishlist.store',$compaign_item->item->id)}}" title="{{__('Wishlist')}}"><i class="icon-heart"></i></a>
-                                        <a data-target="{{route('fornt.compare.product',$compaign_item->item->id)}}" class="product-button product_compare" href="javascript:;" title="{{__('Compare')}}"><i class="icon-repeat"></i></a>
-                                        @if ($compaign_item->item->is_stock())
-                                            <a class="product-button add_to_single_cart"  data-target="{{ $compaign_item->item->id }}" href="javascript:;"  title="{{__('To Cart')}}"><i class="icon-shopping-cart"></i>
-                                            </a>
-                                        @else
-                                            <a class="product-button" href="{{route('front.product',$compaign_item->item->slug)}}" title="{{__('Details')}}"><i class="icon-arrow-right"></i></a>
-                                        @endif
+                                        <a class="right_link" href="{{route('front.campaign')}}">{{ __('View All') }} <i class="icon-chevron-right"></i></a>
                                     </div>
                                 </div>
-                                    <div class="product-card-body">
-
-                                        <div class="product-category"><a href="{{route('front.catalog').'?category='.$compaign_item->item->category->slug}}">{{$compaign_item->item->category->name}}</a></div>
-                                        <h3 class="product-title"><a href="{{route('front.product',$compaign_item->item->slug)}}">
-                                            {{ Str::limit($compaign_item->item->name, 35) }}
-                                        </a></h3>
-                                        <div class="rating-stars">
-                                            {!! renderStarRating($compaign_item->item->reviews->avg('rating')) !!}
-                                        </div>
-                                        <h4 class="product-price">
-                                        @if ($compaign_item->item->previous_price != 0)
-                                            <del>{{PriceHelper::setPreviousPrice($compaign_item->item->previous_price)}}</del>
-                                        @endif
-
-                                        {{PriceHelper::grandCurrencyPrice($compaign_item->item)}}
-                                        </h4>
-
-                                    </div>
-
                             </div>
                         </div>
-                        @endforeach
+
+                        <div class="row g-3">
+                            <div class="col-lg-12">
+                                <div class="popular-category-slider owl-carousel">
+                                    @php
+                                        $campaign_items = App\Models\CampaignItem::where('campaign_id', $campaign->id)->where('status', 1)->with('item')->get();
+                                    @endphp
+
+                                    @if (count($campaign_items) > 0)
+                                        @foreach ($campaign_items as $campaign_item)
+                                            <div class="slider-item">
+                                                <div class="product-card">
+                                                    <div class="product-thumb">
+                                                        @if (!$compaign_item->item->is_stock())
+                                                            <div class="product-badge bg-secondary border-default text-body
+                                                            ">{{ __('out of stock') }}</div>
+                                                        @endif
+
+                                                        @if(($compaign_item->item->previous_price ?? '') && ($compaign_item->item->previous_price ?? '') != 0)
+                                                            <div class="product-badge product-badge2 bg-info"> -{{ PriceHelper::DiscountPercentage($compaign_item->item) }}</div>
+                                                        @endif
+
+                                                        <img class="lazy" data-src="{{ asset('storage/images/'.$compaign_item->item->thumbnail) }}" alt="Product">
+
+                                                        <div class="product-button-group">
+                                                            <a class="product-button wishlist_store" href="{{ route('user.wishlist.store',$compaign_item->item->id) }}" title="{{ __('Wishlist') }}"><i class="icon-heart"></i></a>
+
+                                                            <a data-target="{{ route('fornt.compare.product', $compaign_item->item->id) }}" class="product-button product_compare" href="javascript:;" title="{{ __('Compare') }}"><i class="icon-repeat"></i></a>
+
+                                                            @if ($compaign_item->item->is_stock())
+                                                                <a class="product-button add_to_single_cart" data-target="{{ $compaign_item->item->id }}" href="javascript:;"  title="{{ __('To Cart') }}"><i class="icon-shopping-cart"></i>
+                                                                </a>
+                                                            @else
+                                                                <a class="product-button" href="{{ route('front.product',$compaign_item->item->slug) }}" title="{{ __('Details') }}"><i class="icon-arrow-right"></i></a>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="product-card-body">
+                                                        <div class="product-category">
+                                                            <a href="{{ route('front.catalog').'?category='.($compaign_item->item->category->slug ?? '') }}">{{ ($compaign_item->item->category->name ?? '') }}</a>
+                                                        </div>
+
+                                                        <h3 class="product-title">
+                                                            <a href="{{ route('front.product', $compaign_item->item->slug) }}">
+                                                                {{ Str::limit($compaign_item->item->name, 35) }}
+                                                            </a>
+                                                        </h3>
+
+                                                        <div class="rating-stars">
+                                                            {!! renderStarRating($compaign_item->item->reviews->avg('rating')) !!}
+                                                        </div>
+
+                                                        <h4 class="product-price">
+                                                            @if ($compaign_item->item->previous_price != 0)
+                                                                <del>{{ PriceHelper::setPreviousPrice($compaign_item->item->previous_price) }}</del>
+                                                            @endif
+
+                                                            {{ PriceHelper::grandCurrencyPrice($compaign_item->item) }}
+                                                        </h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
                 </div>
-
-                </div>
-            </div>
-        </div>
+            @endif
+        @endforeach
     @endif
-
 
     @if ($setting->is_three_c_b_first == 1)
         <div class="bannner-section mt-60">

@@ -50,18 +50,18 @@
         }
     @endphp
 
-    @if ($compaigns)
-        @foreach ($compaigns as $compaign)
-            @if ($compaign->campaign_end_date >= date('m/d/Y'))
+    @if ($campaigns)
+        @foreach ($campaigns as $campaign)
+            @if (date('d-m-y') <= \Carbon\Carbon::parse($campaign->campaign_end_date)->format('d-m-y'))
                 <div class="deal-of-day-section pb-5">
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="section-title">
-                                    <h2 class="h3">{{ $compaign->campaign_title }}</h2>
+                                    <h2 class="h3">{{ $campaign->campaign_title }}</h2>
 
                                     <div class="right-area">
-                                        <div class="countdown countdown-alt" data-date-time="{{ $compaign->campaign_end_date }}"></div>
+                                        <div class="countdown countdown-alt" data-date-time="{{ $campaign->campaign_end_date }}"></div>
                                     </div>
                                 </div>
                             </div>
@@ -69,66 +69,66 @@
 
                         <div class="row g-3">
                             @php
-                                $campaign_items = App\Models\CampaignItem::where('campaign_id', $compaign->id)->where('status', 1)->with('item')->get();
+                                $campaign_items = App\Models\CampaignItem::where('campaign_id', $campaign->id)->where('status', 1)->with('item')->get();
                             @endphp
 
                             @if (count($campaign_items) > 0)
-                                @foreach ($campaign_items as $compaign_item)
+                                @foreach ($campaign_items as $campaign_item)
                                     <div class="col-gd">
                                         <div class="product-card">
                                             <div class="product-thumb">
-                                                @if ($compaign_item->item ? $compaign_item->item->is_stock() : '')
+                                                @if ($campaign_item->item ? $campaign_item->item->is_stock() : '')
                                                     <div class="product-badge
-                                                        @if (($compaign_item->item->is_type ?? '') == 'feature')
+                                                        @if (($campaign_item->item->is_type ?? '') == 'feature')
                                                             bg-warning
-                                                        @elseif (($compaign_item->item->is_type ?? '') == 'new')
+                                                        @elseif (($campaign_item->item->is_type ?? '') == 'new')
                                                             bg-primary
-                                                        @elseif (($compaign_item->item->is_type ?? '') == 'top')
+                                                        @elseif (($campaign_item->item->is_type ?? '') == 'top')
                                                             bg-info
-                                                        @elseif (($compaign_item->item->is_type ?? '') == 'best')
+                                                        @elseif (($campaign_item->item->is_type ?? '') == 'best')
                                                             bg-dark
-                                                        @elseif (($compaign_item->item->is_type ?? '') == 'flash_deal')
+                                                        @elseif (($campaign_item->item->is_type ?? '') == 'flash_deal')
                                                             bg-success
                                                         @endif
                                                     ">
-                                                        {{ ucfirst(str_replace('_', ' ', ($compaign_item->item->is_type ?? ''))) }}
+                                                        {{ ucfirst(str_replace('_', ' ', ($campaign_item->item->is_type ?? ''))) }}
                                                     </div>
                                                 @else
                                                     <div class="product-badge bg-secondary border-default text-body">{{__('out of stock')}}</div>
                                                 @endif
 
-                                                @if (($compaign_item->item->previous_price ?? '') && ($compaign_item->item->previous_price ?? '') != 0)
-                                                    <div class="product-badge product-badge2 bg-info"> -{{ PriceHelper::DiscountPercentage($compaign_item->item) }}</div>
+                                                @if (($campaign_item->item->previous_price ?? '') && ($campaign_item->item->previous_price ?? '') != 0)
+                                                    <div class="product-badge product-badge2 bg-info"> -{{ PriceHelper::DiscountPercentage($campaign_item->item) }}</div>
                                                 @endif
 
-                                                <img src="{{ asset('storage/images/'.$compaign_item->item->thumbnail) }}" alt="Product">
+                                                <img src="{{ asset('storage/images/'.$campaign_item->item->thumbnail) }}" alt="Product">
 
                                                 <div class="product-button-group">
-                                                    <a class="product-button wishlist_store" href="{{ route('user.wishlist.store', ($compaign_item->item->id ?? '')) }}" title="{{ __('Wishlist') }}"><i class="icon-heart"></i></a>
+                                                    <a class="product-button wishlist_store" href="{{ route('user.wishlist.store', ($campaign_item->item->id ?? '')) }}" title="{{ __('Wishlist') }}"><i class="icon-heart"></i></a>
 
-                                                    <a data-target="{{ route('fornt.compare.product', ($compaign_item->item->id ?? '')) }}" class="product-button product_compare" href="javascript:;" title="{{ __('Compare') }}"><i class="icon-repeat"></i></a>
+                                                    <a data-target="{{ route('fornt.compare.product', ($campaign_item->item->id ?? '')) }}" class="product-button product_compare" href="javascript:;" title="{{ __('Compare') }}"><i class="icon-repeat"></i></a>
 
-                                                    @include('includes.item_footer', ['sitem' => $compaign_item->item])
+                                                    @include('includes.item_footer', ['sitem' => $campaign_item->item])
                                                 </div>
                                             </div>
 
                                             <div class="product-card-body">
-                                                <div class="product-category"><a href="{{ route('front.catalog').'?category='.($compaign_item->item->category->slug ?? '') }}">{{ $compaign_item->item->category->name ?? '' }}</a></div>
+                                                <div class="product-category"><a href="{{ route('front.catalog').'?category='.($campaign_item->item->category->slug ?? '') }}">{{ $campaign_item->item->category->name ?? '' }}</a></div>
 
                                                 <h3 class="product-title">
-                                                    <a href="{{ route('front.product', ($compaign_item->item->slug ?? '')) }}">{{ Str::limit(($compaign_item->item->name ?? ''), 35) }}</a>
+                                                    <a href="{{ route('front.product', ($campaign_item->item->slug ?? '')) }}">{{ Str::limit(($campaign_item->item->name ?? ''), 35) }}</a>
                                                 </h3>
 
                                                 <div class="rating-stars">
-                                                    {!! renderStarRating($compaign_item->item->reviews->avg('rating')) !!}
+                                                    {!! renderStarRating($campaign_item->item->reviews->avg('rating')) !!}
                                                 </div>
 
                                                 <h4 class="product-price">
-                                                    @if ((($compaign_item->item->previous_price ?? '') ?? '') != 0)
-                                                        <del>{{ PriceHelper::setPreviousPrice((($compaign_item->item->previous_price ?? 0) ?? '')) }}</del>
+                                                    @if ((($campaign_item->item->previous_price ?? '') ?? '') != 0)
+                                                        <del>{{ PriceHelper::setPreviousPrice((($campaign_item->item->previous_price ?? 0) ?? '')) }}</del>
                                                     @endif
 
-                                                    {{ PriceHelper::grandCurrencyPrice($compaign_item->item) }}
+                                                    {{ PriceHelper::grandCurrencyPrice($campaign_item->item) }}
                                                 </h4>
                                             </div>
                                         </div>
