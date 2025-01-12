@@ -21,6 +21,7 @@ use App\{
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Crypt;
 
 use App\Helpers\SmsHelper;
 use App\Models\Brand;
@@ -446,12 +447,12 @@ class FrontendController extends Controller
 
         $setting = Setting::first();
 
-        $name  = $input['first_name'] . ' ' . $input['last_name'];
-        $subject = "Email From " . $name;
-        $to = $setting->contact_email;
-        $phone = $request->phone;
-        $from = $request->email;
-        $msg = "Name: " . $name . "<br/>Email: " . $from . "<br/>Phone: " . $phone . "<br/>Message: " . $request->message;
+        $name       = $input['first_name'] . ' ' . $input['last_name'];
+        $subject    = "Email From " . $name;
+        $to         = $setting->contact_email;
+        $phone      = $request->phone;
+        $from       = $request->email;
+        $msg        = "Name: " . $name . "<br/>Email: " . $from . "<br/>Phone: " . $phone . "<br/>Message: " . $request->message;
 
         $emailData = [
             'to' => $to,
@@ -460,7 +461,24 @@ class FrontendController extends Controller
         ];
 
         $email = new EmailHelper();
+
         $email->sendCustomMail($emailData);
+
+        if ($request->email) {
+            $subject2   = "Email Delivered";
+            $to2        = $request->email;
+            $msg2       = "Hello " . $name . ", <br/> Thank you for contacting us. We'll get back to you shortly.";
+
+            $deliverEmailData = [
+                'to'        => $to2,
+                'subject'   => $subject2,
+                'body'      => $msg2,
+            ];
+
+            $email2 = new EmailHelper();
+            
+            $email2->sendCustomMail($deliverEmailData);
+        }
 
         Session::flash('success', __('Thank you for contacting with us, we will get back to you shortly.'));
 
@@ -483,16 +501,67 @@ class FrontendController extends Controller
         return response()->json($this->repository->reviewSubmit($request));
     }
 
-
-
     // -------------------------------- SUBSCRIBE ----------------------------------------
 
     public function subscribeSubmit(SubscribeRequest $request)
     {
-        Subscriber::create($request->all());
-        return response()->json(__('You Have Subscribed Successfully.'));
+        $sub = new Subscriber;
+
+        $sub->email = $request->email;
+        $sub->status = 0;
+
+        $sub->save();
+
+        $verifyLink = url('subscriber-email-verification/' . Crypt::encryptString($sub->id));
+
+        $subject = 'Email Verification';
+        $msg = '<div class="text-center"><a href="'.$verifyLink.'" style="font-size: 20px; background: #000; color: #fff; padding: 5px 40px;">Verify Email</a>
+
+                <br/>
+
+                <p style="font-size: 14px; line-height: 100%;">
+                    <span style="font-size: 14px; line-height: 25.2px; color: #000;">or copy and paste the URL into the browser</span>
+                </p>
+
+                <br/>
+
+                <a href="'.$verifyLink.'" style="font-size: 16px; text-decoration: underline; color: #666666; line-height: 20px;">'.$verifyLink.'</a></div>';
+
+        if ($request->email) {
+            $emailData = [
+                'to'        => $request->email,
+                'subject'   => $subject,
+                'body'      => $msg,
+            ];
+
+            $email = new EmailHelper();
+
+            $email->sendCustomMail($emailData);
+        }
+
+        return response()->json(__('A verification mail sent to your email address. Please verify!'));
     }
 
+    public function subscriberEmailVerification($id)
+    {
+        $id = Crypt::decryptString($id);
+        $sub = Subscriber::where('id', $id)->first();
+
+        if (!empty($sub)) {
+            if ($sub->status == 0) {
+                $sub->status               = 1;
+                $sub->email_verified_at    = now();
+
+                $sub->save();
+
+                return redirect()->route('front.index')->with('success', "Email Verified Successfully!.");
+            } else {
+                return redirect()->route('front.index')->with('success', "Email Already Verified!");
+            }
+        } else {
+            return redirect()->route('front.index')->with('success', "Not valid.");
+        }
+    }
 
     // ---------------------------- TRACK ORDER ----------------------------------------//
     public function trackOrder()

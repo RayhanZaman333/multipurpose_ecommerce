@@ -160,7 +160,7 @@
                         <div class="main-content">
                             <div class="flash-deal-slider owl-carousel">
                                 @foreach ($products->orderBy('id', 'DESC')->get() as $item)
-                                    @if ($item->is_type == 'flash_deal' && ($item->date != null) && ($item->date >= date('m/d/Y')))
+                                    @if (($item->is_type == 'flash_deal') && ($item->date != null) && (date('d-m-y') <= \Carbon\Carbon::parse($item->date)->format('d-m-y')))
                                         <div class="slider-item">
                                             <div class="product-card ">
                                                 <div class="product-thumb">

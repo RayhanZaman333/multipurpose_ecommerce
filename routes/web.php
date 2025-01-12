@@ -392,6 +392,8 @@ Route::group(['middleware' => 'maintainance'], function () {
         Route::get('/top-reviews', 'Front\FrontendController@topReviews')->name('front.top.reviews');
         Route::post('/review/submit', 'Front\FrontendController@reviewSubmit')->name('front.review.submit');
         Route::post('/subscriber/submit', 'Front\FrontendController@subscribeSubmit')->name('front.subscriber.submit');
+        Route::get('/subscriber-email-verification/{id}', 'Front\FrontendController@subscriberEmailVerification')->name('front.subscriber.emailVerification');
+        Route::post('/subscriber/submit', 'Front\FrontendController@subscribeSubmit')->name('front.subscriber.submit');
         Route::get('set/currency/{id}', 'Front\FrontendController@currency')->name('front.currency.setup');
         Route::get('set/language/{id}', 'Front\FrontendController@language')->name('front.language.setup');
 

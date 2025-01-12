@@ -379,11 +379,11 @@
         
         <div class="collapse" id="backup">
             <ul class="nav nav-collapse">
-                <li>
+                {{-- <li>
                     <a class="sub-link" href="{{ route('back.system.backup') }}">
                         <span class="sub-item">{{ __('System Backup') }}</span>
                     </a>
-                </li>
+                </li> --}}
 
                 <li>
                     <a class="sub-link" href="{{ route('back.database.backup') }}">
