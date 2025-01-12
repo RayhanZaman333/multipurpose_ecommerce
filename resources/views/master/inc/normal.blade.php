@@ -30,7 +30,7 @@
                         </a>
                     </li>
 
-                    <li>
+                    {{-- <li>
                         <a class="sub-link" href="{{ route('back.subcategory.index') }}">
                             <span class="sub-item">{{ __('Sub categories') }}</span>
                         </a>
@@ -40,7 +40,7 @@
                         <a class="sub-link" href="{{ route('back.childcategory.index') }}">
                             <span class="sub-item">{{ __('Child categories') }}</span>
                         </a>
-                    </li>
+                    </li> --}}
                 </ul>
             </div>
         </li>
