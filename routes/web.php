@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 // ****************************************** Essential Links *****************************************
-Route::get('/updateapp', function()
+Route::get('/update-app', function()
 {
     Artisan::call('dump-autoload');
     echo 'dump-autoload complete';
@@ -313,14 +313,11 @@ Route::group(['middleware' => 'adminlocalize'], function () {
 
 
 // ************************************ GLOBAL LOCALIZATION **********************************************
-
 Route::group(['middleware' => 'maintainance'], function () {
     Route::group(['middleware' => 'localize'], function () {
 
         // ************************************ USER PANEL **********************************************
-
         Route::prefix('user')->group(function () {
-
             //------------ AUTH ------------
             Route::get('/login', 'Auth\User\LoginController@showForm')->name('user.login');
             Route::post('/login-submit', 'Auth\User\LoginController@login')->name('user.login.submit');
@@ -330,6 +327,7 @@ Route::group(['middleware' => 'maintainance'], function () {
             //------------ REGISTER ------------
             Route::get('/register', 'Auth\User\RegisterController@showForm')->name('user.register');
             Route::post('/register-submit', 'Auth\User\RegisterController@register')->name('user.register.submit');
+            Route::get('/user-email-verification/{id}', 'Auth\User\RegisterController@userEmailVerification')->name('user.register.emailVerification');
             Route::get('/verify-link/{token}', 'Auth\User\RegisterController@verify')->name('user.account.verify');
 
             //------------ FORGOT ------------

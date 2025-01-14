@@ -101,7 +101,7 @@
                                                     <div class="product-badge product-badge2 bg-info"> -{{ PriceHelper::DiscountPercentage($campaign_item->item) }}</div>
                                                 @endif
 
-                                                <img src="{{ asset('storage/images/'.$campaign_item->item->thumbnail) }}" alt="Product">
+                                                <img src="{{ asset('storage/images/'.$campaign_item->item->thumbnail) }}" alt="Product" style="height: 250px; width: 250px;">
 
                                                 <div class="product-button-group">
                                                     <a class="product-button wishlist_store" href="{{ route('user.wishlist.store', ($campaign_item->item->id ?? '')) }}" title="{{ __('Wishlist') }}"><i class="icon-heart"></i></a>

@@ -135,6 +135,7 @@
     }
     .body_theme2 .hero-slider .item {
         height: 430px;
+        background-size: 100% 100% !important;
     }
 }
 

@@ -310,19 +310,21 @@
                                                 <li class="{{ request()->routeIs('front.blog*') ? 'active' : '' }}"><a href="{{ route('front.blog') }}"><i class="icon-chevron-right"></i>{{ __('Blog') }}</a></li>
                                             @endif
 
-                                            <li class="t-h-dropdown">
-                                                <a class="" href="#"><i class="icon-chevron-right"></i>{{ __('Pages') }} <i class="icon-chevron-down"></i></a>
+                                            @if ($setting->is_page == 1)
+                                                <li class="t-h-dropdown">
+                                                    <a class="" href="#"><i class="icon-chevron-right"></i>{{ __('Pages') }} <i class="icon-chevron-down"></i></a>
 
-                                                <div class="t-h-dropdown-menu">
-                                                    @if ($setting->is_faq == 1)
-                                                        <a class="{{ request()->routeIs('front.faq*') ? 'active' : '' }}" href="{{ route('front.faq') }}"><i class="icon-chevron-right pr-2"></i>{{ __('Faq') }}</a>
-                                                    @endif
+                                                    <div class="t-h-dropdown-menu">
+                                                        @if ($setting->is_faq == 1)
+                                                            <a class="{{ request()->routeIs('front.faq*') ? 'active' : '' }}" href="{{ route('front.faq') }}"><i class="icon-chevron-right pr-2"></i>{{ __('Faq') }}</a>
+                                                        @endif
 
-                                                    @foreach (DB::table('pages')->wherePos(0)->orwhere('pos',2)->get() as $page)
-                                                        <a class="{{request()->url() == route('front.page', $page->slug) ? 'active' : '' }}" href="{{ route('front.page', $page->slug) }}"><i class="icon-chevron-right pr-2"></i>{{ $page->title }}</a>
-                                                    @endforeach
-                                                </div>
-                                            </li>
+                                                        @foreach (DB::table('pages')->wherePos(0)->orwhere('pos',2)->get() as $page)
+                                                            <a class="{{request()->url() == route('front.page', $page->slug) ? 'active' : '' }}" href="{{ route('front.page', $page->slug) }}"><i class="icon-chevron-right pr-2"></i>{{ $page->title }}</a>
+                                                        @endforeach
+                                                    </div>
+                                                </li>
+                                            @endif
 
                                             @if ($setting->is_contact == 1)
                                                 <li class="{{ request()->routeIs('front.contact') ? 'active' : '' }}"><a href="{{ route('front.contact') }}"><i class="icon-chevron-right"></i>{{ __('Contact') }}</a></li>
@@ -372,19 +374,21 @@
                                             <li class="{{ request()->routeIs('front.blog*') ? 'active' : '' }}"><a href="{{ route('front.blog') }}">{{ __('Blog') }}</a></li>
                                         @endif
 
-                                        <li class="t-h-dropdown">
-                                            <a class="main-link" href="#">{{ __('Pages') }} <i class="icon-chevron-down"></i></a>
+                                        @if ($setting->is_page == 1)
+                                            <li class="t-h-dropdown">
+                                                <a class="main-link" href="#">{{ __('Pages') }} <i class="icon-chevron-down"></i></a>
 
-                                            <div class="t-h-dropdown-menu">
-                                                @if ($setting->is_faq == 1)
-                                                    <a class="{{ request()->routeIs('front.faq*') ? 'active' : '' }}" href="{{ route('front.faq') }}"><i class="icon-chevron-right pr-2"></i>{{ __('Faq') }}</a>
-                                                @endif
+                                                <div class="t-h-dropdown-menu">
+                                                    @if ($setting->is_faq == 1)
+                                                        <a class="{{ request()->routeIs('front.faq*') ? 'active' : '' }}" href="{{ route('front.faq') }}"><i class="icon-chevron-right pr-2"></i>{{ __('Faq') }}</a>
+                                                    @endif
 
-                                                @foreach (DB::table('pages')->wherePos(0)->orwhere('pos',2)->get() as $page)
-                                                    <a class="{{request()->url() == route('front.page', $page->slug) ? 'active' : '' }} " href="{{ route('front.page', $page->slug) }}"><i class="icon-chevron-right pr-2"></i>{{ $page->title }}</a>
-                                                @endforeach
-                                            </div>
-                                        </li>
+                                                    @foreach (DB::table('pages')->wherePos(0)->orwhere('pos',2)->get() as $page)
+                                                        <a class="{{request()->url() == route('front.page', $page->slug) ? 'active' : '' }} " href="{{ route('front.page', $page->slug) }}"><i class="icon-chevron-right pr-2"></i>{{ $page->title }}</a>
+                                                    @endforeach
+                                                </div>
+                                            </li>
+                                        @endif
 
                                         @if ($setting->is_contact == 1)
                                             <li class="{{ request()->routeIs('front.contact') ? 'active' : '' }}"><a href="{{ route('front.contact') }}">{{ __('Contact') }}</a></li>

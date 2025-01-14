@@ -102,10 +102,8 @@
                                         </select>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="row">
-                                <div class="col-lg-12 mt-2">
+                                <div class="col-lg-6 mt-2">
                                     <button type="submit" class="btn btn-primary py-2 d-inline-block mr-2">{{ __('Filter Product') }}</button>
 
                                     <a href="{{ route('back.item.index') }}" class="btn btn-danger py-2">{{ __('Reset') }}</a>
@@ -113,6 +111,20 @@
                             </div>
                         </div>
                     </form>
+
+                    <div class="orderBtn mt-3">
+                        <div class="row mb-4 justify-content-center">
+                          <div class="col-lg-12 text-center">
+                            <a href="{{ route('back.item.index') }}?item_type=&is_type=&category_id=&orderby=asc&status=1" class="btn btn-success py-1 mr-2">{{ __('Published Products') }}</a>
+
+                            <a href="{{ route('back.item.index') }}?item_type=&is_type=&category_id=&orderby=asc&status=0" class="btn btn-primary py-1 mr-2">{{ __('Unpublished  Products') }}</a>
+
+                            {{-- <a href="{{ route('back.item.index') }}?item_type=&is_type=feature&category_id=&orderby=asc&status=" class="btn btn-warning py-1 mr-2">{{ __('Featured Products') }}</a> --}}
+
+                            <a href="{{ route('back.item.stock.out') }}" class="btn btn-danger py-1 mr-2">{{ __('Stock Out Products') }}</a>
+                          </div>
+                        </div>
+                      </div>
 
                     <br>
 

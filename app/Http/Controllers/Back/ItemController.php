@@ -338,9 +338,11 @@ class ItemController extends Controller
 
     public function stockOut()
     {
+        $curr = Currency::where('is_default', 1)->first();
+        
         $datas = Item::where('item_type', 'normal')->where('stock', 0)->get();
 
-        return view('back.item.stockout', compact('datas'));
+        return view('back.item.stockout', compact('datas', 'curr'));
     }
 
     //price update method

@@ -75,7 +75,7 @@
                     <div class="form-group">
                       <label for="discount_price">{{ __('New Price') }}</label>
 
-                      <input class="form-control" type="number" min="1" step="any" id="discount_price" name="discount_price" placeholder="Enter New Price" value="{{ round($data->discount_price * $curr->value, 2) }}" required>
+                      <input class="form-control" type="number" min="1" step="any" id="discount_price" name="discount_price" placeholder="Enter New Price" value="{{ round($data->discount_price * ($curr->value ?? 0), 2) }}" required>
                     </div>
                   </div>
                 </div>

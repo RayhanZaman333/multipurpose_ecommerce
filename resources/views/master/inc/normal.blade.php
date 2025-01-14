@@ -74,11 +74,11 @@
                         </a>
                     </li>
 
-                    <li>
+                    {{-- <li>
                         <a class="sub-link" href="{{ route('back.item.stock.out') }}">
                             <span class="sub-item">{{ __('Stock Out Products') }}</span>
                         </a>
-                    </li>
+                    </li> --}}
 
                     <li>
                         <a class="sub-link" href="{{ route('back.bulk.product.index') }}">

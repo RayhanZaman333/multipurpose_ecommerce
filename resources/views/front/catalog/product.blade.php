@@ -446,7 +446,7 @@
                             <div class="product-badge product-badge2 bg-info"> -{{PriceHelper::DiscountPercentage($related)}}</div>
                             @endif
                             <div class="product-thumb">
-                                <img class="lazy" data-src="{{asset('storage/images/'.$related->thumbnail)}}" alt="Product">
+                                <img class="lazy" data-src="{{asset('storage/images/'.$related->thumbnail)}}" alt="Product" style="height: 250px; width: 250px;">
                                 <div class="product-button-group">
                                     <a class="product-button wishlist_store" href="{{route('user.wishlist.store',$related->id)}}" title="{{__('Wishlist')}}"><i class="icon-heart"></i></a>
                                     <a class="product-button product_compare" href="javascript:;" data-target="{{route('fornt.compare.product',$related->id)}}" title="{{__('Compare')}}"><i class="icon-repeat"></i></a>

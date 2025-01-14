@@ -49,6 +49,7 @@ class EmailHelper
     public function sendTemplateMail(array $emailData)
     {
         $template = EmailTemplate::whereType($emailData['type'])->first();
+        
         try {
             $email_body = preg_replace("/{user_name}/", $emailData['user_name'], $template->body);
             $email_body = preg_replace("/{order_cost}/", $emailData['order_cost'], $email_body);

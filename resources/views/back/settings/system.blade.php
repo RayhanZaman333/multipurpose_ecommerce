@@ -396,6 +396,17 @@
                                                         </label>
                                                     </div>
                                                 </div>
+
+                                                <div class="col-lg-6 offset-lg-3">
+                                                    <div class="form-group">
+                                                        <label class="switch-primary">
+                                                        <input type="checkbox" class="switch switch-bootstrap status" name="is_page" value="1" {{ $setting->is_page == 1 ? 'checked' : '' }}>
+                                                        <span class="switch-body"></span>
+                                                        <span class="switch-text">{{ __('Display Page') }}</span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+
                                                 <div class="col-lg-6 offset-lg-3">
                                                     <div class="form-group">
                                                         <label class="switch-primary">

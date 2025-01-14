@@ -32,6 +32,7 @@ class Setting extends Model
         'is_blog',
         'is_faq',
         'is_contact',
+        'is_page',
         'facebook_check',
         'facebook_client_id',
         'facebook_client_secret',

@@ -255,7 +255,7 @@ class FrontendController extends Controller
             'hero_banner'   => $home_customize->hero_banner != '[]' ? json_decode($home_customize->hero_banner, true) : null,
             'banner_first'   => json_decode($home_customize->banner_first, true),
             'sliders'  => $sliders,
-            'compaigns' => Campaign::where('campaign_status', 1)->orderby('id', 'desc')->get(),
+            'campaigns' => Campaign::where('campaign_status', 1)->orderby('id', 'desc')->get(),
             'services' => Service::orderby('id', 'desc')->get(),
             'posts'    => Post::with('category')->orderby('id', 'desc')->take(8)->get(),
             'brands'   => Brand::whereStatus(1)->get(),
@@ -392,9 +392,9 @@ class FrontendController extends Controller
         //     return back();
         // }
 
-        $compaigns = Campaign::where('campaign_status', 1)->orderby('id', 'desc')->get();
+        $campaigns = Campaign::where('campaign_status', 1)->orderby('id', 'desc')->get();
 
-        return view('front.campaign', compact('compaigns'));
+        return view('front.campaign', compact('campaigns'));
     }
     // -------------------------------- CAMPAIGN ----------------------------------------
 
